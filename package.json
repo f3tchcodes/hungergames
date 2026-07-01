@@ -25,7 +25,9 @@
   },
   "homepage": "https://github.com/f3tchcodes/hungergames#readme",
   "dependencies": {
+    "@stylistic/eslint-plugin": "^5.10.0",
     "dotenv": "^17.4.2",
+    "eslint-plugin-simple-import-sort": "^13.0.0",
     "typescript": "^6.0.3"
   },
   "imports": {

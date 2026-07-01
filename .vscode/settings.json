@@ -1,5 +1,11 @@
 {
+    "js/ts.format.semicolons": "insert",
+    "js/ts.preferences.quoteStyle": "double",
+    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "explicit"
-    }
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
 }

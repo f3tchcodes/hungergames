@@ -1,4 +1,5 @@
 import "dotenv/config";
+
 import { Client, GatewayIntentBits } from "discord.js";
 
 const client = new Client({
@@ -11,7 +12,7 @@ const client = new Client({
     ]
 });
 
-client.once("clientReady", (client) => {
+client.once("clientReady", client => {
     console.log(`${client.user.tag} is alive!`);
 });
 

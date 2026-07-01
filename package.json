@@ -1,0 +1,46 @@
+{
+  "name": "hungergames",
+  "version": "1.0.0",
+  "description": "Discord bot for playing BrantSteele's The Hunger Games original version.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/f3tchcodes/hungergames.git"
+  },
+  "keywords": [
+    "hungergames",
+    "discord",
+    "games",
+    "bot",
+    "brantsteele"
+  ],
+  "author": "f3tch",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/f3tchcodes/hungergames/issues"
+  },
+  "homepage": "https://github.com/f3tchcodes/hungergames#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "typescript": "^6.0.3"
+  },
+  "imports": {
+    "#handlers/*": "./dist/handlers/*.js",
+    "#commands/*": "./dist/commands/*.js",
+    "#events/*": "./dist/events/*.js",
+    "#utils/*": "./dist/utils/*.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "discord.js": "^14.26.4",
+    "eslint": "^10.6.0",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "globals": "^17.7.0",
+    "jiti": "^2.7.0",
+    "typescript-eslint": "^8.62.1"
+  }
+}

@@ -4,6 +4,7 @@ import {
     SlashCommandBuilder,
 } from "discord.js";
 
+// building the command
 const host = new SlashCommandBuilder()
     .setName("host")
     .setDescription("Host a game!")
@@ -17,6 +18,7 @@ const host = new SlashCommandBuilder()
         InteractionContextType.Guild
     );
 
+// when the command is executed
 export default {
     data: host,
     async execute(interaction: ChatInputCommandInteraction) {

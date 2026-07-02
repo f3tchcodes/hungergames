@@ -4,7 +4,7 @@ import {
     SlashCommandBuilder,
 } from "discord.js";
 
-const hostSetup = new SlashCommandBuilder()
+const host = new SlashCommandBuilder()
     .setName("host")
     .setDescription("Host a game!")
     .addStringOption(op =>
@@ -14,16 +14,12 @@ const hostSetup = new SlashCommandBuilder()
             .setRequired(true)
     )
     .setContexts(
-        InteractionContextType.BotDM,
-        InteractionContextType.PrivateChannel,
         InteractionContextType.Guild
     );
 
-const host = {
-    data: hostSetup,
+export default {
+    data: host,
     async execute(interaction: ChatInputCommandInteraction) {
         interaction.reply("wow man");
     }
 };
-
-export default host;

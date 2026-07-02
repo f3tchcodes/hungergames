@@ -1,11 +1,11 @@
-import { REST, Routes } from "discord.js";
+import { Client, REST, Routes } from "discord.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
 import type { MyInteractions } from "#utils/interfaces";
 
-export default async (): Promise<void> => {
+export default async (client: Client): Promise<void> => {
     // create dirname and filename from scratch
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
@@ -23,6 +23,7 @@ export default async (): Promise<void> => {
         // push content of each interaction's data into body
         const interactionModule = await import(`../interactions/${file}`);
         const interaction = interactionModule.default as MyInteractions;
+        client.interactions.set(interaction.data.name, interaction);
         body.push(interaction.data.toJSON());
     }
 

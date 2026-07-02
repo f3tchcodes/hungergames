@@ -1,13 +1,15 @@
-import { Client, type ClientEvents, type Interaction, SlashCommandBuilder } from "discord.js";
+import { Client, type ClientEvents, type Interaction, type SlashCommandOptionsOnlyBuilder } from "discord.js";
 
 // for interactions
 export interface MyInteractions {
-    data: SlashCommandBuilder;
-    execute: (interaction: Interaction, args: string[]) => Promise<unknown>;
+    data: SlashCommandOptionsOnlyBuilder;
+    execute: (client: Client, interaction: Interaction, args: string[]) => Promise<unknown>;
 }
 
-// for events
+// for events: need separate for interaction as interaction
+// does not have client passed in as the first argument
 export interface MyEvents<EventName extends keyof ClientEvents = keyof ClientEvents> {
     name: EventName;
-    execute: (client: Client, ...args: ClientEvents[EventName]) => Promise<void>;
+    execute?: (client: Client, ...args: ClientEvents[EventName]) => Promise<void>;
+    executeInteraction?: (client: Client, interaction: Interaction, ...args: string[]) => Promise<void>;
 }

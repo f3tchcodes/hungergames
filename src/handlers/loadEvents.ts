@@ -1,4 +1,4 @@
-import type { Client } from "discord.js";
+import type { Client, Interaction } from "discord.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -21,7 +21,17 @@ export default async (client: Client): Promise<void> => {
         const eventModule = await import(`../events/${file}`);
         const event = eventModule.default as MyEvents;
 
-        // run the event
-        client.on(event.name, (...args) => event.execute(client, ...args));
+        // run the normal event
+        client.on(event.name, (...args) => {
+            if (event.execute === undefined) return;
+            event.execute(client, ...args);
+        });
+
+        // run the interaction event
+        if (event.name !== "interactionCreate") continue;
+        client.on(event.name, (interaction: Interaction, ...args) => {
+            if (event.executeInteraction === undefined) return;
+            event.executeInteraction(client, interaction, ...args);
+        });
     }
 };

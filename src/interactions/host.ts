@@ -1,8 +1,9 @@
 import {
-    type ChatInputCommandInteraction,
     InteractionContextType,
-    SlashCommandBuilder,
+    SlashCommandBuilder
 } from "discord.js";
+
+import type { MyInteractions } from "#utils/interfaces";
 
 // building the command
 const host = new SlashCommandBuilder()
@@ -21,7 +22,9 @@ const host = new SlashCommandBuilder()
 // when the command is executed
 export default {
     data: host,
-    async execute(interaction: ChatInputCommandInteraction) {
+    async execute(client, interaction) {
+        if (!interaction.isChatInputCommand()) return;
+
         interaction.reply("wow man");
     }
-};
+} satisfies MyInteractions;

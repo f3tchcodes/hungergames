@@ -27,10 +27,17 @@ export default async (client: Client): Promise<void> => {
         body.push(interaction.data.toJSON());
     }
 
+    // if empty, don't send the request
+    if (body.length < 1) return;
+
     // send request to update interactions
-    const rest = new REST({ version: "10" }).setToken(process.env.BOT_TOKEN!);
-    rest.put(
-        Routes.applicationCommands(process.env.APP_ID!),
-        { body }
-    );
+    try {
+        const rest = new REST({ version: "10" }).setToken(process.env.BOT_TOKEN!);
+        rest.put(
+            Routes.applicationCommands(process.env.APP_ID!),
+            { body }
+        );
+    } catch (err) {
+        return console.log(`Error updating commands: ${err}`);
+    }
 };

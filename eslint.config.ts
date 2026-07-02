@@ -50,7 +50,7 @@ export default defineConfig([
             "simple-import-sort/exports": "error",
             "no-duplicate-imports": "error",
             "unused-imports/no-unused-imports": "error",
-            "no-unused-vars": "warn"
+            "no-unused-vars": "off"
         },
     },
 ]);

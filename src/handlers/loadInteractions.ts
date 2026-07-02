@@ -1,11 +1,11 @@
-import { Client, REST, Routes } from "discord.js";
+import { REST, Routes } from "discord.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
 import type { MyInteractions } from "#utils/interfaces";
 
-export default async (client: Client): Promise<void> => {
+export default async (): Promise<void> => {
     // create dirname and filename from scratch
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);

@@ -6,6 +6,7 @@ import loadEvents from "#handlers/loadEvents";
 import loadInteractions from "#handlers/loadInteractions";
 import type { MyInteractions } from "#utils/interfaces";
 
+// augmenting @discord.js
 declare module "discord.js" {
     interface Client {
         interactions: Map<string, MyInteractions>;

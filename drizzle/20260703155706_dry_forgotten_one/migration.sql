@@ -1,0 +1,1 @@
+ALTER TABLE `games` ADD `channel_id` text;

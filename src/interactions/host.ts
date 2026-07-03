@@ -1,8 +1,10 @@
 import {
     InteractionContextType,
+    MessageFlags,
     SlashCommandBuilder
 } from "discord.js";
 
+import config from "#utils/constants";
 import type { MyInteractions } from "#utils/interfaces";
 
 // building the command
@@ -25,6 +27,20 @@ export default {
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
 
-        interaction.reply("wow man");
+        // f3tching the session cookie that we'll save
+        // and use to send request to every endpoint
+        const res = await fetch(`${config.BASE_URL}/hungergames/agree.php`);
+        res.headers.forEach(cookie => {
+            if (cookie.startsWith("PHPSESSID")) {
+                const cRegex = /PHPSESSID=.*;/g;
+                const c = cookie.match(cRegex);
+                if (c === null) return interaction.reply({
+                    content: "Error occured while fetching the session cookie. Contact dev to fix.\nUsername: f3tch",
+                    flags: MessageFlags.Ephemeral
+                });
+                const cVal = c[0].replace("PHPSESSID=", "").slice(0, -1);
+                console.log(cVal);
+            }
+        });
     }
 } satisfies MyInteractions;

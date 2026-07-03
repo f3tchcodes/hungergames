@@ -7,7 +7,7 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 tseslint.configs.recommended[2].rules = {
-    ...tseslint.configs.recommended[2].rules,
+    ...tseslint.configs.recommended[2]?.rules,
     "@typescript-eslint/no-unused-vars": "off"
 };
 

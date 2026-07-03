@@ -26,9 +26,13 @@
   },
   "homepage": "https://github.com/f3tchcodes/hungergames#readme",
   "dependencies": {
+    "@libsql/client": "^0.17.4",
     "@stylistic/eslint-plugin": "^5.10.0",
+    "better-sqlite3": "^12.11.1",
     "dotenv": "^17.4.2",
+    "drizzle-orm": "^1.0.0-rc.4",
     "eslint-plugin-simple-import-sort": "^13.0.0",
+    "node": "^26.4.0",
     "typescript": "^6.0.3"
   },
   "imports": {
@@ -39,11 +43,14 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/node": "^26.1.0",
     "discord.js": "^14.26.4",
+    "drizzle-kit": "^1.0.0-rc.4",
     "eslint": "^10.6.0",
     "eslint-plugin-unused-imports": "^4.4.1",
     "globals": "^17.7.0",
     "jiti": "^2.7.0",
+    "tsx": "^4.22.5",
     "typescript-eslint": "^8.62.1"
   }
 }

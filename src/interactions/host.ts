@@ -28,11 +28,27 @@ export default {
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
 
+        // get guild and id and check whether it's available
         const guild_id = interaction.guildId;
-        const channel_id = interaction.options.getString("channel-id", true);
 
         if (guild_id === null) return interaction.reply({
-            content: "Failed to f3tch the guild ID."
+            content: "Failed to f3tch the guild ID.",
+            flags: MessageFlags.Ephemeral
+        });
+
+        // get channel id, check whether it's correct or not
+        // then check whether or not the it's a text channel
+        const channel_id = interaction.options.getString("channel-id", true);
+        const channel_exists = interaction.guild?.channels.cache.get(channel_id);
+
+        if (!channel_exists) return interaction.reply({
+            content: "Incorrect channel ID, please try again!",
+            flags: MessageFlags.Ephemeral
+        });
+
+        if (!channel_exists.isTextBased() || channel_exists.isVoiceBased()) return interaction.reply({
+            content: "Incorrect channel type, make sure to provide a text channel!",
+            flags: MessageFlags.Ephemeral
         });
 
         // f3tching the session cookie that we'll save
@@ -47,12 +63,16 @@ export default {
                     flags: MessageFlags.Ephemeral
                 });
                 const session_id = cookieArr[0].replace("PHPSESSID=", "").slice(0, -1);
-                await client.db.insert(games).values({
+                client.db.insert(games).values({
                     guild_id,
                     channel_id,
                     session_id
-                });
+                }).onConflictDoUpdate;
             }
+        });
+
+        return interaction.reply({
+            content: `The game has been scheduled to be hosted in the channel <#${channel_id}>\nStart the game by heading over to the channel and running \`/start\`.`
         });
     }
 } satisfies MyInteractions;

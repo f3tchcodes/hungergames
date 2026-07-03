@@ -29,6 +29,8 @@ export default {
         if (!interaction.isChatInputCommand()) return;
 
         const guild_id = interaction.guildId;
+        const channel_id = interaction.options.getString("channel-id", true);
+
         if (guild_id === null) return interaction.reply({
             content: "Failed to f3tch the guild ID."
         });
@@ -44,10 +46,11 @@ export default {
                     content: "Error occured while f3tching the session cookie. Contact dev to fix.\nUsername: f3tch",
                     flags: MessageFlags.Ephemeral
                 });
-                const cVal = cookieArr[0].replace("PHPSESSID=", "").slice(0, -1);
+                const session_id = cookieArr[0].replace("PHPSESSID=", "").slice(0, -1);
                 await client.db.insert(games).values({
-                    guild_id: guild_id,
-                    session_id: cVal
+                    guild_id,
+                    channel_id,
+                    session_id
                 });
             }
         });

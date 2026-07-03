@@ -1,4 +1,4 @@
-import { Events } from "discord.js";
+import { Events, MessageFlags } from "discord.js";
 
 import type { MyEvents } from "#utils/interfaces";
 
@@ -11,7 +11,10 @@ export default {
         try {
             await command?.execute(client, interaction, args);
         } catch (err) {
-            interaction.reply("Error occured while running the command, contact the developer to fix!\nUsername: f3tch");
+            interaction.reply({
+                content: "Error occured while running the command, contact the developer to fix!\nUsername: f3tch",
+                flags: MessageFlags.Ephemeral
+            });
             return console.log(`Error running command: ${err}`);
         }
     }

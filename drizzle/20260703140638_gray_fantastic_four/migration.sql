@@ -1,0 +1,1 @@
+ALTER TABLE `games` RENAME COLUMN `server_id` TO `guild_id`;

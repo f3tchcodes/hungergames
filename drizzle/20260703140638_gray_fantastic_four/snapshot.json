@@ -1,0 +1,46 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "id": "ee469d86-3961-4c65-9c02-4fce9bf515e5",
+  "prevIds": [
+    "5de45029-256d-45d9-9ff4-0d6c8eab8215"
+  ],
+  "ddl": [
+    {
+      "name": "games",
+      "entityType": "tables"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "guild_id",
+      "entityType": "columns",
+      "table": "games"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "session_id",
+      "entityType": "columns",
+      "table": "games"
+    },
+    {
+      "columns": [
+        "guild_id"
+      ],
+      "nameExplicit": false,
+      "name": "games_pk",
+      "table": "games",
+      "entityType": "pks"
+    }
+  ],
+  "renames": [
+    "games.server_id->games.guild_id"
+  ]
+}

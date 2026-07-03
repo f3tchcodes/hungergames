@@ -36,15 +36,15 @@ export default {
         // f3tching the session cookie that we'll save
         // and use to send request to every endpoint
         const res = await fetch(`${config.BASE_URL}/hungergames/agree.php`);
-        res.headers.forEach(async (cookie) => {
-            if (cookie.startsWith("PHPSESSID")) {
+        res.headers.forEach(async (header) => {
+            if (header.startsWith("PHPSESSID")) {
                 const cRegex = /PHPSESSID=.*;/g;
-                const c = cookie.match(cRegex);
-                if (c === null) return interaction.reply({
+                const cookieArr = header.match(cRegex);
+                if (cookieArr === null) return interaction.reply({
                     content: "Error occured while f3tching the session cookie. Contact dev to fix.\nUsername: f3tch",
                     flags: MessageFlags.Ephemeral
                 });
-                const cVal = c[0].replace("PHPSESSID=", "").slice(0, -1);
+                const cVal = cookieArr[0].replace("PHPSESSID=", "").slice(0, -1);
                 await client.db.insert(games).values({
                     guild_id: guild_id,
                     session_id: cVal

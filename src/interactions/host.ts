@@ -34,7 +34,7 @@ export default {
             if (cookie.startsWith("PHPSESSID")) {
                 const cRegex = /PHPSESSID=.*;/g;
                 const c = cookie.match(cRegex);
-                if (c === null) return interaction.reply({
+                if (c === null || !c[0].startsWith("PHPSESSID=")) return interaction.reply({
                     content: "Error occured while fetching the session cookie. Contact dev to fix.\nUsername: f3tch",
                     flags: MessageFlags.Ephemeral
                 });

@@ -57,22 +57,26 @@ export default {
         res.headers.forEach(async (header) => {
             if (header.startsWith("PHPSESSID")) {
                 const cRegex = /PHPSESSID=.*;/g;
+
                 const cookieArr = header.match(cRegex);
+
                 if (cookieArr === null) return interaction.reply({
                     content: "Error occured while f3tching the session cookie. Contact dev to fix.\nUsername: f3tch",
                     flags: MessageFlags.Ephemeral
                 });
+
                 const session_id = cookieArr[0].replace("PHPSESSID=", "").slice(0, -1);
-                client.db.insert(games).values({
+
+                await client.db.insert(games).values({
                     guild_id,
                     channel_id,
                     session_id
-                }).onConflictDoUpdate;
-            }
-        });
+                }).onConflictDoUpdate({ target: games.guild_id, set: { channel_id } });
 
-        return interaction.reply({
-            content: `The game has been scheduled to be hosted in the channel <#${channel_id}>\nStart the game by heading over to the channel and running \`/start\`.`
+                return interaction.reply({
+                    content: `The game has been scheduled to be hosted in the channel <#${channel_id}>\nStart the game by heading over to the channel and running \`/start\`.`
+                });
+            }
         });
     }
 } satisfies MyInteractions;

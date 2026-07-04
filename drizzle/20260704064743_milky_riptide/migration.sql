@@ -1,0 +1,1 @@
+ALTER TABLE `games` RENAME COLUMN `tributes` TO `tribute_size`;

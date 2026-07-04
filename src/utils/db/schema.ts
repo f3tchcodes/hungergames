@@ -4,5 +4,5 @@ export const games = sqliteTable("games", {
     guild_id: text().primaryKey(),
     channel_id: text(),
     session_id: text(),
-    tributes: integer()
+    tribute_size: integer()
 });

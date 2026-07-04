@@ -84,20 +84,22 @@ export default {
 
         // setting tribute members
         if (!config.TRIBUTES_SIZE[0]) return console.error("Tribute size configuration not set.");
-        let tributes = interaction.options.getNumber("tribute-size");
-        if (tributes === null) tributes = config.TRIBUTES_SIZE[0]?.value;
+        let tribute_size = interaction.options.getNumber("tribute-size");
+        if (tribute_size === null) tribute_size = config.TRIBUTES_SIZE[0]?.value;
         const tributesOptions: number[] = [];
         config.TRIBUTES_SIZE.forEach(v => tributesOptions.push(v.value));
-        if (!tributesOptions.includes(tributes)) return interaction.reply({
+        if (!tributesOptions.includes(tribute_size)) return interaction.reply({
             content: "Incorrect tribute size settings",
             flags: MessageFlags.Ephemeral
         });
+
+        await fetch(`${config.BASE_URL}/hungergames/ChangeTributes-${tribute_size}.php`);
 
         await client.db.insert(games).values({
             guild_id,
             channel_id,
             session_id,
-            tributes
+            tribute_size
         });
 
         return interaction.reply({

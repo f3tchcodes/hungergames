@@ -3,7 +3,7 @@ import {
     MessageFlags,
     SlashCommandBuilder
 } from "discord.js";
-
+import { eq } from "drizzle-orm";
 import config from "#utils/constants";
 import { games } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
@@ -51,6 +51,13 @@ export default {
             flags: MessageFlags.Ephemeral
         });
 
+        // check if a game is already hosted
+        const qRes = await client.db.select().from(games).where(eq(games.guild_id, guild_id));
+        if (qRes.length > 0) return interaction.reply({
+            content: "Game already hosted!\nUse `/stop` to stop the current game and host a new one.",
+            flags: MessageFlags.Ephemeral
+        });
+
         // f3tching the session cookie that we'll save
         // and use to send request to every endpoint
         const res = await fetch(`${config.BASE_URL}/hungergames/agree.php`);
@@ -71,7 +78,7 @@ export default {
                     guild_id,
                     channel_id,
                     session_id
-                }).onConflictDoUpdate({ target: games.guild_id, set: { channel_id } });
+                });
 
                 return interaction.reply({
                     content: `The game has been scheduled to be hosted in the channel <#${channel_id}>\nStart the game by heading over to the channel and running \`/start\`.`

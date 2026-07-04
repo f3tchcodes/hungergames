@@ -65,7 +65,6 @@ export default {
             if (!header.startsWith("PHPSESSID")) return;
 
             const cRegex = /PHPSESSID=.*;/g;
-
             const cookieArr = header.match(cRegex);
 
             if (cookieArr === null) return interaction.reply({

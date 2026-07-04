@@ -18,6 +18,12 @@ const host = new SlashCommandBuilder()
             .setDescription("Enter the ID of the channel where you'd like to host the game!")
             .setRequired(true)
     )
+    .addNumberOption(op =>
+        op
+            .setName("tribute-size")
+            .setDescription("Enter the amount of players.")
+            .addChoices(config.TRIBUTES_SIZE)
+    )
     .setContexts(
         InteractionContextType.Guild
     );
@@ -27,6 +33,7 @@ export default {
     data: host,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
+        let session_id;
 
         // get guild and id and check whether it's available
         const guild_id = interaction.guildId;
@@ -72,17 +79,29 @@ export default {
                 flags: MessageFlags.Ephemeral
             });
 
-            const session_id = cookieArr[0].replace("PHPSESSID=", "").slice(0, -1);
+            session_id = cookieArr[0].replace("PHPSESSID=", "").slice(0, -1);
+        });
 
-            await client.db.insert(games).values({
-                guild_id,
-                channel_id,
-                session_id
-            });
+        // setting tribute members
+        if (!config.TRIBUTES_SIZE[0]) return console.error("Tribute size configuration not set.");
+        let tributes = interaction.options.getNumber("tribute-size");
+        if (tributes === null) tributes = config.TRIBUTES_SIZE[0]?.value;
+        const tributesOptions: number[] = [];
+        config.TRIBUTES_SIZE.forEach(v => tributesOptions.push(v.value));
+        if (!tributesOptions.includes(tributes)) return interaction.reply({
+            content: "Incorrect tribute size settings",
+            flags: MessageFlags.Ephemeral
+        });
 
-            return interaction.reply({
-                content: `The game has been scheduled to be hosted in the channel <#${channel_id}>\nStart the game by heading over to the channel and running \`/start\`.`
-            });
+        await client.db.insert(games).values({
+            guild_id,
+            channel_id,
+            session_id,
+            tributes
+        });
+
+        return interaction.reply({
+            content: `The game has been scheduled to be hosted in the channel <#${channel_id}>\nStart the game by heading over to the channel and running \`/start\`.`
         });
     }
 } satisfies MyInteractions;

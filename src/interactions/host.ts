@@ -54,7 +54,7 @@ export default {
         // check if a game is already hosted
         const qRes = await client.db.select().from(games).where(eq(games.guild_id, guild_id));
         if (qRes.length > 0) return interaction.reply({
-            content: "Game already hosted!\nUse `/stop` to stop the current game and host a new one.",
+            content: `Game already hosted in the channel <#${qRes[0]?.channel_id}> !\nUse \`/stop\` to stop the current game and host a new one.`,
             flags: MessageFlags.Ephemeral
         });
 
@@ -62,28 +62,28 @@ export default {
         // and use to send request to every endpoint
         const res = await fetch(`${config.BASE_URL}/hungergames/agree.php`);
         res.headers.forEach(async (header) => {
-            if (header.startsWith("PHPSESSID")) {
-                const cRegex = /PHPSESSID=.*;/g;
+            if (!header.startsWith("PHPSESSID")) return;
 
-                const cookieArr = header.match(cRegex);
+            const cRegex = /PHPSESSID=.*;/g;
 
-                if (cookieArr === null) return interaction.reply({
-                    content: "Error occured while f3tching the session cookie. Contact dev to fix.\nUsername: f3tch",
-                    flags: MessageFlags.Ephemeral
-                });
+            const cookieArr = header.match(cRegex);
 
-                const session_id = cookieArr[0].replace("PHPSESSID=", "").slice(0, -1);
+            if (cookieArr === null) return interaction.reply({
+                content: "Error occured while f3tching the session cookie. Contact dev to fix.\nUsername: f3tch",
+                flags: MessageFlags.Ephemeral
+            });
 
-                await client.db.insert(games).values({
-                    guild_id,
-                    channel_id,
-                    session_id
-                });
+            const session_id = cookieArr[0].replace("PHPSESSID=", "").slice(0, -1);
 
-                return interaction.reply({
-                    content: `The game has been scheduled to be hosted in the channel <#${channel_id}>\nStart the game by heading over to the channel and running \`/start\`.`
-                });
-            }
+            await client.db.insert(games).values({
+                guild_id,
+                channel_id,
+                session_id
+            });
+
+            return interaction.reply({
+                content: `The game has been scheduled to be hosted in the channel <#${channel_id}>\nStart the game by heading over to the channel and running \`/start\`.`
+            });
         });
     }
 } satisfies MyInteractions;

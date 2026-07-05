@@ -4,7 +4,7 @@ import {
     SlashCommandBuilder
 } from "discord.js";
 import { eq } from "drizzle-orm";
-import config from "#utils/constants";
+import config from "#utils/config";
 import { games } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
 
@@ -22,7 +22,7 @@ const host = new SlashCommandBuilder()
         op
             .setName("tribute-size")
             .setDescription("Enter the amount of players.")
-            .addChoices(config.TRIBUTES_SIZE)
+            .addChoices(config.TRIBUTE_SIZE)
     )
     .setContexts(
         InteractionContextType.Guild
@@ -86,10 +86,10 @@ export default {
         });
 
         // setting tribute size and sending request to change
-        if (!config.TRIBUTES_SIZE[0]) return console.error("Tribute size configuration not set.");
-        if (!tribute_size) tribute_size = config.TRIBUTES_SIZE[0]?.value;
+        if (!config.TRIBUTE_SIZE[0]) return console.error("Tribute size configuration not set.");
+        if (!tribute_size) tribute_size = config.TRIBUTE_SIZE[0]?.value;
         const tributesOptions: number[] = [];
-        config.TRIBUTES_SIZE.forEach(v => tributesOptions.push(v.value));
+        config.TRIBUTE_SIZE.forEach(v => tributesOptions.push(v.value));
         if (!tributesOptions.includes(tribute_size)) return await interaction.reply({
             content: "Incorrect tribute size settings",
             flags: MessageFlags.Ephemeral
@@ -103,10 +103,10 @@ export default {
 
         // setting district size
         switch (tribute_size) {
-            case config.TRIBUTES_SIZE[1]?.value:
+            case config.TRIBUTE_SIZE[1]?.value:
                 district_size = config.DISTRICT_SIZE.medium;
                 break;
-            case config.TRIBUTES_SIZE[2]?.value:
+            case config.TRIBUTE_SIZE[2]?.value:
                 district_size = config.DISTRICT_SIZE.large;
                 break;
             default:

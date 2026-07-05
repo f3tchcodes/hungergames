@@ -84,7 +84,7 @@ export default {
             session_id = cookieArr[0].replace("PHPSESSID=", "").slice(0, -1);
         });
 
-        // setting tribute size
+        // setting tribute size and sending request to change
         if (!config.TRIBUTES_SIZE[0]) return console.error("Tribute size configuration not set.");
         if (!tribute_size) tribute_size = config.TRIBUTES_SIZE[0]?.value;
         const tributesOptions: number[] = [];
@@ -93,6 +93,9 @@ export default {
             content: "Incorrect tribute size settings",
             flags: MessageFlags.Ephemeral
         });
+
+        const headers = { Cookie: `PHPSESSID=${session_id};` };
+        await fetch(`${config.BASE_URL}/hungergames/ChangeTributes-${tribute_size}.php`, { headers });
 
         // setting district size
         switch (tribute_size) {
@@ -106,8 +109,6 @@ export default {
                 district_size = config.DISTRICT_SIZE.default;
         }
         console.log(district_size);
-
-        await fetch(`${config.BASE_URL}/hungergames/ChangeTributes-${tribute_size}.php`);
 
         await client.db.insert(games).values({
             guild_id,

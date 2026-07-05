@@ -11,5 +11,5 @@ export interface MyInteractions {
 export interface MyEvents<EventName extends keyof ClientEvents = keyof ClientEvents> {
     name: EventName;
     execute?: (client: Client, ...args: ClientEvents[EventName]) => Promise<void>;
-    executeInteraction?: (client: Client, interaction: Interaction, ...args: string[]) => Promise<void>;
+    executeInteraction?: (client: Client, interaction: Interaction, ...args: string[]) => Promise<unknown>;
 }

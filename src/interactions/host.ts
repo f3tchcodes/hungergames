@@ -96,15 +96,16 @@ export default {
 
         // setting district size
         switch (tribute_size) {
-            case config.DISTRICT_SIZE.medium:
+            case config.TRIBUTES_SIZE[1]?.value:
                 district_size = config.DISTRICT_SIZE.medium;
                 break;
-            case config.DISTRICT_SIZE.large:
+            case config.TRIBUTES_SIZE[2]?.value:
                 district_size = config.DISTRICT_SIZE.large;
                 break;
             default:
                 district_size = config.DISTRICT_SIZE.default;
         }
+        console.log(district_size);
 
         await fetch(`${config.BASE_URL}/hungergames/ChangeTributes-${tribute_size}.php`);
 

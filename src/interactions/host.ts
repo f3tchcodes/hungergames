@@ -95,8 +95,11 @@ export default {
             flags: MessageFlags.Ephemeral
         });
 
+        // not using await here because discord invalidates an interaction
+        // after 3 seconds of no response, so to save time we don't await
+        // not sure if it's the right move though
         const headers = { Cookie: `PHPSESSID=${session_id};` };
-        await fetch(`${config.BASE_URL}/hungergames/ChangeTributes-${tribute_size}.php`, { headers });
+        fetch(`${config.BASE_URL}/hungergames/ChangeTributes-${tribute_size}.php`, { headers });
 
         // setting district size
         switch (tribute_size) {
@@ -109,10 +112,9 @@ export default {
             default:
                 district_size = config.DISTRICT_SIZE.default;
         }
-        console.log(district_size);
 
         // updating database
-        await client.db.insert(games).values({
+        client.db.insert(games).values({
             guild_id,
             channel_id,
             session_id,

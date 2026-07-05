@@ -4,10 +4,16 @@ const config = {
         { name: "24", value: 24 },
         { name: "36", value: 36 },
         { name: "48", value: 48 }
-    ]
+    ],
+    DISTRICT_SIZE: {
+        24: 2,
+        36: 3,
+        48: 4
+    }
 };
 
 export default {
     BASE_URL: config.BASE_URL.endsWith("/") ? config.BASE_URL.slice(0, -1) : config.BASE_URL,
-    TRIBUTES_SIZE: config.TRIBUTES_SIZE
+    TRIBUTES_SIZE: config.TRIBUTES_SIZE,
+    DISTRICT_SIZE: config.DISTRICT_SIZE
 };

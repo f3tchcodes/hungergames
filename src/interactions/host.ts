@@ -112,7 +112,8 @@ export default {
             guild_id,
             channel_id,
             session_id,
-            tribute_size
+            tribute_size,
+            district_size
         });
 
         return interaction.reply({

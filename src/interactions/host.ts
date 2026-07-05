@@ -110,6 +110,7 @@ export default {
         }
         console.log(district_size);
 
+        // updating database
         await client.db.insert(games).values({
             guild_id,
             channel_id,
@@ -118,6 +119,7 @@ export default {
             district_size
         });
 
+        // final reply
         return interaction.reply({
             content: `The game has been scheduled to be hosted in the channel <#${channel_id}>\nStart the game by heading over to the channel and running \`/start\`.`
         });

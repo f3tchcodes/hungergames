@@ -34,11 +34,13 @@ export default {
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
         let session_id;
+        let district_size;
+        let tribute_size = interaction.options.getNumber("tribute-size");
 
         // get guild and id and check whether it's available
         const guild_id = interaction.guildId;
 
-        if (guild_id === null) return interaction.reply({
+        if (!guild_id) return interaction.reply({
             content: "Failed to f3tch the guild ID.",
             flags: MessageFlags.Ephemeral
         });
@@ -74,7 +76,7 @@ export default {
             const cRegex = /PHPSESSID=.*;/g;
             const cookieArr = header.match(cRegex);
 
-            if (cookieArr === null) return interaction.reply({
+            if (!cookieArr) return interaction.reply({
                 content: "Error occured while f3tching the session cookie. Contact dev to fix.\nUsername: f3tch",
                 flags: MessageFlags.Ephemeral
             });
@@ -82,16 +84,27 @@ export default {
             session_id = cookieArr[0].replace("PHPSESSID=", "").slice(0, -1);
         });
 
-        // setting tribute members
+        // setting tribute size
         if (!config.TRIBUTES_SIZE[0]) return console.error("Tribute size configuration not set.");
-        let tribute_size = interaction.options.getNumber("tribute-size");
-        if (tribute_size === null) tribute_size = config.TRIBUTES_SIZE[0]?.value;
+        if (!tribute_size) tribute_size = config.TRIBUTES_SIZE[0]?.value;
         const tributesOptions: number[] = [];
         config.TRIBUTES_SIZE.forEach(v => tributesOptions.push(v.value));
         if (!tributesOptions.includes(tribute_size)) return interaction.reply({
             content: "Incorrect tribute size settings",
             flags: MessageFlags.Ephemeral
         });
+
+        // setting district size
+        switch (tribute_size) {
+            case config.DISTRICT_SIZE.medium:
+                district_size = config.DISTRICT_SIZE.medium;
+                break;
+            case config.DISTRICT_SIZE.large:
+                district_size = config.DISTRICT_SIZE.large;
+                break;
+            default:
+                district_size = config.DISTRICT_SIZE.default;
+        }
 
         await fetch(`${config.BASE_URL}/hungergames/ChangeTributes-${tribute_size}.php`);
 

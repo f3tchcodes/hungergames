@@ -1,14 +1,14 @@
 const config = {
     BASE_URL: "https://brantsteele.net/",
     TRIBUTES_SIZE: [
-        { name: "24", value: 24 },
-        { name: "36", value: 36 },
-        { name: "48", value: 48 }
+        { name: "Default (24)", value: 24 },
+        { name: "Medium (36)", value: 36 },
+        { name: "Large (48)", value: 48 }
     ],
     DISTRICT_SIZE: {
-        24: 2,
-        36: 3,
-        48: 4
+        default: 2,
+        medium: 3,
+        large: 4
     }
 };
 

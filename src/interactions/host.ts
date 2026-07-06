@@ -4,6 +4,7 @@ import {
     SlashCommandBuilder
 } from "discord.js";
 import { eq } from "drizzle-orm";
+
 import config from "#utils/config";
 import { games } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
@@ -71,7 +72,7 @@ export default {
         // f3tching the session cookie that we'll save
         // and use to send request to every endpoint
         const res = await fetch(`${config.BASE_URL}/hungergames/agree.php`);
-        res.headers.forEach(async (header) => {
+        res.headers.forEach(async header => {
             if (!header.startsWith("PHPSESSID")) return;
 
             const cRegex = /PHPSESSID=.*;/g;

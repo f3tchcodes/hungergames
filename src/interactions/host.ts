@@ -34,10 +34,11 @@ export default {
     data: host,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
+        if (!config.TRIBUTE_SIZE[0]) return console.error("Tribute size configuration not set.");
 
         let session_id;
         let district_size;
-        let tribute_size = interaction.options.getNumber("tribute-size");
+        const tribute_size = interaction.options.getNumber("tribute-size") ?? config.TRIBUTE_SIZE[0].value;
 
         // get guild and id and check whether it's available
         const guild_id = interaction.guildId;
@@ -87,8 +88,6 @@ export default {
         });
 
         // setting tribute size and sending request to change
-        if (!config.TRIBUTE_SIZE[0]) return console.error("Tribute size configuration not set.");
-        if (!tribute_size) tribute_size = config.TRIBUTE_SIZE[0]?.value;
         const tributesOptions: number[] = [];
         config.TRIBUTE_SIZE.forEach(v => tributesOptions.push(v.value));
         if (!tributesOptions.includes(tribute_size)) return await interaction.reply({

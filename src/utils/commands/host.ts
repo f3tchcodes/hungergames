@@ -1,6 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelSelectMenuInteraction, EmbedBuilder, MessageFlags, StringSelectMenuInteraction } from "discord.js";
 
-import config from "./config.js";
+import config from "#utils/config";
 
 export async function channelIdSelected(interaction: ChannelSelectMenuInteraction) {
     // get guild and id and check whether it's available

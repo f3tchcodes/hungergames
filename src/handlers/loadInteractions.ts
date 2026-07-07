@@ -14,14 +14,14 @@ export default async (client: Client): Promise<void> => {
     const body = [];
 
     // interaction files
-    const interactionPath = path.join(__dirname, "../interactions");
+    const interactionPath = path.join(__dirname, "../commands");
     const interactionFiles = fs.readdirSync(interactionPath);
 
     for (const file of interactionFiles) {
         if (!file.endsWith(".js")) continue;
 
         // push content of each interaction's data into body
-        const interactionModule = await import(`../interactions/${file}`);
+        const interactionModule = await import(`../commands/${file}`);
         const interaction = interactionModule.default as MyInteractions;
         client.interactions.set(interaction.data.name, interaction);
         body.push(interaction.data.toJSON());

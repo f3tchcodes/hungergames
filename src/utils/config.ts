@@ -1,5 +1,7 @@
 const config = {
     BASE_URL: "https://brantsteele.net/",
+    DISCLAIMER: "https://brantsteele.com/disclaimer.php",
+    PRIVACY_POLICY: "https://brantsteele.com/privacypolicy.php",
     ICON_URL: "https://brantsteele.com/extras/hungergames/01/logo.png",
     THEME_COLOR: 0xDC6219,
     TRIBUTE_SIZE: [
@@ -16,6 +18,8 @@ const config = {
 
 export default {
     BASE_URL: config.BASE_URL.endsWith("/") ? config.BASE_URL.slice(0, -1) : config.BASE_URL,
+    DISCLAIMER: config.DISCLAIMER,
+    PRIVACY_POLICY: config.PRIVACY_POLICY,
     ICON_URL: config.ICON_URL,
     THEME_COLOR: config.THEME_COLOR,
     TRIBUTE_SIZE: config.TRIBUTE_SIZE,

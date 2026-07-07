@@ -1,6 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelSelectMenuInteraction, EmbedBuilder, MessageFlags, StringSelectMenuInteraction } from "discord.js";
 
 import config from "#utils/config";
+import { games } from "#utils/db/schema";
 
 export async function channelIdSelected(interaction: ChannelSelectMenuInteraction) {
     // get guild and id and check whether it's available
@@ -85,6 +86,19 @@ export async function sendGameChannelMessage(interaction: ButtonInteraction, cha
         flags: MessageFlags.Ephemeral
     });
 
+    let district_size;
+
+    // getting guild id and checking whether it exists or not
+    const guild_id = interaction.guildId;
+
+    if (!guild_id) {
+        await interaction.reply({
+            content: "Failed to f3tch the guild ID.",
+            flags: MessageFlags.Ephemeral
+        });
+        return;
+    }
+
     // create game and cancel buttons
     const register = new ButtonBuilder().setCustomId("register").setLabel("Register").setStyle(ButtonStyle.Success);
     const opt_out = new ButtonBuilder().setCustomId("opt_out").setLabel("Opt-out").setStyle(ButtonStyle.Secondary);
@@ -119,6 +133,29 @@ Click the button below to register for The Hunger Games.
 `)
         .setThumbnail(config.ICON_URL)
         .setTimestamp();
+
+    // setting district size
+    switch (tribute_size) {
+        case config.TRIBUTE_SIZE[1]?.value:
+            district_size = config.DISTRICT_SIZE.medium;
+            break;
+        case config.TRIBUTE_SIZE[2]?.value:
+            district_size = config.DISTRICT_SIZE.large;
+            break;
+        default:
+            district_size = config.DISTRICT_SIZE.default;
+    }
+
+    // updating database, we will add session id later
+    // when we need the frickin thing when we're yk
+    // starting the game this is to make sure the session id
+    // does not expire when the game is started.
+    await interaction.client.db.insert(games).values({
+        guild_id,
+        channel_id,
+        tribute_size,
+        district_size
+    });
 
     // send game hosted message
     await interaction.reply({ content: `Game hosted successfully!\nRegisteration message has been sent to <#${channel_id}>!` });

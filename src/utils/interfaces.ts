@@ -6,10 +6,8 @@ export interface MyInteractions {
     execute: (client: Client, interaction: Interaction, args: string[]) => Promise<unknown>;
 }
 
-// for events: need separate for interaction as interaction
-// does not have client passed in as the first argument
+// for events
 export interface MyEvents<EventName extends keyof ClientEvents = keyof ClientEvents> {
     name: EventName;
-    execute?: (client: Client, ...args: ClientEvents[EventName]) => Promise<void>;
-    executeInteraction?: (client: Client, interaction: Interaction, ...args: string[]) => Promise<void>;
+    execute: (client: Client, ...args: ClientEvents[EventName]) => Promise<void>;
 }

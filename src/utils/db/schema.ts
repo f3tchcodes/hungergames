@@ -9,8 +9,8 @@ export const games = sqliteTable("games", {
 });
 
 export const districts = sqliteTable("districts", {
-    player_id: integer().primaryKey({ autoIncrement: true }),
-    guild_id: text(),
+    guild_id: text().primaryKey(),
+    player_id: integer(),
     district_id: integer(),
     user_id: text(),
     username: text(),

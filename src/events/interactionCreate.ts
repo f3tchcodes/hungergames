@@ -1,7 +1,8 @@
-import { Events, MessageFlags } from "discord.js";
+import { Events } from "discord.js";
 
 import { cancelCommand } from "#utils/commands/common";
 import { channelIdSelected, createGame, nextButtonSelected, tributeSizeSelected } from "#utils/commands/host";
+import { _EphToast } from "#utils/common";
 import type { MyEvents } from "#utils/interfaces";
 
 let channel_id: string | undefined = undefined;
@@ -19,7 +20,7 @@ export default {
             }
         } else if (interaction.isChannelSelectMenu()) {
             try {
-                if (interaction.user.id !== interaction.message.interactionMetadata?.user.id) { await interaction.reply({ content: "Mind your own business you stupid bastard.", flags: MessageFlags.Ephemeral }); return; }
+                if (interaction.user.id !== interaction.message.interactionMetadata?.user.id) { await _EphToast(interaction, "Mind your own business you stupid bastard."); return; }
                 if (interaction.customId === "channel") {
                     channel_id = await channelIdSelected(interaction);
                     console.log(channel_id);
@@ -29,7 +30,7 @@ export default {
             }
         } else if (interaction.isStringSelectMenu()) {
             try {
-                if (interaction.user.id !== interaction.message.interactionMetadata?.user.id) { await interaction.reply({ content: "Mind your own business you stupid bastard.", flags: MessageFlags.Ephemeral }); return; }
+                if (interaction.user.id !== interaction.message.interactionMetadata?.user.id) { await _EphToast(interaction, "Mind your own business you stupid bastard."); return; }
                 if (interaction.customId === "tribute_size") {
                     tribute_size = await tributeSizeSelected(interaction);
                     console.log(tribute_size);

@@ -1,6 +1,8 @@
-import { type ChatInputCommandInteraction, MessageFlags } from "discord.js";
+import { type ChatInputCommandInteraction } from "discord.js";
 
 import config from "#utils/config";
+
+import { _EphToast } from "./common.js";
 
 export async function createSessionId(interaction: ChatInputCommandInteraction) {
     let session_id;
@@ -13,19 +15,12 @@ export async function createSessionId(interaction: ChatInputCommandInteraction) 
 
         const cRegex = /PHPSESSID=.*;/g;
         const cookieArr = header.match(cRegex);
-
-        if (!cookieArr) return await interaction.reply({
-            content: "Error occured while f3tching the session cookie. Contact dev to fix.\nUsername: f3tch",
-            flags: MessageFlags.Ephemeral
-        });
+        if (!cookieArr) return await _EphToast(interaction, "Error occured while f3tching the session cookie. Contact dev to fix.\nUsername: f3tch");
 
         session_id = cookieArr[0].replace("PHPSESSID=", "").slice(0, -1);
     });
 
-    if (!session_id) return interaction.reply({
-        content: "Session ID for starting the game could not be f3tched. Contact dev to fix.\nUsername: f3tch",
-        flags: MessageFlags.Ephemeral
-    });
+    if (!session_id) return await _EphToast(interaction, "Session ID for starting the game could not be f3tched. Contact dev to fix.\nUsername: f3tch");
 
     return session_id;
 }

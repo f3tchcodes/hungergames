@@ -1,7 +1,8 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const games = sqliteTable("games", {
-    guild_id: text().primaryKey(),
+    game_id: integer().primaryKey({ autoIncrement: true }),
+    guild_id: text(),
     channel_id: text().notNull(),
     session_id: text(),
     tribute_size: integer().notNull(),
@@ -9,7 +10,8 @@ export const games = sqliteTable("games", {
 });
 
 export const districts = sqliteTable("districts", {
-    guild_id: text().primaryKey(),
+    game_id: integer().primaryKey({ autoIncrement: true }),
+    guild_id: text(),
     player_id: integer().notNull(),
     district_id: integer().notNull(),
     user_id: text().notNull(),

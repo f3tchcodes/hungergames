@@ -36,7 +36,6 @@ export default {
 
         // get guild and id and check whether it's available
         const guild_id = interaction.guildId;
-
         if (!guild_id) return await _EphToast(interaction, "Failed to f3tch the guild ID.");
 
         // check if a game is already hosted

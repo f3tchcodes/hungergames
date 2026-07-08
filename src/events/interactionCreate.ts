@@ -1,5 +1,6 @@
 import { Events, MessageFlags } from "discord.js";
 
+import { cancelCommand } from "#utils/commands/common";
 import { channelIdSelected, nextButtonSelected, sendGameChannelMessage, tributeSizeSelected } from "#utils/commands/host";
 import type { MyEvents } from "#utils/interfaces";
 
@@ -9,7 +10,6 @@ let tribute_size: number | undefined = undefined;
 export default {
     name: Events.InteractionCreate,
     async execute(client, interaction, ...args) {
-
         if (interaction.isChatInputCommand()) {
             const command = client.interactions.get(interaction.commandName);
             try {
@@ -39,12 +39,15 @@ export default {
             }
         } else if (interaction.isButton()) {
             try {
+                // normal buttons
                 const next = interaction.customId === "next" ? await nextButtonSelected(interaction, channel_id, tribute_size) : null;
                 const create_game = interaction.customId === "create_game" ? await sendGameChannelMessage(interaction, channel_id, tribute_size) : null;
+
+                // cancel button
+                const cancel = interaction.customId === "cancel" ? await cancelCommand(interaction) : null;
             } catch (err) {
                 console.log(`Error running button: ${err}`);
             }
-
         }
 
     }

@@ -1,7 +1,7 @@
 import { Events, MessageFlags } from "discord.js";
 
 import { cancelCommand } from "#utils/commands/common";
-import { channelIdSelected, nextButtonSelected, sendGameChannelMessage, tributeSizeSelected } from "#utils/commands/host";
+import { channelIdSelected, createGame, nextButtonSelected, tributeSizeSelected } from "#utils/commands/host";
 import type { MyEvents } from "#utils/interfaces";
 
 let channel_id: string | undefined = undefined;
@@ -41,7 +41,7 @@ export default {
             try {
                 // normal buttons
                 const next = interaction.customId === "next" ? await nextButtonSelected(interaction, channel_id, tribute_size) : null;
-                const create_game = interaction.customId === "create_game" ? await sendGameChannelMessage(interaction, channel_id, tribute_size) : null;
+                const create_game = interaction.customId === "create_game" ? await createGame(interaction, channel_id, tribute_size) : null;
 
                 // cancel button
                 const cancel = interaction.customId === "cancel" ? await cancelCommand(interaction) : null;

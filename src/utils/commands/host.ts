@@ -1,8 +1,9 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelSelectMenuInteraction, EmbedBuilder, StringSelectMenuInteraction } from "discord.js";
+import type { InferInsertModel } from "drizzle-orm";
 
 import { _EphToast } from "#utils/common";
 import config from "#utils/config";
-import { games } from "#utils/db/schema";
+import { districts, games } from "#utils/db/schema";
 
 export async function channelIdSelected(interaction: ChannelSelectMenuInteraction) {
     // get guild and id and check whether it's available
@@ -64,7 +65,7 @@ By clicking "Create Game", you agree to above mentioned **warning**, **Disclaime
     return await interaction.update({ embeds: [finalEmbed], components: [buttonsRow] });
 }
 
-export async function sendGameChannelMessage(interaction: ButtonInteraction, channel_id: string | undefined, tribute_size: number | undefined) {
+export async function createGame(interaction: ButtonInteraction, channel_id: string | undefined, tribute_size: number | undefined) {
     if (!channel_id || !tribute_size) return await _EphToast(interaction, "Interaction failed! Channel ID and tribute size not found. Try again later.");
 
     let district_size;
@@ -130,6 +131,36 @@ Click the button below to register for The Hunger Games.
         tribute_size,
         district_size
     });
+
+    // creating district rows in the database
+    // we loop over tribute size to create tribute size amount of rows
+    // if district_id is larger than district_size, we reset it back to 1
+    // then we loop over default players and add them one by one and stop according to tribute size
+    // then we push each object of values into sqlInsertData array
+    // finally we send query to the database and insert all those values
+    const sqlInsertData: InferInsertModel<typeof districts>[] = [];
+
+    let district_id = 0;
+    let player_id = 0;
+
+    for (let i = 0; i < tribute_size; i++) {
+        district_id += 1;
+        player_id += 1;
+
+        const DEFAULT_PLAYER = config.DEFAULT_PLAYERS[i];
+
+        if (district_id > district_size) district_id = 1;
+        if (!DEFAULT_PLAYER) continue;
+
+        sqlInsertData.push({
+            guild_id,
+            player_id,
+            district_id,
+            ...DEFAULT_PLAYER
+        });
+    }
+
+    await interaction.client.db.insert(districts).values(sqlInsertData);
 
     // send game hosted message
     await interaction.reply({ content: `Game hosted successfully!\nRegisteration message has been sent to <#${channel_id}>!` });

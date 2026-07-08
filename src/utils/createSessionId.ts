@@ -1,8 +1,7 @@
 import { type ChatInputCommandInteraction } from "discord.js";
 
+import { _EphToast } from "#utils/common";
 import config from "#utils/config";
-
-import { _EphToast } from "./common.js";
 
 export async function createSessionId(interaction: ChatInputCommandInteraction) {
     let session_id;

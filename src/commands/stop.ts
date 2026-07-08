@@ -2,7 +2,7 @@ import { InteractionContextType, SlashCommandBuilder } from "discord.js";
 import { eq } from "drizzle-orm";
 
 import { _EphToast } from "#utils/common";
-import { games } from "#utils/db/schema";
+import { districts, games } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
 
 // building the command
@@ -26,8 +26,10 @@ export default {
         const qResSel = await client.db.select().from(games).where(eq(games.guild_id, guild_id));
         if (qResSel.length === 0) return await _EphToast(interaction, "No available game to stop.\nYou may host a new game with `/host` anytime.");
 
-        // stop the game
+        // delete game data to stop the game
         await client.db.delete(games).where(eq(games.guild_id, guild_id));
+        await client.db.delete(districts).where(eq(districts.guild_id, guild_id));
+
         return await interaction.reply({
             content: "The game has been successfully stopped.\nYou may host a new game with `/host` anytime."
         });

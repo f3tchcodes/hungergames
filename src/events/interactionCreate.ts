@@ -3,7 +3,7 @@ import { Events } from "discord.js";
 
 import { cancelCommand } from "#utils/commands/common";
 import { channelIdSelected, createGame, nextButtonSelected, tributeSizeSelected } from "#utils/commands/host";
-import { registerUser } from "#utils/commands/register";
+import { registerUser } from "#utils/commands/registerUser";
 import { _EphToast } from "#utils/common";
 import type { MyEvents } from "#utils/interfaces";
 

@@ -1,7 +1,9 @@
+
 import { Events } from "discord.js";
 
 import { cancelCommand } from "#utils/commands/common";
 import { channelIdSelected, createGame, nextButtonSelected, tributeSizeSelected } from "#utils/commands/host";
+import { registerUser } from "#utils/commands/register";
 import { _EphToast } from "#utils/common";
 import type { MyEvents } from "#utils/interfaces";
 
@@ -40,6 +42,10 @@ export default {
             }
         } else if (interaction.isButton()) {
             try {
+                // global buttons
+                const register = interaction.customId === "register" ? await registerUser(interaction) : null;
+
+                if (interaction.user.id !== interaction.message.interactionMetadata?.user.id) { await _EphToast(interaction, "Mind your own business you stupid bastard."); return; }
                 // normal buttons
                 const next = interaction.customId === "next" ? await nextButtonSelected(interaction, channel_id, tribute_size) : null;
                 const create_game = interaction.customId === "create_game" ? await createGame(interaction, channel_id, tribute_size) : null;

@@ -5,7 +5,8 @@ export const games = sqliteTable("games", {
     channel_id: text().notNull(),
     session_id: text(),
     tribute_size: integer().notNull(),
-    district_size: integer().notNull()
+    district_size: integer().notNull(),
+    registered_players: integer().notNull().default(0)
 });
 
 // by default we enter fake characters

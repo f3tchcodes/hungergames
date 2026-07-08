@@ -9,5 +9,5 @@ export async function cancelCommand(interaction: ButtonInteraction) {
         .setDescription("Command canceled!")
         .setTimestamp();
 
-    interaction.update({ embeds: [cancelEmbed], components: [] });
+    await interaction.update({ embeds: [cancelEmbed], components: [] });
 }

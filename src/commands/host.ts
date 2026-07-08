@@ -7,13 +7,13 @@ import {
     ChannelType,
     EmbedBuilder,
     InteractionContextType,
-    MessageFlags,
     SlashCommandBuilder,
     StringSelectMenuBuilder,
     StringSelectMenuOptionBuilder
 } from "discord.js";
 import { eq } from "drizzle-orm";
 
+import { _EphToast } from "#utils/common";
 import config from "#utils/config";
 import { games } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
@@ -33,23 +33,15 @@ export default {
         if (!interaction.inCachedGuild()) return;
         if (!interaction.isChatInputCommand()) return;
         if (!config.TRIBUTE_SIZE[0]) return console.error("Tribute size configuration not configured.");
-        let session_id;
-        let district_size;
 
         // get guild and id and check whether it's available
         const guild_id = interaction.guildId;
 
-        if (!guild_id) return await interaction.reply({
-            content: "Failed to f3tch the guild ID.",
-            flags: MessageFlags.Ephemeral
-        });
+        if (!guild_id) return await _EphToast(interaction, "Failed to f3tch the guild ID.");
 
         // check if a game is already hosted
         const qRes = await client.db.select().from(games).where(eq(games.guild_id, guild_id));
-        if (qRes.length > 0) return await interaction.reply({
-            content: `Game already hosted in the channel <#${qRes[0]?.channel_id}> !\nUse \`/stop\` to stop the current game and host a new one.`,
-            flags: MessageFlags.Ephemeral
-        });
+        if (qRes.length > 0) return await _EphToast(interaction, `Game already hosted in the channel <#${qRes[0]?.channel_id}> !\nUse \`/stop\` to stop the current game and host a new one.`);
 
         // setting options for tribute size menu
         const tributes_options: StringSelectMenuOptionBuilder[] = [];

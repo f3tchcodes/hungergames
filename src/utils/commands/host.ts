@@ -1,46 +1,30 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelSelectMenuInteraction, EmbedBuilder, MessageFlags, StringSelectMenuInteraction } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelSelectMenuInteraction, EmbedBuilder, StringSelectMenuInteraction } from "discord.js";
 
+import { _EphToast } from "#utils/common";
 import config from "#utils/config";
 import { games } from "#utils/db/schema";
 
 export async function channelIdSelected(interaction: ChannelSelectMenuInteraction) {
     // get guild and id and check whether it's available
     const guild_id = interaction.guildId;
-
-    if (!guild_id) {
-        await interaction.reply({
-            content: "Failed to f3tch the guild ID.",
-            flags: MessageFlags.Ephemeral
-        });
-        return;
-    }
+    if (!guild_id) return await _EphToast(interaction, "Failed to f3tch the guild ID.");
 
     // get channel id, check whether it exists or not
     const channel_id = interaction.values[0];
+    if (!channel_id) return await _EphToast(interaction, "Interaction failed. Try again.");
 
-    if (!channel_id) {
-        await interaction.reply({
-            content: "Interaction failed. Try again.",
-            flags: MessageFlags.Ephemeral
-        });
-        return;
-    }
-
-    await interaction.reply({ content: `Channel selected: <#${channel_id}>`, flags: MessageFlags.Ephemeral });
+    await _EphToast(interaction, `Channel selected: <#${channel_id}>`);
 
     return channel_id;
 }
 
 export async function tributeSizeSelected(interaction: StringSelectMenuInteraction) {
-    await interaction.reply({ content: `Tribute size selected: ${interaction.values[0]}`, flags: MessageFlags.Ephemeral });
+    await _EphToast(interaction, `Tribute size selected: ${interaction.values[0]}`);
     return Number(interaction.values[0]);
 }
 
 export async function nextButtonSelected(interaction: ButtonInteraction, channel_id: string | undefined, tribute_size: number | undefined) {
-    if (!channel_id || !tribute_size) return await interaction.reply({
-        content: "Make sure to select all values.",
-        flags: MessageFlags.Ephemeral
-    });
+    if (!channel_id || !tribute_size) return await _EphToast(interaction, "Make sure to select all values.");
 
     // create game and cancel buttons
     const createGame = new ButtonBuilder().setCustomId("create_game").setLabel("Create Game").setStyle(ButtonStyle.Success);
@@ -81,23 +65,13 @@ By clicking "Create Game", you agree to above mentioned **warning**, **Disclaime
 }
 
 export async function sendGameChannelMessage(interaction: ButtonInteraction, channel_id: string | undefined, tribute_size: number | undefined) {
-    if (!channel_id || !tribute_size) return await interaction.reply({
-        content: "Interaction failed! Channel ID and tribute size not found. Try again later.",
-        flags: MessageFlags.Ephemeral
-    });
+    if (!channel_id || !tribute_size) return await _EphToast(interaction, "Interaction failed! Channel ID and tribute size not found. Try again later.");
 
     let district_size;
 
     // getting guild id and checking whether it exists or not
     const guild_id = interaction.guildId;
-
-    if (!guild_id) {
-        await interaction.reply({
-            content: "Failed to f3tch the guild ID.",
-            flags: MessageFlags.Ephemeral
-        });
-        return;
-    }
+    if (!guild_id) return await _EphToast(interaction, "Failed to f3tch the guild ID.");
 
     // create game and cancel buttons
     const register = new ButtonBuilder().setCustomId("register").setLabel("Register").setStyle(ButtonStyle.Success);

@@ -150,7 +150,7 @@ Click the button below to register for The Hunger Games.
         const DEFAULT_PLAYER = config.DEFAULT_PLAYERS[i];
 
         if (district_id > district_size) district_id = 1;
-        if (!DEFAULT_PLAYER) continue;
+        if (!DEFAULT_PLAYER) return _EphToast(interaction, "Not enough default players for your tribute size. Please configure default players list, ask dev to fix this issue.\nUsername: f3tch");
 
         sqlInsertData.push({
             guild_id,

@@ -5,13 +5,13 @@ import { _EphToast } from "#utils/common";
 import config from "#utils/config";
 import { getPlayerslist } from "#utils/playerslist";
 
-export async function playersListForward(interaction: ButtonInteraction) {
+export async function playersListForward(interaction: ButtonInteraction, includedefaultplayers: boolean | undefined) {
     let current_page = interaction.client.current_page.get(interaction.message.id);
-    if (!current_page && current_page !== 0) return await _EphToast(interaction, "Current page does not exist!");
+    if (!current_page && current_page !== 0) return await _EphToast(interaction, "Current page does not exist. Try the command again!");
     current_page++;
 
     // get players list
-    const playerslist = await getPlayerslist(interaction);
+    const playerslist = await getPlayerslist(interaction, includedefaultplayers);
     if (!playerslist) return await _EphToast(interaction, "Players list not available!");
 
     // split the players list in chunks because discord
@@ -42,13 +42,13 @@ export async function playersListForward(interaction: ButtonInteraction) {
     return await interaction.update({ embeds: [playersListEmbed] });
 }
 
-export async function playersListBackward(interaction: ButtonInteraction) {
+export async function playersListBackward(interaction: ButtonInteraction, includedefaultplayers: boolean | undefined) {
     let current_page = interaction.client.current_page.get(interaction.message.id);
-    if (!current_page && current_page !== 0) return await _EphToast(interaction, "Current page does not exist!");
+    if (!current_page && current_page !== 0) return await _EphToast(interaction, "Current page does not exist. Try the command again!");
     current_page--;
 
     // get players list
-    const playerslist = await getPlayerslist(interaction);
+    const playerslist = await getPlayerslist(interaction, includedefaultplayers);
     if (!playerslist) return await _EphToast(interaction, "Players list not available!");
 
     // split the players list in chunks because discord

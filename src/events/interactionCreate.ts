@@ -10,6 +10,7 @@ import type { MyEvents } from "#utils/interfaces";
 
 let channel_id: string | undefined = undefined;
 let tribute_size: number | undefined = undefined;
+const includedefaultplayers: boolean | null = null;
 
 export default {
     name: Events.InteractionCreate,
@@ -43,16 +44,20 @@ export default {
             }
         } else if (interaction.isButton()) {
             try {
+                const messageId = interaction.message.id;
+                if (!messageId) return await _EphToast(interaction, "Failed to f3tch message ID!");
+
                 // global buttons
                 const register = interaction.customId === "register" ? await registerUser(interaction) : null;
 
                 if (interaction.user.id !== interaction.message.interactionMetadata?.user.id) { await _EphToast(interaction, "Mind your own business you stupid bastard."); return; }
+
                 // normal buttons
                 const next = interaction.customId === "next" ? await nextButtonSelected(interaction, channel_id, tribute_size) : null;
                 const create_game = interaction.customId === "create_game" ? await createGame(interaction, channel_id, tribute_size) : null;
 
-                const forward = interaction.customId === "forward" ? await playersListForward(interaction) : null;
-                const backward = interaction.customId === "backward" ? await playersListBackward(interaction) : null;
+                const forward = interaction.customId === "forward" ? await playersListForward(interaction, client.includedefaultplayers.get(messageId)) : null;
+                const backward = interaction.customId === "backward" ? await playersListBackward(interaction, client.includedefaultplayers.get(messageId)) : null;
 
                 // cancel button
                 const cancel = interaction.customId === "cancel" ? await cancelCommand(interaction) : null;

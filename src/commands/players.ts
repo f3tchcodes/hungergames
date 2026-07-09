@@ -35,8 +35,12 @@ export default {
         const qResSel = await client.db.select().from(games).where(eq(games.guild_id, guild_id));
         if (qResSel.length === 0) return await _EphToast(interaction, "No available game.\nYou may host a new game with `/host` anytime.");
 
+        // get options
+        let includedefaultplayers = interaction.options.getBoolean("include-default-players");
+        if (!includedefaultplayers) includedefaultplayers = false;
+
         // get players list
-        const playerslist = await getPlayerslist(interaction);
+        const playerslist = await getPlayerslist(interaction, includedefaultplayers);
         if (!playerslist) return;
 
         // split the players list in chunks because discord
@@ -61,9 +65,15 @@ export default {
 
         if (playerslist.length > 24) {
             const response = await interaction.reply({ embeds: [playersListEmbed], components: [buttonsRow], withResponse: true });
+
+            // get message id and set it in current page to change each page
+            // independently rather than globally changing the variable
             const messageId = response.resource?.message?.id;
             if (!messageId) return await _EphToast(interaction, "Not able to f3tch message ID, forward and backward arrows might not work.");
-            interaction.client.current_page.set(messageId, 0);
+            client.current_page.set(messageId, 0);
+            client.includedefaultplayers.set(messageId, includedefaultplayers);
+
+            return;
         } else {
             return await interaction.reply({ embeds: [playersListEmbed] });
         }

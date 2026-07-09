@@ -1,11 +1,12 @@
 import type { APIEmbedField, Interaction, RestOrArray } from "discord.js";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 import { _EphToast } from "./common.js";
 import { districts, games } from "./db/schema.js";
 
-export async function getPlayerslist(interaction: Interaction) {
+export async function getPlayerslist(interaction: Interaction, includedefaultplayers: boolean | undefined) {
     if (!interaction.isChatInputCommand() && !interaction.isButton()) return;
+    let qResSelDistricts;
 
     // get guild and id and check whether it's available
     const guild_id = interaction.guildId;
@@ -16,7 +17,18 @@ export async function getPlayerslist(interaction: Interaction) {
     if (!qResSel[0]) return;
 
     // get players list
-    const qResSelDistricts = await interaction.client.db.select().from(districts).where(eq(districts.guild_id, guild_id));
+    if (includedefaultplayers) {
+        qResSelDistricts = await interaction.client.db
+            .select()
+            .from(districts)
+            .where(eq(districts.guild_id, guild_id));
+    } else {
+        qResSelDistricts = await interaction.client.db
+            .select()
+            .from(districts)
+            .where(and(eq(districts.guild_id, guild_id), eq(districts.real, 1)));
+    }
+
     if (!qResSelDistricts) {
         await _EphToast(interaction, "No available players list. This is an error in the backend, rehost the game and if it's not fixed contact dev to fix.\nUsername: f3tch");
         return [];

@@ -15,6 +15,7 @@ declare module "discord.js" {
         db: BetterSQLite3Database<EmptyRelations>;
         interactions: Map<string, MyInteractions>;
         current_page: Map<string, number>;
+        includedefaultplayers: Map<string, boolean | undefined>;
     }
 }
 
@@ -32,6 +33,7 @@ const client = new Client({
 client.db = db;
 client.interactions = new Map();
 client.current_page = new Map();
+client.includedefaultplayers = new Map();
 
 // updating and loading interaction commands, and loading events
 await loadInteractions(client);

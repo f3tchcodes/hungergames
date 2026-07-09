@@ -4,6 +4,7 @@ const config = {
     PRIVACY_POLICY: "https://brantsteele.com/privacypolicy.php",
     ICON_URL: "https://brantsteele.com/extras/hungergames/01/logo.png",
     THEME_COLOR: 0xDC6219,
+    REGISTERED_PLAYERS_LIST_PAGES_CHUNKS: 24,
     TRIBUTE_SIZE: [
         { name: "Default (24)", value: 24 },
         { name: "Medium (36)", value: 36 },
@@ -14,7 +15,6 @@ const config = {
         medium: 3,
         large: 4
     },
-    REGISTERED_PLAYERS_LIST_PAGES_CHUNKS: 24,
     DEFAULT_PLAYERS: [
         {
             user_id: "default1",
@@ -313,8 +313,8 @@ export default {
     PRIVACY_POLICY: config.PRIVACY_POLICY,
     ICON_URL: config.ICON_URL,
     THEME_COLOR: config.THEME_COLOR,
+    REGISTERED_PLAYERS_LIST_PAGES_CHUNKS: config.REGISTERED_PLAYERS_LIST_PAGES_CHUNKS,
     TRIBUTE_SIZE: config.TRIBUTE_SIZE,
     DISTRICT_SIZE: config.DISTRICT_SIZE,
-    REGISTERED_PLAYERS_LIST_PAGES_CHUNKS: config.REGISTERED_PLAYERS_LIST_PAGES_CHUNKS,
     DEFAULT_PLAYERS: config.DEFAULT_PLAYERS
 };

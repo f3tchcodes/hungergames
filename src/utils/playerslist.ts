@@ -1,5 +1,7 @@
-import type { APIEmbedField, Interaction, RestOrArray } from "discord.js";
+import { type APIEmbedField, EmbedBuilder, type Interaction, type RestOrArray } from "discord.js";
 import { and, eq } from "drizzle-orm";
+
+import config from "#utils/config";
 
 import { _EphToast } from "./common.js";
 import { districts, games } from "./db/schema.js";
@@ -29,8 +31,15 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
             .where(and(eq(districts.guild_id, guild_id), eq(districts.real, 1)));
     }
 
-    if (!qResSelDistricts) {
-        await _EphToast(interaction, "No available players list. This is an error in the backend, rehost the game and if it's not fixed contact dev to fix.\nUsername: f3tch");
+    if (!qResSelDistricts || qResSelDistricts.length === 0) {
+        const playerlistNAEmbed = new EmbedBuilder()
+            .setAuthor({ name: "The Hunger Games", iconURL: config.ICON_URL })
+            .setColor(config.THEME_COLOR)
+            .setTitle("List of registered players: ")
+            .setDescription("No registerations. I feel sorry for you man.")
+            .setTimestamp();
+
+        await interaction.reply({ embeds: [playerlistNAEmbed] });
         return [];
     }
 

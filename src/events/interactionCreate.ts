@@ -3,6 +3,7 @@ import { Events } from "discord.js";
 
 import { cancelCommand } from "#utils/commands/common";
 import { channelIdSelected, createGame, nextButtonSelected, tributeSizeSelected } from "#utils/commands/host";
+import { playersListBackward, playersListForward } from "#utils/commands/players";
 import { registerUser } from "#utils/commands/register";
 import { _EphToast } from "#utils/common";
 import type { MyEvents } from "#utils/interfaces";
@@ -49,6 +50,9 @@ export default {
                 // normal buttons
                 const next = interaction.customId === "next" ? await nextButtonSelected(interaction, channel_id, tribute_size) : null;
                 const create_game = interaction.customId === "create_game" ? await createGame(interaction, channel_id, tribute_size) : null;
+
+                const forward = interaction.customId === "forward" ? await playersListForward(interaction) : null;
+                const backward = interaction.customId === "backward" ? await playersListBackward(interaction) : null;
 
                 // cancel button
                 const cancel = interaction.customId === "cancel" ? await cancelCommand(interaction) : null;

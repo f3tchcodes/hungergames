@@ -12,8 +12,9 @@ import type { MyInteractions } from "#utils/interfaces";
 // augmenting @discord.js
 declare module "discord.js" {
     interface Client {
-        interactions: Map<string, MyInteractions>;
         db: BetterSQLite3Database<EmptyRelations>;
+        interactions: Map<string, MyInteractions>;
+        current_page: Map<string, number>;
     }
 }
 
@@ -28,8 +29,9 @@ const client = new Client({
     ]
 });
 
-client.interactions = new Map();
 client.db = db;
+client.interactions = new Map();
+client.current_page = new Map();
 
 // updating and loading interaction commands, and loading events
 await loadInteractions(client);

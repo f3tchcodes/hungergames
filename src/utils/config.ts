@@ -14,6 +14,7 @@ const config = {
         medium: 3,
         large: 4
     },
+    REGISTERED_PLAYERS_LIST_PAGES_CHUNKS: 24,
     DEFAULT_PLAYERS: [
         {
             user_id: "default1",
@@ -314,5 +315,6 @@ export default {
     THEME_COLOR: config.THEME_COLOR,
     TRIBUTE_SIZE: config.TRIBUTE_SIZE,
     DISTRICT_SIZE: config.DISTRICT_SIZE,
+    REGISTERED_PLAYERS_LIST_PAGES_CHUNKS: config.REGISTERED_PLAYERS_LIST_PAGES_CHUNKS,
     DEFAULT_PLAYERS: config.DEFAULT_PLAYERS
 };

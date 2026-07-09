@@ -1,8 +1,8 @@
-import { Client, type ClientEvents, type Interaction, type SlashCommandOptionsOnlyBuilder } from "discord.js";
+import { Client, type ClientEvents, type Interaction, type SlashCommandOptionsOnlyBuilder, type SlashCommandSubcommandsOnlyBuilder } from "discord.js";
 
 // for interactions
 export interface MyInteractions {
-    data: SlashCommandOptionsOnlyBuilder;
+    data: SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder;
     execute: (client: Client, interaction: Interaction, args: string[]) => Promise<unknown>;
 }
 

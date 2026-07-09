@@ -45,7 +45,6 @@ export default {
                 const messageId = interaction.message.id;
 
                 const hostValues = interaction.client.hostValues.get(messageId);
-                console.log(hostValues);
                 const channel_id = hostValues?.channel_id;
                 const tribute_size = hostValues?.tribute_size;
 

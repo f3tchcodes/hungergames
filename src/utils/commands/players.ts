@@ -21,9 +21,6 @@ export async function playersListForward(interaction: ButtonInteraction, include
 
     // check how many pages we have
     const pages = playerslistChunks.length;
-    console.log(playerslistChunks);
-    console.log(pages);
-    console.log(current_page);
     if (current_page > pages - 1) return await _EphToast(interaction, "No more pages left chimp!");
 
     // create new player embed

@@ -11,3 +11,9 @@ export interface MyEvents<EventName extends keyof ClientEvents = keyof ClientEve
     name: EventName;
     execute: (client: Client, ...args: ClientEvents[EventName]) => Promise<void>;
 }
+
+// for host command
+export interface HostValues {
+    channel_id: string | undefined;
+    tribute_size: number | undefined;
+}

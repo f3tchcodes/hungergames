@@ -8,10 +8,6 @@ import { registerUser } from "#utils/commands/register";
 import { _EphToast } from "#utils/common";
 import type { MyEvents } from "#utils/interfaces";
 
-let channel_id: string | undefined = undefined;
-let tribute_size: number | undefined = undefined;
-const includedefaultplayers: boolean | null = null;
-
 export default {
     name: Events.InteractionCreate,
     async execute(client, interaction, ...args) {
@@ -26,8 +22,9 @@ export default {
             try {
                 if (interaction.user.id !== interaction.message.interactionMetadata?.user.id) { await _EphToast(interaction, "Mind your own business you stupid bastard."); return; }
                 if (interaction.customId === "channel") {
-                    channel_id = await channelIdSelected(interaction);
-                    console.log(channel_id);
+                    const channel_id = await channelIdSelected(interaction);
+                    const hostValues = client.hostValues.get(interaction.message.id);
+                    client.hostValues.set(interaction.message.id, { channel_id, tribute_size: hostValues?.tribute_size });
                 }
             } catch (err) {
                 console.log(`Error running channel select: ${err}`);
@@ -36,8 +33,9 @@ export default {
             try {
                 if (interaction.user.id !== interaction.message.interactionMetadata?.user.id) { await _EphToast(interaction, "Mind your own business you stupid bastard."); return; }
                 if (interaction.customId === "tribute_size") {
-                    tribute_size = await tributeSizeSelected(interaction);
-                    console.log(tribute_size);
+                    const tribute_size = await tributeSizeSelected(interaction);
+                    const hostValues = client.hostValues.get(interaction.message.id);
+                    client.hostValues.set(interaction.message.id, { channel_id: hostValues?.channel_id, tribute_size });
                 }
             } catch (err) {
                 console.log(`Error running string select: ${err}`);
@@ -45,6 +43,12 @@ export default {
         } else if (interaction.isButton()) {
             try {
                 const messageId = interaction.message.id;
+
+                const hostValues = interaction.client.hostValues.get(messageId);
+                console.log(hostValues);
+                const channel_id = hostValues?.channel_id;
+                const tribute_size = hostValues?.tribute_size;
+
                 if (!messageId) return await _EphToast(interaction, "Failed to f3tch message ID!");
 
                 // global buttons

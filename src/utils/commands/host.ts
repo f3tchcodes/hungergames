@@ -21,7 +21,9 @@ export async function channelIdSelected(interaction: ChannelSelectMenuInteractio
 
 export async function tributeSizeSelected(interaction: StringSelectMenuInteraction) {
     await _EphToast(interaction, `Tribute size selected: ${interaction.values[0]}`);
-    return Number(interaction.values[0]);
+    const tribute_size = Number(interaction.values[0]);
+
+    return tribute_size;
 }
 
 export async function nextButtonSelected(interaction: ButtonInteraction, channel_id: string | undefined, tribute_size: number | undefined) {

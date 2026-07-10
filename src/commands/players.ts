@@ -105,11 +105,11 @@ export default {
         } else if (listOp === "register") {
             // get user, district id, and district position options
             const target_user_id = interaction.options.getUser("user");
-            const district_id = interaction.options.getUser("district-id");
-            const district_position = interaction.options.getUser("district-position");
+            const district_id = interaction.options.getInteger("district-id");
+            const district_position = interaction.options.getInteger("district-position");
 
-            if (district_id) {
-                if (!district_position) return await _EphToast(interaction, "Provide district position for the user!");
+            if (district_id || district_position) {
+                if (!district_id || !district_position) return await _EphToast(interaction, "You must provide both district ID and district position to register a user into a specific position!");
             }
 
             const registerPlayerObject: RegisterPlayer = {
@@ -117,7 +117,10 @@ export default {
                 guild_id: interaction.guildId,
                 user_id: target_user_id?.id,
                 username: target_user_id?.displayName,
-                profile_pic_url: target_user_id?.displayAvatarURL()
+                profile_pic_url: target_user_id?.displayAvatarURL(),
+
+                district_id,
+                district_position
             };
 
             const register = await registerPlayer(registerPlayerObject);

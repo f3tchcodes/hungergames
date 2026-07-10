@@ -28,8 +28,8 @@ export async function registerPlayer(RegisterPlayer: RegisterPlayer) {
     const district_data = await interaction.client.db.select().from(districts).where(eq(districts.guild_id, guild_id));
 
     // check whether the registeration is a duplicate or not
-    let dup = 0;
-    district_data.forEach(player => { if (player.user_id === user_id) dup++; });
+    let dup = false;
+    district_data.forEach(player => { if (player.user_id === user_id) dup = true; });
     if (dup) return await _EphToast(interaction, `**${username}** has already been registered lad.`);
 
     // if all spots have been filled
@@ -38,8 +38,18 @@ export async function registerPlayer(RegisterPlayer: RegisterPlayer) {
         return await _EphToast(interaction, "All spots have been filled, you can no longer register!");
     }
 
+    console.log(district_id);
+    console.log(district_position);
+
     if (district_id && district_position) {
-        // if both district id and district position are given
+        // check wether district id and position are occupied or not
+        let occupied = false;
+        district_data.forEach(player => {
+            if (district_id === player.district_id && district_position === player.district_position && player.real) occupied = true;
+        });
+        if (occupied) return await _EphToast(interaction, "Selected position is already occupied!\nYou may remove that player from their position and register a new one.");
+
+        // if both district id and position are available
         // then use those coordinates to place the player
         await interaction.client.db
             .update(districts)

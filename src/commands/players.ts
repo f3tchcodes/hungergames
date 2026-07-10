@@ -20,6 +20,11 @@ const players = new SlashCommandBuilder()
                     .setName("include-default-players")
                     .setDescription("Include default players in registered list.")
             )
+    )
+    .addSubcommand(register =>
+        register
+            .setName("register")
+            .setDescription("List of current registered players.")
     );
 
 export default {
@@ -35,47 +40,51 @@ export default {
         const qResSel = await client.db.select().from(games).where(eq(games.guild_id, guild_id));
         if (qResSel.length === 0) return await _EphToast(interaction, "No available game.\nYou may host a new game with `/host` anytime.");
 
-        // get options
-        let includedefaultplayers = interaction.options.getBoolean("include-default-players");
-        if (!includedefaultplayers) includedefaultplayers = false;
+        const listOp = interaction.options.getSubcommand();
 
-        // get players list
-        const playerslist = await getPlayerslist(interaction, includedefaultplayers);
-        if (!playerslist) return;
+        if (listOp === "list") {
+            // get options
+            let includedefaultplayers = interaction.options.getBoolean("include-default-players");
+            if (!includedefaultplayers) includedefaultplayers = false;
 
-        // split the players list in chunks because discord
-        // does not allow more fields than 25 in each embed
-        const playerslistChunks = _.chunk(playerslist, config.REGISTERED_PLAYERS_LIST_PAGES_CHUNKS);
-        if (!playerslistChunks[0]) return;
+            // get players list
+            const playerslist = await getPlayerslist(interaction, includedefaultplayers);
+            if (!playerslist) return;
 
-        // creating forward and backward buttons
-        const backwardButton = new ButtonBuilder().setCustomId("backward").setLabel("<-").setStyle(ButtonStyle.Secondary);
-        const forwardButton = new ButtonBuilder().setCustomId("forward").setLabel("->").setStyle(ButtonStyle.Secondary);
+            // split the players list in chunks because discord
+            // does not allow more fields than 25 in each embed
+            const playerslistChunks = _.chunk(playerslist, config.REGISTERED_PLAYERS_LIST_PAGES_CHUNKS);
+            if (!playerslistChunks[0]) return;
 
-        const buttonsRow = new ActionRowBuilder<ButtonBuilder>().addComponents(backwardButton, forwardButton);
+            // creating forward and backward buttons
+            const backwardButton = new ButtonBuilder().setCustomId("backward").setLabel("<-").setStyle(ButtonStyle.Secondary);
+            const forwardButton = new ButtonBuilder().setCustomId("forward").setLabel("->").setStyle(ButtonStyle.Secondary);
 
-        // build players list embed
-        const playersListEmbed = new EmbedBuilder()
-            .setAuthor({ name: "The Hunger Games", iconURL: config.ICON_URL })
-            .setColor(config.THEME_COLOR)
-            .setTitle("List of registered players: ")
-            .setFields(playerslistChunks[0])
-            .setFooter({ text: "Page 1" })
-            .setTimestamp();
+            const buttonsRow = new ActionRowBuilder<ButtonBuilder>().addComponents(backwardButton, forwardButton);
 
-        if (playerslist.length > 24) {
-            const response = await interaction.reply({ embeds: [playersListEmbed], components: [buttonsRow], withResponse: true });
+            // build players list embed
+            const playersListEmbed = new EmbedBuilder()
+                .setAuthor({ name: "The Hunger Games", iconURL: config.ICON_URL })
+                .setColor(config.THEME_COLOR)
+                .setTitle("List of registered players: ")
+                .setFields(playerslistChunks[0])
+                .setFooter({ text: "Page 1" })
+                .setTimestamp();
 
-            // get message id and set it in current page to change each page
-            // independently rather than globally changing the variable
-            const messageId = response.resource?.message?.id;
-            if (!messageId) return await _EphToast(interaction, "Not able to f3tch message ID, forward and backward arrows might not work.");
-            client.current_page.set(messageId, 0);
-            client.includedefaultplayers.set(messageId, includedefaultplayers);
+            if (playerslist.length > 24) {
+                const response = await interaction.reply({ embeds: [playersListEmbed], components: [buttonsRow], withResponse: true });
 
-            return;
-        } else {
-            return await interaction.reply({ embeds: [playersListEmbed] });
+                // get message id and set it in current page to change each page
+                // independently rather than globally changing the variable
+                const messageId = response.resource?.message?.id;
+                if (!messageId) return await _EphToast(interaction, "Not able to f3tch message ID, forward and backward arrows might not work.");
+                client.current_page.set(messageId, 0);
+                client.includedefaultplayers.set(messageId, includedefaultplayers);
+
+                return;
+            } else {
+                return await interaction.reply({ embeds: [playersListEmbed] });
+            }
         }
     }
 } satisfies MyInteractions;

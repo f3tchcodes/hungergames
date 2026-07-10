@@ -4,7 +4,7 @@ import { Events } from "discord.js";
 import { cancelCommand } from "#utils/commands/common";
 import { channelIdSelected, createGame, nextButtonSelected, tributeSizeSelected } from "#utils/commands/host";
 import { playersListBackward, playersListForward } from "#utils/commands/players";
-import { registerUser } from "#utils/commands/register";
+import { registerPlayerBtn } from "#utils/commands/register";
 import { _EphToast } from "#utils/common";
 import type { MyEvents } from "#utils/interfaces";
 
@@ -51,7 +51,7 @@ export default {
                 if (!messageId) return await _EphToast(interaction, "Failed to f3tch message ID!");
 
                 // global buttons
-                const register = interaction.customId === "register" ? await registerUser(interaction) : null;
+                const register = interaction.customId === "register" ? await registerPlayerBtn(interaction) : null;
 
                 if (interaction.user.id !== interaction.message.interactionMetadata?.user.id) { await _EphToast(interaction, "Mind your own business you stupid bastard."); return; }
 

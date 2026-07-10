@@ -1,4 +1,3 @@
-
 import { type APIEmbedField, EmbedBuilder, type Interaction, type RestOrArray } from "discord.js";
 import { and, eq } from "drizzle-orm";
 
@@ -48,12 +47,6 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
     const playerslist: RestOrArray<APIEmbedField> = [];
     const playerListRowSize = qResSel[0]?.district_size - 1;
     let playerListTimeout = 0;
-    interface I {
-        player_id?: number;
-        district_id?: number;
-        username?: string;
-    }
-    let i: I = {};
 
     // create playerListTimeout to add an empty field every 2 fields
     // this will help us create 2 columns for the embed
@@ -63,28 +56,6 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
                 name: `DISTRICT ${player.district_id.toString()}`,
                 value: ""
             });
-        }
-
-        console.log(i.player_id);
-        const previous_player_id = i.player_id;
-        if (previous_player_id) {
-            if (previous_player_id + 1 !== player.player_id) {
-                const difference = player.player_id - previous_player_id;
-                for (let i = 0; i < difference; i++) {
-
-                    if (i === difference - 1) {
-                        playerslist.push({
-                            name: `DISTRICT ${player.district_id.toString()}`,
-                            value: ""
-                        });
-                    } else {
-                        playerslist.push({
-                            name: "",
-                            value: ""
-                        });
-                    }
-                }
-            }
         }
 
         playerListTimeout++;
@@ -103,12 +74,6 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
 
             playerListTimeout = 0;
         }
-
-        i = {
-            player_id: player.player_id,
-            district_id: player.district_id,
-            username: player.username,
-        };
     });
 
     return playerslist;

@@ -47,15 +47,13 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
     const playerslist: RestOrArray<APIEmbedField> = [];
     const playerListRowSize = qResSel[0]?.district_size - 1;
     let playerListTimeout = 0;
-    let district = 0;
 
     // create playerListTimeout to add an empty field every 2 fields
     // this will help us create 2 columns for the embed
     qResSelDistricts.forEach(player => {
         if (playerListTimeout === 0) {
-            district++;
             playerslist.push({
-                name: `DISTRICT ${district.toString()}`,
+                name: `DISTRICT ${player.district_id.toString()}`,
                 value: ""
             });
         }

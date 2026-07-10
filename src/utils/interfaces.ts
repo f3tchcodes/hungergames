@@ -17,3 +17,15 @@ export interface HostValues {
     channel_id: string | undefined;
     tribute_size: number | undefined;
 }
+
+// for registerations
+export interface RegisterPlayer {
+    interaction: Interaction,
+    guild_id: string | undefined | null,
+    user_id: string | undefined | null,
+    username: string | undefined | null,
+    profile_pic_url: string | undefined | null;
+
+    district_id?: number | undefined | null;
+    district_position?: number | undefined | null;
+}

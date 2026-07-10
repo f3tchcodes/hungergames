@@ -5,8 +5,9 @@ import _ from "lodash";
 import { _EphToast } from "#utils/common";
 import config from "#utils/config";
 import { games } from "#utils/db/schema";
-import type { MyInteractions } from "#utils/interfaces";
+import type { MyInteractions, RegisterPlayer } from "#utils/interfaces";
 import { getPlayerslist } from "#utils/playerslist";
+import { registerPlayer } from "#utils/register";
 
 const players = new SlashCommandBuilder()
     .setName("players")
@@ -24,7 +25,23 @@ const players = new SlashCommandBuilder()
     .addSubcommand(register =>
         register
             .setName("register")
-            .setDescription("List of current registered players.")
+            .setDescription("Register users.")
+            .addUserOption(op =>
+                op
+                    .setName("user")
+                    .setDescription("Select user to register.")
+                    .setRequired(true)
+            )
+            .addIntegerOption(op =>
+                op
+                    .setName("district-id")
+                    .setDescription("Select user's district ID.")
+            )
+            .addIntegerOption(op =>
+                op
+                    .setName("district-position")
+                    .setDescription("Select user's position in the district")
+            )
     );
 
 export default {
@@ -85,6 +102,30 @@ export default {
             } else {
                 return await interaction.reply({ embeds: [playersListEmbed] });
             }
+        } else if (listOp === "register") {
+            // get user, district id, and district position options
+            const target_user_id = interaction.options.getUser("user");
+            const district_id = interaction.options.getUser("district-id");
+            const district_position = interaction.options.getUser("district-position");
+
+            if (district_id) {
+                if (!district_position) return await _EphToast(interaction, "Provide district position for the user!");
+            }
+
+            const registerPlayerObject: RegisterPlayer = {
+                interaction: interaction,
+                guild_id: interaction.guildId,
+                user_id: target_user_id?.id,
+                username: target_user_id?.displayName,
+                profile_pic_url: target_user_id?.displayAvatarURL()
+            };
+
+            const register = await registerPlayer(registerPlayerObject);
+            if (!register) return;
+
+            return await _EphToast(interaction, `Successfully registered **${register.username}** to The Hunger Games.\nUse \`/mysettings gender\` to set your gender.`);
+        } else {
+            return await _EphToast(interaction, "Incorrect subcommand.");
         }
     }
 } satisfies MyInteractions;

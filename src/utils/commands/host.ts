@@ -136,28 +136,31 @@ Click the button below to register for The Hunger Games.
 
     // creating district rows in the database
     // we loop over tribute size to create tribute size amount of rows
-    // if district_id is larger than district_size, we reset it back to 1
+    // if district_position is larger than district_size, we reset it back to 1
     // then we loop over default players and add them one by one and stop according to tribute size
     // then we push each object of values into sqlInsertData array
     // finally we send query to the database and insert all those values
     const sqlInsertData: InferInsertModel<typeof districts>[] = [];
 
-    let district_id = 0;
+    let district_position = 0;
     let player_id = 0;
+    let district_id = 0;
 
     for (let i = 0; i < tribute_size; i++) {
-        district_id += 1;
-        player_id += 1;
+        district_position++;
+        player_id++;
 
         const DEFAULT_PLAYER = config.DEFAULT_PLAYERS[i];
 
-        if (district_id > district_size) district_id = 1;
+        if (district_position > district_size) district_position = 1;
+        if (district_position === 1) district_id++;
         if (!DEFAULT_PLAYER) return _EphToast(interaction, "Not enough default players for your tribute size. Please configure default players list, ask dev to fix this issue.\nUsername: f3tch");
 
         sqlInsertData.push({
             guild_id,
             player_id,
             district_id,
+            district_position,
             ...DEFAULT_PLAYER
         });
     }

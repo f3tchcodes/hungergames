@@ -3,8 +3,8 @@ const config = {
     DISCLAIMER: "https://brantsteele.com/disclaimer.php",
     PRIVACY_POLICY: "https://brantsteele.com/privacypolicy.php",
     ICON_URL: "https://brantsteele.com/extras/hungergames/01/logo.png",
-    THEME_COLOR: 0xDC6219,
-    REGISTERED_PLAYERS_LIST_PAGES_CHUNKS: 24,
+    THEME_COLOR: 0xDC6219, // discord embeds, they don't accept string colors
+    CANVAS_TEXT_COLOR: "#FFFFFF", // for canvas, it only accepts string colors
     TRIBUTE_SIZE: [
         { name: "Default (24)", value: 24 },
         { name: "Medium (36)", value: 36 },
@@ -313,7 +313,7 @@ export default {
     PRIVACY_POLICY: config.PRIVACY_POLICY,
     ICON_URL: config.ICON_URL,
     THEME_COLOR: config.THEME_COLOR,
-    REGISTERED_PLAYERS_LIST_PAGES_CHUNKS: config.REGISTERED_PLAYERS_LIST_PAGES_CHUNKS,
+    CANVAS_TEXT_COLOR: config.CANVAS_TEXT_COLOR,
     TRIBUTE_SIZE: config.TRIBUTE_SIZE,
     DISTRICT_SIZE: config.DISTRICT_SIZE,
     DEFAULT_PLAYERS: config.DEFAULT_PLAYERS

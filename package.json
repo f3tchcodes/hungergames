@@ -27,9 +27,11 @@
   "homepage": "https://github.com/f3tchcodes/hungergames#readme",
   "dependencies": {
     "@libsql/client": "^0.17.4",
+    "@napi-rs/canvas": "^1.0.2",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/lodash": "^4.17.24",
     "better-sqlite3": "^12.11.1",
+    "canvas-constructor": "^7.0.2",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^1.0.0-rc.4",
     "eslint-plugin-simple-import-sort": "^13.0.0",

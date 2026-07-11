@@ -1,11 +1,11 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } from "discord.js";
 import { eq } from "drizzle-orm";
 import _ from "lodash";
 
+import { buildListCanvas } from "#utils/canvas";
 import { _EphToast } from "#utils/common";
-import config from "#utils/config";
 import { games } from "#utils/db/schema";
-import type { MyInteractions, RegisterPlayer } from "#utils/interfaces";
+import type { ListCanvasGenerateInfo, MyInteractions, RegisterPlayer } from "#utils/interfaces";
 import { getPlayerslist } from "#utils/playerslist";
 import { registerPlayer } from "#utils/register";
 
@@ -55,7 +55,9 @@ export default {
 
         // check whether a game is hosted or not
         const qResSel = await client.db.select().from(games).where(eq(games.guild_id, guild_id));
-        if (qResSel.length === 0) return await _EphToast(interaction, "No available game.\nYou may host a new game with `/host` anytime.");
+        const district_size = qResSel[0]?.district_size;
+        const tribute_size = qResSel[0]?.tribute_size;
+        if (qResSel.length === 0 || !district_size || !tribute_size) return await _EphToast(interaction, "No available game.\nYou may host a new game with `/host` anytime.");
 
         const listOp = interaction.options.getSubcommand();
 
@@ -65,13 +67,14 @@ export default {
             if (!includedefaultplayers) includedefaultplayers = false;
 
             // get players list
-            const playerslist = await getPlayerslist(interaction, includedefaultplayers);
+            const playerslist = await getPlayerslist(interaction);
             if (!playerslist) return;
 
-            // split the players list in chunks because discord
-            // does not allow more fields than 25 in each embed
-            const playerslistChunks = _.chunk(playerslist, config.REGISTERED_PLAYERS_LIST_PAGES_CHUNKS);
-            if (!playerslistChunks[0]) return;
+            // split the players list in chunks for paginated messages
+            let chunk_size = 12;
+            if (district_size === 3) chunk_size = 9;
+            const playerslistChunks = _.chunk(playerslist, chunk_size);
+            if (!playerslistChunks) return await _EphToast(interaction, "Players list chunks not available!");
 
             // creating forward and backward buttons
             const backwardButton = new ButtonBuilder().setCustomId("backward").setLabel("<-").setStyle(ButtonStyle.Secondary);
@@ -79,17 +82,21 @@ export default {
 
             const buttonsRow = new ActionRowBuilder<ButtonBuilder>().addComponents(backwardButton, forwardButton);
 
-            // build players list embed
-            const playersListEmbed = new EmbedBuilder()
-                .setAuthor({ name: "The Hunger Games", iconURL: config.ICON_URL })
-                .setColor(config.THEME_COLOR)
-                .setTitle("List of registered players: ")
-                .setFields(playerslistChunks[0])
-                .setFooter({ text: "Page 1" })
-                .setTimestamp();
+            // canvas info for generating the canvas
+            const listCanvasGenerateInfo: ListCanvasGenerateInfo = {
+                playerslistInfoChunks: playerslistChunks,
+                page: 0,
+                district_size,
+                tribute_size,
+                includedefaultplayers
+            };
+
+            const image = await buildListCanvas(listCanvasGenerateInfo);
+            if (!image) return await _EphToast(interaction, "Image could not be generated!");
 
             if (playerslist.length > 24) {
-                const response = await interaction.reply({ embeds: [playersListEmbed], components: [buttonsRow], withResponse: true });
+                const response = await interaction.deferReply({ withResponse: true });
+                await interaction.followUp({ files: [image], components: [buttonsRow] });
 
                 // get message id and set it in current page to change each page
                 // independently rather than globally changing the variable
@@ -100,7 +107,8 @@ export default {
 
                 return;
             } else {
-                return await interaction.reply({ embeds: [playersListEmbed] });
+                await interaction.deferReply();
+                return await interaction.followUp({ files: [image] });
             }
         } else if (listOp === "register") {
             // get user, district id, and district position options

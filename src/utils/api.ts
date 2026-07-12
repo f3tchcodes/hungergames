@@ -4,7 +4,7 @@ import { _EphToast } from "#utils/common";
 import config from "#utils/config";
 
 export async function createSessionId(interaction: ChatInputCommandInteraction) {
-    let session_id;
+    let session_id: string | undefined;
 
     // f3tching the session cookie that we'll save
     // and use to send request to every endpoint
@@ -22,4 +22,12 @@ export async function createSessionId(interaction: ChatInputCommandInteraction) 
     if (!session_id) return await _EphToast(interaction, "Session ID for starting the game could not be f3tched. Contact dev to fix.\nUsername: f3tch");
 
     return session_id;
+}
+
+export async function setTributeSize(session_id: string, tribute_size: number) {
+    return await fetch(`https://brantsteele.net/hungergames/ChangeTributes-${tribute_size}.php`, {
+        headers: {
+            Cookies: `PHPSESSID=${session_id}`
+        }
+    });
 }

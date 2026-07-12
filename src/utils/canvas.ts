@@ -165,6 +165,7 @@ async function buildListUserRows(user_data: BuildListUserData) {
 
     const promises = current_page.map(async user => {
         const image = await loadImage(user.profile.profile_pic_url);
+
         canvas.printImage(
             image,
             user.profile.position_width,

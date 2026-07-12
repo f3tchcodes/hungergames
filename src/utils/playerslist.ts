@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { districts, games } from "./db/schema.js";
 import type { PlayerslistInfo } from "./interfaces.js";
 
-export async function getPlayerslist(interaction: Interaction): Promise<PlayerslistInfo[] | undefined> {
+export async function getPlayerslist(interaction: Interaction, includedefaultplayers: boolean | undefined): Promise<PlayerslistInfo[] | undefined> {
     if (!interaction.isChatInputCommand() && !interaction.isButton()) return;
 
     // get guild and id and check whether it's available
@@ -27,14 +27,32 @@ export async function getPlayerslist(interaction: Interaction): Promise<Playersl
     // create playerListTimeout to add an empty field every 2 fields
     // this will help us create 2 columns for the embed
     qResSelDistricts.forEach(player => {
-        playerslist.push({
+        const data: PlayerslistInfo = {
             username: player.username,
             player_id: player.player_id,
             profile_pic_url: player.profile_pic_url,
             district_id: player.district_id,
             district_position: player.district_position,
             real: Boolean(player.real)
-        });
+        };
+
+        const unknown_data: PlayerslistInfo = {
+            username: "",
+            player_id: player.id,
+            profile_pic_url: "./assets/unknown_player.png",
+            district_id: player.district_id,
+            district_position: player.district_position,
+            real: Boolean(player.real)
+        };
+
+        if (includedefaultplayers) {
+            if (player.real) playerslist.push(data);
+            playerslist.push(unknown_data);
+            return;
+        }
+
+        playerslist.push(data);
+        return;
     });
 
     return playerslist;

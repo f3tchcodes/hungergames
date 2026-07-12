@@ -67,7 +67,7 @@ export default {
             if (!includedefaultplayers) includedefaultplayers = false;
 
             // get players list
-            const playerslist = await getPlayerslist(interaction);
+            const playerslist = await getPlayerslist(interaction, includedefaultplayers);
             if (!playerslist) return;
 
             // split the players list in chunks for paginated messages

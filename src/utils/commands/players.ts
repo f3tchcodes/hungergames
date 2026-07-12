@@ -25,7 +25,7 @@ export async function playerslistControls(interaction: ButtonInteraction, option
     }
 
     // get players list
-    const playerslist = await getPlayerslist(interaction);
+    const playerslist = await getPlayerslist(interaction, includedefaultplayers);
     if (!playerslist) return await _EphToast(interaction, "Players list not available!");
 
     // get current game info

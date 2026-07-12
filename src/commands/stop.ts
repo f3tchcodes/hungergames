@@ -1,7 +1,7 @@
 import { InteractionContextType, SlashCommandBuilder } from "discord.js";
 import { eq } from "drizzle-orm";
 
-import { _EphToast } from "#utils/common";
+import { _EphToast, getGamesTable } from "#utils/common";
 import { districts, games } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
 
@@ -23,8 +23,8 @@ export default {
         if (!guild_id) return await _EphToast(interaction, "Failed to f3tch the guild ID.");
 
         // check whether a game is hosted or not
-        const qResSel = await client.db.select().from(games).where(eq(games.guild_id, guild_id));
-        if (qResSel.length === 0) return await _EphToast(interaction, "No available game to stop.\nYou may host a new game with `/host` anytime.");
+        const qGames = await getGamesTable(interaction, guild_id);
+        if (!qGames) return await _EphToast(interaction, "No available game to stop.\nYou may host a new game with `/host` anytime.");
 
         // delete game data to stop the game
         await client.db.delete(games).where(eq(games.guild_id, guild_id));

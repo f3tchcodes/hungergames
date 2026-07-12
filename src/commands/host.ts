@@ -10,11 +10,9 @@ import {
     StringSelectMenuBuilder,
     StringSelectMenuOptionBuilder
 } from "discord.js";
-import { eq } from "drizzle-orm";
 
-import { _EphToast } from "#utils/common";
+import { _EphToast, getGamesTable } from "#utils/common";
 import config from "#utils/config";
-import { games } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
 
 // building the command
@@ -35,8 +33,8 @@ export default {
         if (!guild_id) return await _EphToast(interaction, "Failed to f3tch the guild ID.");
 
         // check if a game is already hosted
-        const qRes = await client.db.select().from(games).where(eq(games.guild_id, guild_id));
-        if (qRes.length > 0) return await _EphToast(interaction, `Game already hosted in the channel <#${qRes[0]?.channel_id}> !\nUse \`/stop\` to stop the current game and host a new one.`);
+        const qGames = await getGamesTable(interaction, guild_id);
+        if (qGames && qGames.length > 0) return await _EphToast(interaction, `Game already hosted in the channel <#${qGames[0]?.channel_id}> !\nUse \`/stop\` to stop the current game and host a new one.`);
 
         // setting options for tribute size menu
         const tributes_options: StringSelectMenuOptionBuilder[] = [];

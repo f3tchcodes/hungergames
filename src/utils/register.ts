@@ -1,6 +1,6 @@
 import { and, eq, not } from "drizzle-orm";
 
-import { _EphToast } from "./common.js";
+import { _EphToast, getGamesTable } from "./common.js";
 import { districts, games } from "./db/schema.js";
 import { type RegisterPlayer } from "./interfaces.js";
 
@@ -13,16 +13,14 @@ export async function registerPlayer(RegisterPlayer: RegisterPlayer) {
     if (!guild_id || !user_id || !username || !profile_pic_url) return await _EphToast(interaction, "Failed to f3tch user information. Try again later or contact dev to fix.\nUsername: f3tch");
 
     // send query to games table and get values
-    const qGames = await interaction.client.db.select().from(games).where(eq(games.guild_id, guild_id));
-    if (!qGames) return _EphToast(interaction, "Failed to send select query. Try again.");
+    const qGames = await getGamesTable(interaction, guild_id);
+    if (!qGames || !qGames[0]) return _EphToast(interaction, "Failed to send select query. Try again.");
 
     // get tribute size
-    if (!qGames[0]?.tribute_size) return await _EphToast(interaction, "Failed to get tribute size. Try again.");
-    const tribute_size = qGames[0]?.tribute_size;
+    const tribute_size = qGames[0].tribute_size;
 
     // get registered players
-    if (!qGames[0]?.registered_players && qGames[0]?.registered_players !== 0) return await _EphToast(interaction, "Failed to get your player id. Try again.");
-    const registered_players = qGames[0]?.registered_players + 1;
+    const registered_players = qGames[0].registered_players + 1;
 
     // get districts data
     const district_data = await interaction.client.db.select().from(districts).where(eq(districts.guild_id, guild_id));

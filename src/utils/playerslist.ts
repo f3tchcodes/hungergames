@@ -1,7 +1,8 @@
 import { type Interaction } from "discord.js";
 import { eq } from "drizzle-orm";
 
-import { districts, games } from "./db/schema.js";
+import { getGamesTable } from "./common.js";
+import { districts } from "./db/schema.js";
 import type { PlayerslistInfo } from "./interfaces.js";
 
 export async function getPlayerslist(interaction: Interaction, includedefaultplayers: boolean | undefined): Promise<PlayerslistInfo[] | undefined> {
@@ -12,14 +13,11 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
     if (!guild_id) return;
 
     // get games table
-    const qResSel = await interaction.client.db.select().from(games).where(eq(games.guild_id, guild_id));
-    if (!qResSel[0]) return;
+    const qGames = await getGamesTable(interaction, guild_id);
+    if (!qGames || !qGames[0]) return;
 
     // get players list
-    const qResSelDistricts = await interaction.client.db
-        .select()
-        .from(districts)
-        .where(eq(districts.guild_id, guild_id));
+    const qResSelDistricts = await interaction.client.db.select().from(districts).where(eq(districts.guild_id, guild_id));
 
     // push players list to an array of embed fields
     const playerslist: PlayerslistInfo[] = [];

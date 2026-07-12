@@ -1,17 +1,15 @@
 import { type ButtonInteraction } from "discord.js";
-import { eq } from "drizzle-orm";
 import _ from "lodash";
 
 import { buildListCanvas } from "#utils/canvas";
-import { _EphToast } from "#utils/common";
-import { games } from "#utils/db/schema";
+import { _EphToast, getGamesTable } from "#utils/common";
 import type { ListCanvasGenerateInfo } from "#utils/interfaces";
 import { getPlayerslist } from "#utils/playerslist";
 
 export async function playerslistControls(interaction: ButtonInteraction, option: "increment" | "decrement", includedefaultplayers: boolean | undefined) {
     // get guild id
-    const guildId = interaction.guildId;
-    if (!guildId) return;
+    const guild_id = interaction.guildId;
+    if (!guild_id) return;
 
     let current_page = interaction.client.current_page.get(interaction.message.id);
     if (!current_page && current_page !== 0) return await _EphToast(interaction, "Current page does not exist. Try the command again!");
@@ -29,11 +27,11 @@ export async function playerslistControls(interaction: ButtonInteraction, option
     if (!playerslist) return await _EphToast(interaction, "Players list not available!");
 
     // get current game info
-    const [gameInfo] = await interaction.client.db.select().from(games).where(eq(games.guild_id, guildId));
-    if (!gameInfo) return;
+    const qGames = await getGamesTable(interaction, guild_id);
+    if (!qGames || !qGames[0]) return;
 
-    const district_size = gameInfo.district_size;
-    const tribute_size = gameInfo.tribute_size;
+    const district_size = qGames[0].district_size;
+    const tribute_size = qGames[0].tribute_size;
 
     // split the players list in chunks
     let chunk_size = 12;

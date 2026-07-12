@@ -1,10 +1,8 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } from "discord.js";
-import { eq } from "drizzle-orm";
 import _ from "lodash";
 
 import { buildListCanvas } from "#utils/canvas";
-import { _EphToast } from "#utils/common";
-import { games } from "#utils/db/schema";
+import { _EphToast, getGamesTable } from "#utils/common";
 import type { ListCanvasGenerateInfo, MyInteractions, RegisterPlayer } from "#utils/interfaces";
 import { getPlayerslist } from "#utils/playerslist";
 import { registerPlayer } from "#utils/register";
@@ -54,10 +52,10 @@ export default {
         if (!guild_id) return await _EphToast(interaction, "Failed to f3tch the guild ID.");
 
         // check whether a game is hosted or not
-        const qResSel = await client.db.select().from(games).where(eq(games.guild_id, guild_id));
-        const district_size = qResSel[0]?.district_size;
-        const tribute_size = qResSel[0]?.tribute_size;
-        if (qResSel.length === 0 || !district_size || !tribute_size) return await _EphToast(interaction, "No available game.\nYou may host a new game with `/host` anytime.");
+        const qGames = await getGamesTable(interaction, guild_id);
+        if (!qGames || !qGames[0]) return await _EphToast(interaction, "No available game.\nYou may host a new game with `/host` anytime.");
+        const district_size = qGames[0].district_size;
+        const tribute_size = qGames[0].tribute_size;
 
         const listOp = interaction.options.getSubcommand();
 

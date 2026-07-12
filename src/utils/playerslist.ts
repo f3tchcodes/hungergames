@@ -27,31 +27,32 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
     // create playerListTimeout to add an empty field every 2 fields
     // this will help us create 2 columns for the embed
     qResSelDistricts.forEach(player => {
-        const data: PlayerslistInfo = {
-            username: player.username,
+        const common_data = {
             player_id: player.player_id,
-            profile_pic_url: player.profile_pic_url,
             district_id: player.district_id,
             district_position: player.district_position,
             real: Boolean(player.real)
+        };
+
+        const data: PlayerslistInfo = {
+            username: player.username,
+            profile_pic_url: player.profile_pic_url,
+            ...common_data
         };
 
         const unknown_data: PlayerslistInfo = {
             username: "",
-            player_id: player.id,
             profile_pic_url: "./assets/unknown_player.png",
-            district_id: player.district_id,
-            district_position: player.district_position,
-            real: Boolean(player.real)
+            ...common_data
         };
 
         if (includedefaultplayers) {
-            if (player.real) playerslist.push(data);
-            playerslist.push(unknown_data);
+            playerslist.push(data);
             return;
         }
 
-        playerslist.push(data);
+        if (player.real) playerslist.push(data);
+        playerslist.push(unknown_data);
         return;
     });
 

@@ -3,7 +3,7 @@ import { Events } from "discord.js";
 
 import { cancelCommand } from "#utils/commands/common";
 import { channelIdSelected, createGame, nextButtonSelected, tributeSizeSelected } from "#utils/commands/host";
-import { playersListBackward, playersListForward } from "#utils/commands/players";
+import { playerslistControls } from "#utils/commands/players";
 import { registerPlayerBtn } from "#utils/commands/register";
 import { _EphToast } from "#utils/common";
 import type { MyEvents } from "#utils/interfaces";
@@ -62,8 +62,8 @@ export default {
                 if (customId === "next") return await nextButtonSelected(interaction, channel_id, tribute_size) as void;
                 if (customId === "create_game") return await createGame(interaction, channel_id, tribute_size) as void;
 
-                if (customId === "forward") return await playersListForward(interaction, client.includedefaultplayers.get(messageId)) as void;
-                if (customId === "backward") return await playersListBackward(interaction, client.includedefaultplayers.get(messageId)) as void;
+                if (customId === "forward") return await playerslistControls(interaction, "increment", client.includedefaultplayers.get(messageId)) as void;
+                if (customId === "backward") return await playerslistControls(interaction, "decrement", client.includedefaultplayers.get(messageId)) as void;
 
                 // common buttons
                 if (customId === "cancel") return await cancelCommand(interaction) as void;

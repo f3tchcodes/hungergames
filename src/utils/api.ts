@@ -25,7 +25,7 @@ export async function createSessionId(interaction: ChatInputCommandInteraction) 
 }
 
 export async function setTributeSize(session_id: string, tribute_size: number) {
-    return await fetch(`https://brantsteele.net/hungergames/ChangeTributes-${tribute_size}.php`, {
+    return await fetch(`${config.BASE_URL}/hungergames/ChangeTributes-${tribute_size}.php`, {
         headers: {
             Cookies: `PHPSESSID=${session_id}`
         }

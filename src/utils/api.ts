@@ -25,9 +25,13 @@ export async function createSessionId(interaction: ChatInputCommandInteraction) 
 }
 
 export async function setTributeSize(session_id: string, tribute_size: number) {
-    return await fetch(`${config.BASE_URL}/hungergames/ChangeTributes-${tribute_size}.php`, {
+    const res = await fetch(`${config.BASE_URL}/hungergames/ChangeTributes-${tribute_size}.php`, {
         headers: {
             Cookies: `PHPSESSID=${session_id}`
         }
     });
+
+    if (!res.ok) return console.error("Setting tribute size failed.");
+
+    return;
 }

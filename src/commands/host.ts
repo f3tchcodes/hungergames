@@ -6,7 +6,6 @@ import {
     ChannelSelectMenuBuilder,
     ChannelType,
     EmbedBuilder,
-    InteractionContextType,
     SlashCommandBuilder,
     StringSelectMenuBuilder,
     StringSelectMenuOptionBuilder
@@ -21,10 +20,7 @@ import type { MyInteractions } from "#utils/interfaces";
 // building the command
 const host = new SlashCommandBuilder()
     .setName("host")
-    .setDescription("Host a game!")
-    .setContexts(
-        InteractionContextType.Guild
-    );
+    .setDescription("Host a game!");
 
 // when the command is executed
 export default {

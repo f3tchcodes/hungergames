@@ -13,12 +13,12 @@ export default {
     async execute(client, interaction, ...args) {
         if (interaction.isChatInputCommand()) {
             const command = client.interactions.get(interaction.commandName);
-            // try {
-            //     await command?.execute(client, interaction, args);
-            // } catch (err) {
-            //     console.log(`Error running command: ${err}`);
-            // }
-            await command?.execute(client, interaction, args);
+            try {
+                await command?.execute(client, interaction, args);
+            } catch (err) {
+                console.log(`Error running command: ${err}`);
+            }
+            // await command?.execute(client, interaction, args);
         } else if (interaction.isChannelSelectMenu()) {
             try {
                 if (interaction.user.id !== interaction.message.interactionMetadata?.user.id) { await _EphToast(interaction, "Mind your own business you stupid bastard."); return; }

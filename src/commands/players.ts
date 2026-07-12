@@ -94,7 +94,7 @@ export default {
             const image = await buildListCanvas(listCanvasGenerateInfo);
             if (!image) return await _EphToast(interaction, "Image could not be generated!");
 
-            if (playerslist.length > 24) {
+            if (playerslist.length > 9) {
                 const response = await interaction.deferReply({ withResponse: true });
                 await interaction.followUp({ files: [image], components: [buttonsRow] });
 

@@ -41,13 +41,13 @@ export async function setTributes(session_id: string, tribute_size: number, trib
     tributes_reg.forEach(player => {
         const pad = "00";
         const id = pad.substring(0, pad.length - (player.player_id).toString().length) + (player.player_id).toString();
-        const body_data_partial = `cusTribute${id}=${player.username}&cusTribute${id}img=${player.profile_pic_url}&cusTribute${id}gender=${player.gender}&cusTribute${id}custom=000&cusTribute${id}nickname=${player.username}&cusTribute${id}imgBW=BW&`;
-        registeration_list.push(body_data_partial);
+        const body_data = `cusTribute${id}=${player.username}&cusTribute${id}img=${player.profile_pic_url}&cusTribute${id}gender=${player.gender}&cusTribute${id}custom=000&cusTribute${id}nickname=${player.username}&cusTribute${id}imgBW=BW&`;
+        registeration_list.push(body_data);
     });
 
-    const body_data = `seasonname=Hunger+Games&logourl=https://brantsteele.com/extras/hungergames/01/logo.png&existinglogo=00&${registeration_list.join("")}ChangeAll=028`;
-    const res = await fetch(`${config.BASE_URL}/hungergames/personalize-${tribute_size}.php`, { method: "POST", headers: { Cookie: `PHPSESSID=${session_id}` }, body: body_data });
+    const body = `seasonname=Hunger+Games&logourl=https://brantsteele.com/extras/hungergames/01/logo.png&existinglogo=00&${registeration_list.join("")}ChangeAll=028`;
+    const res = await fetch(`${config.BASE_URL}/hungergames/personalize-${tribute_size}.php`, { method: "POST", headers: { Cookie: `PHPSESSID=${session_id}` }, body });
     if (!res.ok) return console.error("Failed to set tribute members!");
-    console.log(body_data);
+    console.log(res);
     return true;
 }

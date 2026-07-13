@@ -1,8 +1,7 @@
-import { type ChatInputCommandInteraction } from "discord.js";
 
 import config from "#utils/config";
 
-export async function createSessionId(interaction: ChatInputCommandInteraction) {
+export async function createSessionId() {
     let session_id: string | undefined;
 
     // f3tching the session cookie that we'll save

@@ -22,7 +22,7 @@ export default {
         if (!qGames || !qGames[0]) return await _EphToast(interaction, "No available game to stop.\nYou may host a new game with `/host` anytime.");
 
         // start the game
-        const session_id = await createSessionId(interaction);
+        const session_id = await createSessionId();
         if (!session_id) return await _EphToast(interaction, "Session ID for starting the game could not be f3tched. Contact dev to fix.\nUsername: f3tch");
 
         await setTributeSize(session_id, qGames[0].tribute_size);

@@ -14,6 +14,7 @@ export default {
     data: start,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
+        await interaction.deferReply();
 
         // f3tch the guild id
         const guild_id = interaction.guildId;
@@ -42,8 +43,7 @@ export default {
         qDistricts.forEach(player => tributes_reg.push({ player_id: player.player_id, username: player.username, profile_pic_url: player.profile_pic_url, gender: player.gender }));
         const tribute_reg_res = await setTributes(session_id, qGames[0].tribute_size, tributes_reg);
         if (!tribute_reg_res) return await _EphToast(interaction, "Failed to set tribute members. Try again or contact dev to fix.");
-        console.log(session_id);
-        // await interaction.deferReply();
-        // await interaction.followUp({ content: session_id, flags: MessageFlags.Ephemeral });
+
+        await interaction.followUp({ content: `Game successfully started. Session token: ${session_id}` });
     }
 } satisfies MyInteractions;

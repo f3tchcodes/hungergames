@@ -46,6 +46,7 @@ export default {
     data: players,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
+        const response = await interaction.deferReply({ withResponse: true });
 
         // get guild and id and check whether it's available
         const guild_id = interaction.guildId;
@@ -93,7 +94,6 @@ export default {
             if (!image) return await _EphToast(interaction, "Image could not be generated!");
 
             if (playerslist.length > 9) {
-                const response = await interaction.deferReply({ withResponse: true });
                 await interaction.followUp({ files: [image], components: [buttonsRow] });
 
                 // get message id and set it in current page to change each page
@@ -105,7 +105,6 @@ export default {
 
                 return;
             } else {
-                await interaction.deferReply();
                 return await interaction.followUp({ files: [image] });
             }
         } else if (listOp === "register") {

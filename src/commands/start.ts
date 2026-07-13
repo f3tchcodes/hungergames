@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import { eq } from "drizzle-orm";
 
 import { agreeToDisclaimer, createSessionId, setTributes, setTributeSize } from "#utils/api";
@@ -43,6 +43,7 @@ export default {
         const tribute_reg_res = await setTributes(session_id, qGames[0].tribute_size, tributes_reg);
         if (!tribute_reg_res) return await _EphToast(interaction, "Failed to set tribute members. Try again or contact dev to fix.");
 
-        await _EphToast(interaction, session_id);
+        await interaction.deferReply();
+        await interaction.followUp({ content: session_id, flags: MessageFlags.Ephemeral });
     }
 } satisfies MyInteractions;

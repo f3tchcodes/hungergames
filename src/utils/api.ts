@@ -8,7 +8,7 @@ export async function createSessionId() {
 
     // f3tching the session cookie that we'll save
     // and use to send request to every endpoint
-    const res = await fetch(config.BASE_URL);
+    const res = await fetch(`${config.BASE_URL}/hungergames/`);
     res.headers.forEach(async header => {
         if (!header.startsWith("PHPSESSID")) return;
 

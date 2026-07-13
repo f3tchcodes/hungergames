@@ -82,3 +82,10 @@ export interface PaginatedUsers {
         size_height: number;
     };
 }
+
+export interface TributesReg {
+    player_id: number;
+    username: string;
+    profile_pic_url: string;
+    gender: string;
+}

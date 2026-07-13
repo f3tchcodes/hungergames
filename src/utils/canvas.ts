@@ -157,8 +157,6 @@ async function buildListUserRows(user_data: BuildListUserData) {
         });
     }
 
-    console.log(paginated_users);
-
     const paginated_users_chunks = _.chunk(paginated_users, users_per_page);
     const current_page = paginated_users_chunks[page];
     if (!current_page) return console.error("current_page does not exist");

@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 import { eq } from "drizzle-orm";
 
-import { createSessionId, setTributes, setTributeSize } from "#utils/api";
+import { agreeToDisclaimer, createSessionId, setTributes, setTributeSize } from "#utils/api";
 import { _EphToast, getGamesTable } from "#utils/common";
 import { districts, games } from "#utils/db/schema";
 import type { MyInteractions, TributesReg } from "#utils/interfaces";
@@ -31,8 +31,13 @@ export default {
         const session_id = await createSessionId();
         if (!session_id) return await _EphToast(interaction, "Session ID for starting the game could not be f3tched. Contact dev to fix.\nUsername: f3tch");
         await interaction.client.db.update(games).set({ session_id }).where(eq(games.guild_id, guild_id));
+
+        const agree_to_disclaimer = await agreeToDisclaimer(session_id);
+        if (!agree_to_disclaimer) return await _EphToast(interaction, "Failed to agree to the disclaimer.");
+
         const tribute_size_res = await setTributeSize(session_id, qGames[0].tribute_size);
         if (!tribute_size_res) return await _EphToast(interaction, "Failed to set tribute size. Try again or contact dev to fix.");
+
         const tributes_reg: TributesReg[] = [];
         qDistricts.forEach(player => tributes_reg.push({ player_id: player.player_id, username: player.username, profile_pic_url: player.profile_pic_url, gender: player.gender }));
         const tribute_reg_res = await setTributes(session_id, qGames[0].tribute_size, tributes_reg);

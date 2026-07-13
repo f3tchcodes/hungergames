@@ -8,7 +8,7 @@ export async function createSessionId() {
 
     // f3tching the session cookie that we'll save
     // and use to send request to every endpoint
-    const res = await fetch(`${config.BASE_URL}/hungergames/agree.php`);
+    const res = await fetch(config.BASE_URL);
     res.headers.forEach(async header => {
         if (!header.startsWith("PHPSESSID")) return;
 
@@ -21,6 +21,12 @@ export async function createSessionId() {
 
     if (!res.ok || !session_id) return console.error("Failed to f3tch session cookie!");
     return session_id;
+}
+
+export async function agreeToDisclaimer(session_id: string) {
+    const res = await fetch(`${config.BASE_URL}/hungergames/agree.php`, { headers: { Cookie: `PHPSESSID=${session_id}` } });
+    if (!res) return console.error("Failed to agree to the disclaimer.");
+    return true;
 }
 
 export async function setTributeSize(session_id: string, tribute_size: number) {

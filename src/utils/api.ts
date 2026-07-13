@@ -46,14 +46,7 @@ export async function setTributes(session_id: string, tribute_size: number, trib
     });
 
     const body = `seasonname=Hunger+Games&logourl=https://brantsteele.com/extras/hungergames/01/logo.png&existinglogo=00&${registeration_list.join("")}ChangeAll=028`;
-    const res = await fetch(`${config.BASE_URL}/hungergames/personalize-${tribute_size}.php`, {
-        method: "POST",
-        headers: {
-            Cookie: `PHPSESSID=${session_id}`,
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body
-    });
+    const res = await fetch(`${config.BASE_URL}/hungergames/personalize-${tribute_size}.php`, { method: "POST", headers: { Cookie: `PHPSESSID=${session_id}`, "Content-Type": "application/x-www-form-urlencoded" }, body });
     if (!res.ok) return console.error("Failed to set tribute members!");
     return true;
 }

@@ -2,7 +2,7 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } fro
 import _ from "lodash";
 
 import { buildListCanvas } from "#utils/canvas";
-import { _EphToast, getGamesTable } from "#utils/common";
+import { _EphToast, _EphToastDefer, getGamesTable } from "#utils/common";
 import type { ListCanvasGenerateInfo, MyInteractions, RegisterPlayer } from "#utils/interfaces";
 import { getPlayerslist } from "#utils/playerslist";
 import { registerPlayer } from "#utils/register";
@@ -50,11 +50,11 @@ export default {
 
         // get guild and id and check whether it's available
         const guild_id = interaction.guildId;
-        if (!guild_id) return await _EphToast(interaction, "Failed to f3tch the guild ID.");
+        if (!guild_id) return await _EphToastDefer(interaction, "Failed to f3tch the guild ID.");
 
         // check whether a game is hosted or not
         const qGames = await getGamesTable(interaction, guild_id);
-        if (!qGames || !qGames[0]) return await _EphToast(interaction, "No available game.\nYou may host a new game with `/host` anytime.");
+        if (!qGames || !qGames[0]) return await _EphToastDefer(interaction, "No available game.\nYou may host a new game with `/host` anytime.");
         const district_size = qGames[0].district_size;
         const tribute_size = qGames[0].tribute_size;
 
@@ -73,7 +73,7 @@ export default {
             let chunk_size = 12;
             if (district_size === 3) chunk_size = 9;
             const playerslistChunks = _.chunk(playerslist, chunk_size);
-            if (!playerslistChunks) return await _EphToast(interaction, "Players list chunks not available!");
+            if (!playerslistChunks) return await _EphToastDefer(interaction, "Players list chunks not available!");
 
             // creating forward and backward buttons
             const backwardButton = new ButtonBuilder().setCustomId("backward").setLabel("<-").setStyle(ButtonStyle.Secondary);
@@ -91,7 +91,7 @@ export default {
             };
 
             const image = await buildListCanvas(listCanvasGenerateInfo);
-            if (!image) return await _EphToast(interaction, "Image could not be generated!");
+            if (!image) return await _EphToastDefer(interaction, "Image could not be generated!");
 
             if (playerslist.length > 9) {
                 await interaction.followUp({ files: [image], components: [buttonsRow] });
@@ -99,7 +99,7 @@ export default {
                 // get message id and set it in current page to change each page
                 // independently rather than globally changing the variable
                 const messageId = response.resource?.message?.id;
-                if (!messageId) return await _EphToast(interaction, "Not able to f3tch message ID, forward and backward arrows might not work.");
+                if (!messageId) return await _EphToastDefer(interaction, "Not able to f3tch message ID, forward and backward arrows might not work.");
                 client.current_page.set(messageId, 0);
                 client.includedefaultplayers.set(messageId, includedefaultplayers);
 

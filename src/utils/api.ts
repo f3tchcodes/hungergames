@@ -34,7 +34,7 @@ export async function setTributes(session_id: string, tribute_size: number, trib
 
     tributes_reg.forEach(player => {
         const pad = "00";
-        const id = pad.substring(0, pad.length - (player.player_id + 1).toString().length) + (player.player_id + 1).toString();
+        const id = pad.substring(0, pad.length - (player.player_id).toString().length) + (player.player_id).toString();
         const body_data_partial = `cusTribute${id}=${player.username}&cusTribute${id}img=${player.profile_pic_url}&cusTribute${id}gender=${player.gender}&cusTribute${id}custom=000&cusTribute${id}nickname=${player.username}&cusTribute${id}imgBW=BW&`;
         registeration_list.push(body_data_partial);
     });

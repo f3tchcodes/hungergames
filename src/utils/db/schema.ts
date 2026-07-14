@@ -20,5 +20,6 @@ export const districts = sqliteTable("districts", {
     username: text().notNull(),
     profile_pic_url: text().notNull(),
     gender: text().notNull(),
+    alive: integer().notNull().default(1),
     real: integer().notNull().default(0) // there is no boolean in sqlite, so we're using integer 0 for false and 1 for true
 });

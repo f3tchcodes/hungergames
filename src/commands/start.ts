@@ -2,9 +2,10 @@ import { SlashCommandBuilder } from "discord.js";
 import { eq } from "drizzle-orm";
 
 import { agreeToDisclaimer, createSessionId, setTributes, setTributeSize } from "#utils/api";
+import { showTributeList } from "#utils/canvas";
 import { _EphToastDefer, getGamesTable } from "#utils/common";
 import { districts, games } from "#utils/db/schema";
-import type { MyInteractions, TributesReg } from "#utils/interfaces";
+import type { MyInteractions, TributeList, TributesReg } from "#utils/interfaces";
 
 const start = new SlashCommandBuilder()
     .setName("start")
@@ -44,6 +45,13 @@ export default {
         const tribute_reg_res = await setTributes(session_id, qGames[0].tribute_size, tributes_reg);
         if (!tribute_reg_res) return await _EphToastDefer(interaction, "Failed to set tribute members. Try again or contact dev to fix.");
 
-        await interaction.followUp({ content: `Game successfully started. Session token: ${session_id}` });
+        // Part 1: The Reaping.
+        // basically status page
+        const tribute_status: TributeList[] = [];
+        const rows = 6;
+        qDistricts.forEach(player => tribute_status.push({ username: player.username, profile_pic_url: player.profile_pic_url, district_id: player.district_id, district_position: player.district_position, alive: Boolean(player.alive) }));
+        const tribute_status_canvas = await showTributeList(tribute_status, rows, true);
+
+        await interaction.followUp({ files: [tribute_status_canvas] });
     }
 } satisfies MyInteractions;

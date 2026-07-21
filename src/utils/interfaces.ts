@@ -89,3 +89,11 @@ export interface TributesReg {
     profile_pic_url: string;
     gender: string;
 }
+
+export interface TributeList {
+    username: string;
+    profile_pic_url: string;
+    district_id: number;
+    district_position: number;
+    alive: boolean;
+}

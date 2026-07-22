@@ -6,6 +6,9 @@ import type {
     TributeList
 } from "#utils/interfaces";
 
+
+// don't ask me anything in this code i literally have no fucking idea how i managed to write this
+// especially the long ass pfp_width down there don't even ask idk how i wrote that man took a few days
 export async function showTributeList(tribute_list: TributeList[], rows: number, alive_status: boolean) {
     const background = await loadImage("./assets/status_bg.png");
     const canvas = new Canvas(1000, 1000).printImage(background, 0, 0, 1000, 1000);

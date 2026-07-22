@@ -5,7 +5,8 @@ import { agreeToDisclaimer, createSessionId, setTributes, setTributeSize } from 
 import { showTributeList } from "#utils/canvas";
 import { _EphToastDefer, getGamesTable } from "#utils/common";
 import { districts, games } from "#utils/db/schema";
-import type { MyInteractions, TributeList, TributesReg } from "#utils/interfaces";
+import type { MyInteractions, TributesReg } from "#utils/interfaces";
+import { getPlayerslist } from "#utils/playerslist";
 
 const start = new SlashCommandBuilder()
     .setName("start")
@@ -47,10 +48,9 @@ export default {
 
         // Part 1: The Reaping.
         // basically status page
-        const tribute_status: TributeList[] = [];
-        const rows = 6;
-        qDistricts.forEach(player => tribute_status.push({ username: player.username, profile_pic_url: player.profile_pic_url, district_id: player.district_id, district_position: player.district_position, alive: Boolean(player.alive), real: Boolean(player.real) }));
-        const tribute_status_canvas = await showTributeList(tribute_status, rows, true);
+        const tribute_status = await getPlayerslist(interaction, true);
+        if (!tribute_status) return console.error("Nothing in playerslist!");
+        const tribute_status_canvas = await showTributeList(tribute_status, 6, true);
 
         await interaction.followUp({ files: [tribute_status_canvas] });
     }

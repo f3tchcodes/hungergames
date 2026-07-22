@@ -1,9 +1,8 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } from "discord.js";
-import _ from "lodash";
+import { SlashCommandBuilder } from "discord.js";
 
-import { buildListCanvas } from "#utils/canvas";
+import { showTributeList } from "#utils/canvas";
 import { _EphToast, _EphToastDefer, getGamesTable } from "#utils/common";
-import type { ListCanvasGenerateInfo, MyInteractions, RegisterPlayer } from "#utils/interfaces";
+import type { MyInteractions, RegisterPlayer } from "#utils/interfaces";
 import { getPlayerslist } from "#utils/playerslist";
 import { registerPlayer } from "#utils/register";
 
@@ -69,44 +68,12 @@ export default {
             const playerslist = await getPlayerslist(interaction, includedefaultplayers);
             if (!playerslist) return;
 
-            // split the players list in chunks for paginated messages
-            let chunk_size = 12;
-            if (district_size === 3) chunk_size = 9;
-            const playerslistChunks = _.chunk(playerslist, chunk_size);
-            if (!playerslistChunks) return await _EphToastDefer(interaction, "Players list chunks not available!");
-
-            // creating forward and backward buttons
-            const backwardButton = new ButtonBuilder().setCustomId("backward").setLabel("<-").setStyle(ButtonStyle.Secondary);
-            const forwardButton = new ButtonBuilder().setCustomId("forward").setLabel("->").setStyle(ButtonStyle.Secondary);
-
-            const buttonsRow = new ActionRowBuilder<ButtonBuilder>().addComponents(backwardButton, forwardButton);
-
-            // canvas info for generating the canvas
-            const listCanvasGenerateInfo: ListCanvasGenerateInfo = {
-                playerslistInfoChunks: playerslistChunks,
-                page: 0,
-                district_size,
-                tribute_size,
-                includedefaultplayers
-            };
-
-            const image = await buildListCanvas(listCanvasGenerateInfo);
+            // creating tribute list image
+            const image = await showTributeList(playerslist, 6, false);
             if (!image) return await _EphToastDefer(interaction, "Image could not be generated!");
 
-            if (playerslist.length > 9) {
-                await interaction.followUp({ files: [image], components: [buttonsRow] });
-
-                // get message id and set it in current page to change each page
-                // independently rather than globally changing the variable
-                const messageId = response.resource?.message?.id;
-                if (!messageId) return await _EphToastDefer(interaction, "Not able to f3tch message ID, forward and backward arrows might not work.");
-                client.current_page.set(messageId, 0);
-                client.includedefaultplayers.set(messageId, includedefaultplayers);
-
-                return;
-            } else {
-                return await interaction.followUp({ files: [image] });
-            }
+            // send image
+            await interaction.followUp({ files: [image] });
         } else if (listOp === "register") {
             // get user, district id, and district position options
             const target_user_id = interaction.options.getUser("user");

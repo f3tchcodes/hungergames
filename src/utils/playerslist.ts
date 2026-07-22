@@ -3,9 +3,9 @@ import { eq } from "drizzle-orm";
 
 import { getGamesTable } from "./common.js";
 import { districts } from "./db/schema.js";
-import type { PlayerslistInfo } from "./interfaces.js";
+import type { TributeList } from "./interfaces.js";
 
-export async function getPlayerslist(interaction: Interaction, includedefaultplayers: boolean | undefined): Promise<PlayerslistInfo[] | undefined> {
+export async function getPlayerslist(interaction: Interaction, includedefaultplayers: boolean | undefined): Promise<TributeList[] | undefined> {
     if (!interaction.isChatInputCommand() && !interaction.isButton()) return;
 
     // get guild and id and check whether it's available
@@ -20,7 +20,7 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
     const qResSelDistricts = await interaction.client.db.select().from(districts).where(eq(districts.guild_id, guild_id));
 
     // push players list to an array of embed fields
-    const playerslist: PlayerslistInfo[] = [];
+    const playerslist: TributeList[] = [];
 
     // create playerListTimeout to add an empty field every 2 fields
     // this will help us create 2 columns for the embed
@@ -29,16 +29,17 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
             player_id: player.player_id,
             district_id: player.district_id,
             district_position: player.district_position,
-            real: Boolean(player.real)
+            real: Boolean(player.real),
+            alive: Boolean(player.alive)
         };
 
-        const data: PlayerslistInfo = {
+        const data: TributeList = {
             username: player.username,
             profile_pic_url: player.profile_pic_url,
             ...common_data
         };
 
-        const unknown_data: PlayerslistInfo = {
+        const unknown_data: TributeList = {
             username: "",
             profile_pic_url: "./assets/unknown_player.png",
             ...common_data

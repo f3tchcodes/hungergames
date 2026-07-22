@@ -5,7 +5,7 @@ const config = {
     ICON_URL: "https://brantsteele.com/extras/hungergames/01/logo.png",
     THEME_COLOR: 0xDC6219, // discord embeds, they don't accept string colors
     CANVAS_TEXT_COLOR: "#FFFFFF", // for canvas, it only accepts string colors
-    CANVAS_ALIVE_COLOR: "#008000",
+    CANVAS_ALIVE_COLOR: "#98fb98",
     CANVAS_DEAD_COLOR: "#000000",
     TRIBUTE_SIZE: [
         { name: "Default (24)", value: 24 },

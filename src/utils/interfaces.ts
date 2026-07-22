@@ -96,4 +96,5 @@ export interface TributeList {
     district_id: number;
     district_position: number;
     alive: boolean;
+    real: boolean;
 }

@@ -62,15 +62,15 @@ export async function buildTributeList(canvas: Canvas, tribute_list: TributeList
 
             if (alive_status) {
                 const alive = player.alive;
-                let alive_text = "Alive";
-                let alive_color = config.CANVAS_ALIVE_COLOR;
+                let text = "Alive";
+                let text_color = config.CANVAS_ALIVE_COLOR;
                 if (!alive) {
-                    alive_text = "Dead";
-                    alive_color = config.CANVAS_DEAD_COLOR;
+                    text = "Dead";
+                    text_color = config.CANVAS_DEAD_COLOR;
                 }
                 const alive_width = username_width;
                 const alive_height = username_height + 15;
-                canvas.setColor(alive_color).setTextFont("13px").printText(alive_text, alive_width, alive_height);
+                canvas.setColor(text_color).setTextFont("13px").printText(text, alive_width, alive_height);
             }
         }
     }

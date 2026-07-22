@@ -1,22 +1,27 @@
 import { SlashCommandBuilder } from "discord.js";
 
-import { showTributeList } from "#utils/canvas";
 import { _EphToast, _EphToastDefer, getGamesTable } from "#utils/common";
 import type { MyInteractions, RegisterPlayer } from "#utils/interfaces";
-import { getPlayerslist } from "#utils/playerslist";
 import { registerPlayer } from "#utils/register";
 
 const players = new SlashCommandBuilder()
-    .setName("players")
-    .setDescription("Registered players in the current game.")
+    .setName("editcast")
+    .setDescription("Edit players in the current game.")
     .addSubcommand(list =>
         list
-            .setName("list")
-            .setDescription("List of current registered players.")
+            .setName("swap")
+            .setDescription("Swap current registered players.")
             .addBooleanOption(op =>
                 op
-                    .setName("include-default-players")
-                    .setDescription("Include default players in registered list.")
+                    .setName("target-player-id")
+                    .setDescription("Player ID of the player you want to move.")
+                    .setRequired(true)
+            )
+            .addBooleanOption(op =>
+                op
+                    .setName("swap-player-id")
+                    .setDescription("Player ID of the player you want to swap with.")
+                    .setRequired(true)
             )
     )
     .addSubcommand(register =>
@@ -54,27 +59,10 @@ export default {
         // check whether a game is hosted or not
         const qGames = await getGamesTable(interaction, guild_id);
         if (!qGames || !qGames[0]) return await _EphToastDefer(interaction, "No available game.\nYou may host a new game with `/host` anytime.");
-        const district_size = qGames[0].district_size;
-        const tribute_size = qGames[0].tribute_size;
 
         const listOp = interaction.options.getSubcommand();
 
-        if (listOp === "list") {
-            // get options
-            let includedefaultplayers = interaction.options.getBoolean("include-default-players");
-            if (!includedefaultplayers) includedefaultplayers = false;
-
-            // get players list
-            const playerslist = await getPlayerslist(interaction, includedefaultplayers);
-            if (!playerslist) return;
-
-            // creating tribute list image
-            const image = await showTributeList(playerslist, 6, false);
-            if (!image) return await _EphToastDefer(interaction, "Image could not be generated!");
-
-            // send image
-            await interaction.followUp({ files: [image] });
-        } else if (listOp === "register") {
+        if (listOp === "register") {
             // get user, district id, and district position options
             const target_user_id = interaction.options.getUser("user");
             const district_id = interaction.options.getInteger("district-id");
@@ -90,7 +78,6 @@ export default {
                 user_id: target_user_id?.id,
                 username: target_user_id?.displayName,
                 profile_pic_url: target_user_id?.displayAvatarURL(),
-
                 district_id,
                 district_position
             };
@@ -100,7 +87,7 @@ export default {
 
             return await _EphToast(interaction, `Successfully registered **${register.username}** to The Hunger Games.\nUse \`/mysettings gender\` to set your gender.`);
         } else {
-            return await _EphToast(interaction, "Incorrect subcommand.");
+            return await _EphToast(interaction, "Unknown subcommand.");
         }
     }
 } satisfies MyInteractions;

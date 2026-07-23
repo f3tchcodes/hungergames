@@ -68,9 +68,9 @@ export async function buildTributeList(canvas: Canvas, tribute_list: TributeList
                     text = "Dead";
                     text_color = config.CANVAS_DEAD_COLOR;
                 }
-                const alive_width = username_width;
-                const alive_height = username_height + 15;
-                canvas.setColor(text_color).setTextFont("13px").printText(text, alive_width, alive_height);
+                const text_width = username_width;
+                const text_height = username_height + 15;
+                canvas.setColor(text_color).setTextFont("13px").printText(text, text_width, text_height);
             }
         }
     }

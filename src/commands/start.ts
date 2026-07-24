@@ -32,10 +32,10 @@ export default {
         const qDistricts = await interaction.client.db.select().from(districts).where(eq(districts.guild_id, guild_id));
 
         // start the game
+        await sendChannelMessage(interaction, game_channel_id, "Creating game session...");
         const session_id = await createSessionId();
         if (!session_id) return await _EphToastDefer(interaction, "Session ID for starting the game could not be f3tched. Contact dev to fix.\nUsername: f3tch");
         await interaction.client.db.update(games).set({ session_id }).where(eq(games.guild_id, guild_id));
-        await sendChannelMessage(interaction, game_channel_id, "Game session created!");
 
         const agree_to_disclaimer = await agreeToDisclaimer(session_id);
         if (!agree_to_disclaimer) return await _EphToastDefer(interaction, "Failed to agree to the disclaimer.");
@@ -49,7 +49,7 @@ export default {
         qDistricts.forEach(player => tributes_reg.push({ player_id: player.player_id, username: player.username, profile_pic_url: player.profile_pic_url, gender: player.gender }));
         const tribute_reg_res = await setTributes(session_id, qGames[0].tribute_size, tributes_reg);
         if (!tribute_reg_res) return await _EphToastDefer(interaction, "Failed to set tribute members. Try again or contact dev to fix.");
-        await sendChannelMessage(interaction, game_channel_id, "**STARTING THE GAME**");
+        await sendChannelMessage(interaction, game_channel_id, "**Starting the game...** Please wait.");
 
         // Part 1: The Reaping.
         // basically status page

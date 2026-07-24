@@ -58,7 +58,7 @@ export default {
 
         // check whether a game is hosted or not
         const qGames = await getGamesTable(interaction, guild_id);
-        if (!qGames || !qGames[0]) return await _EphToastDefer(interaction, "No available game.\nYou may host a new game with `/host` anytime.");
+        if (!qGames[0]) return await _EphToastDefer(interaction, "No available game.\nYou may host a new game with `/host` anytime.");
 
         const listOp = interaction.options.getSubcommand();
 

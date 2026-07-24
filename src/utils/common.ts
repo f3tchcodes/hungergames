@@ -13,7 +13,6 @@ export async function _EphToastDefer(interaction: RepliableInteraction, content:
 
 export async function getGamesTable(interaction: Interaction, guild_id: string) {
     const qGames = await interaction.client.db.select().from(games).where(eq(games.guild_id, guild_id));
-    if (!qGames || !qGames[0]) return;
     return qGames;
 }
 

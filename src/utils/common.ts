@@ -1,4 +1,4 @@
-import { type Interaction, MessageFlags, type RepliableInteraction } from "discord.js";
+import { type Interaction, type MessageCreateOptions, MessageFlags, MessagePayload, type RepliableInteraction } from "discord.js";
 import { eq } from "drizzle-orm";
 
 import { games } from "./db/schema.js";
@@ -15,4 +15,10 @@ export async function getGamesTable(interaction: Interaction, guild_id: string) 
     const qGames = await interaction.client.db.select().from(games).where(eq(games.guild_id, guild_id));
     if (!qGames || !qGames[0]) return;
     return qGames;
+}
+
+export async function sendChannelMessage(interaction: Interaction, channel_id: string, message: string | MessagePayload | MessageCreateOptions) {
+    const channel = await interaction.client.channels.fetch(channel_id);
+    if (!channel?.isSendable()) return console.error(`${channel_id}: channel not sendable`);
+    await channel.send(message);
 }

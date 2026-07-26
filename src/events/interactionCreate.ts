@@ -68,6 +68,5 @@ export default {
                 console.log(`Error running button: ${err}`);
             }
         }
-
     }
 } satisfies MyEvents<"interactionCreate">;

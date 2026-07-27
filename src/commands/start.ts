@@ -63,5 +63,6 @@ export default {
         const tribute_status_canvas = await showTributeList(tribute_status, 6, true);
 
         await sendChannelMessage(interaction, game_channel_id, { content: "The Reaping.", files: [tribute_status_canvas] });
+        // the rest of the game would be played by /next command or auto mode
     }
 } satisfies MyInteractions;

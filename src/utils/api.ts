@@ -89,7 +89,6 @@ export async function readGameplay(session_id: string) {
         if (diff !== 0) { for (let i = 0; i < Math.abs(diff); i++) { const larger = text.length > pfp.length ? pfp.unshift([]) : text.unshift(""); } }
 
         const gameplay_sections: GameplaySections[] = [];
-
         for (let i = 0; i < text.length; i++) gameplay_sections.push({ profile_pic_url: pfp[i] ?? ["Unkown"], message: text[i] ?? "Unknown" });
 
         complete_gameplay.push({ title, sections: gameplay_sections });

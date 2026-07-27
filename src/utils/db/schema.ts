@@ -1,12 +1,16 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
+import type { CompleteGameplay } from "#utils/interfaces";
+
 export const games = sqliteTable("games", {
     guild_id: text().primaryKey(),
     channel_id: text().notNull(),
     session_id: text(),
     tribute_size: integer().notNull(),
     district_size: integer().notNull(),
-    registered_players: integer().notNull().default(0)
+    registered_players: integer().notNull().default(0),
+    step: integer().notNull().default(0),
+    game_data: text({ mode: "json" }).$type<CompleteGameplay>()
 });
 
 // by default we enter fake characters

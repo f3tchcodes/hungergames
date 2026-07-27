@@ -46,3 +46,13 @@ export interface TributeList {
     alive: boolean;
     real: boolean;
 }
+
+export interface GameplaySections {
+    profile_pic_url: string[];
+    message: string;
+}
+
+export interface CompleteGameplay {
+    title: string;
+    sections: GameplaySections[];
+}

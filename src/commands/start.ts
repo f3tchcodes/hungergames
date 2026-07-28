@@ -50,14 +50,14 @@ export default {
         const tribute_reg_res = await setTributes(session_id, qGames[0].tribute_size, tributes_reg);
         if (!tribute_reg_res) return await _EphToast(interaction, "Failed to set tribute members. Try again or contact dev to fix.");
 
-        await sendChannelMessage(interaction, game_channel_id, "Writing complete gameplay...");
+        await sendChannelMessage(interaction, game_channel_id, "Saving complete gameplay...");
         const complete_gameplay = await readGameplay(session_id);
         if (!complete_gameplay) return await _EphToast(interaction, "Error occured! Try again. If it does not work, contact dev to fix.");
         await client.db.update(games).set({ game_data: complete_gameplay }).where(eq(games.guild_id, guild_id));
 
         // Part 1: The Reaping.
         // basically status page
-        await sendChannelMessage(interaction, game_channel_id, "**Starting the game...** Please wait.");
+        await sendChannelMessage(interaction, game_channel_id, "**Starting the game...**");
         const tribute_status = await getPlayerslist(interaction, true);
         if (!tribute_status) return console.error("Nothing in playerslist!");
         const tribute_status_canvas = await showTributeList(tribute_status, 6, true);

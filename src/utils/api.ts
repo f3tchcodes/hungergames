@@ -3,6 +3,7 @@ import { parse } from "node-html-parser";
 
 import config from "#utils/config";
 
+import { replaceLastOccurrence } from "./common.js";
 import type { CompleteGameplay, GameplaySections, TributesReg } from "./interfaces.js";
 
 export async function createSessionId() {
@@ -72,9 +73,15 @@ export async function readGameplay(session_id: string) {
         div?.getElementsByTagName("strong").forEach(player => player.insertAdjacentHTML("afterbegin", "**").insertAdjacentHTML("beforeend", "**"));
         div?.getElementsByTagName("a").forEach(a => { if (a.textContent.includes("Proceed")) proceed = a?.attributes.href ?? "winner.php"; });
         const text: string[] = [];
-        const blacklist: string[] = ["", "See everyone's status.", "Proceed.\r"];
-        const split = title.includes("Fallen") ? "\n" : "\n\n\n";
-        div?.textContent.split(split).forEach(content => { if (blacklist.includes(content)) return; text.push(content.replaceAll("\n", "")); });
+        const blacklist: string[] = ["", "See everyone's status.", "Proceed."];
+        const fallen = title.includes("Fallen");
+        const split = fallen ? "\n" : "\n\n\n";
+        div?.textContent.split(split).forEach(content => {
+            let reliable_content = content.replaceAll("\n", "").replaceAll("Proceed.\r", "");
+            if (blacklist.includes(reliable_content)) return;
+            if (reliable_content.includes("District") && fallen) { reliable_content = replaceLastOccurrence(content, "District", "\nDistrict"); }
+            text.push(reliable_content);
+        });
         const pfp: string[][] = [];
         const tables = div?.getElementsByTagName("table");
 

@@ -21,3 +21,9 @@ export async function sendChannelMessage(interaction: Interaction, channel_id: s
     if (!channel?.isSendable()) return console.error(`${channel_id}: channel not sendable`);
     await channel.send(message);
 }
+
+export function replaceLastOccurrence(str: string, search: string, replacement: string) {
+    const lastIndex = str.lastIndexOf(search);
+    if (lastIndex === -1) return str;
+    return str.substring(0, lastIndex) + replacement + str.substring(lastIndex + search.length);
+}

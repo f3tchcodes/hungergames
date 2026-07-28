@@ -72,7 +72,9 @@ export async function readGameplay(session_id: string) {
         div?.getElementsByTagName("strong").forEach(player => player.insertAdjacentHTML("afterbegin", "**").insertAdjacentHTML("beforeend", "**"));
         div?.getElementsByTagName("a").forEach(a => { if (a.textContent.includes("Proceed")) proceed = a?.attributes.href ?? "winner.php"; });
         const text: string[] = [];
-        div?.textContent.split("\n\n\n").forEach(content => text.push(content.replaceAll("\n", "").replaceAll("Proceed.\r", "")));
+        const blacklist: string[] = ["", "See everyone's status.", "Proceed.\r"];
+        const split = title.includes("Fallen") ? "\n" : "\n\n\n";
+        div?.textContent.split(split).forEach(content => { if (blacklist.includes(content)) return; text.push(content.replaceAll("\n", "")); });
         const pfp: string[][] = [];
         const tables = div?.getElementsByTagName("table");
 
@@ -82,6 +84,7 @@ export async function readGameplay(session_id: string) {
                 if (!img.attributes.src) return console.error(`${img.attributes.src} img src does not exist`);
                 current_pfp.push(img.attributes.src);
             });
+            if (current_pfp.length === 0) return;
             pfp.push(current_pfp);
         });
 

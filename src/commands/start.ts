@@ -51,7 +51,7 @@ export default {
         if (!tribute_reg_res) return await _EphToast(interaction, "Failed to set tribute members. Try again or contact dev to fix.");
 
         await sendChannelMessage(interaction, game_channel_id, "Saving complete gameplay...");
-        const complete_gameplay = await readGameplay(session_id);
+        const complete_gameplay = await readGameplay(session_id, 5);
         if (!complete_gameplay) return await _EphToast(interaction, "Error occured! Try again. If it does not work, contact dev to fix.");
         await client.db.update(games).set({ game_data: complete_gameplay }).where(eq(games.guild_id, guild_id));
 

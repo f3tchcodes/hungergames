@@ -54,5 +54,5 @@ export interface GameplaySections {
 
 export interface CompleteGameplay {
     title: string;
-    sections: GameplaySections[];
+    sections: GameplaySections[][];
 }

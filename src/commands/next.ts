@@ -26,7 +26,7 @@ export default {
         const session_id = qGames[0].session_id;
         if (!session_id) return await _EphToastDefer(interaction, "You must start a game before running this command!");
 
-        await readGameplay(session_id);
+        await readGameplay(session_id, 5);
         await interaction.followUp("check it");
     }
 } satisfies MyInteractions;

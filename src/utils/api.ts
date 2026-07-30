@@ -1,5 +1,4 @@
 
-import _ from "lodash";
 import { parse } from "node-html-parser";
 
 import config from "#utils/config";
@@ -55,7 +54,7 @@ export async function setTributes(session_id: string, tribute_size: number, trib
     return true;
 }
 
-export async function readGameplay(session_id: string, chunks: number) {
+export async function readGameplay(session_id: string) {
     // bloodbath is the first step, after that we simply take the proceed url from the response
     // unlock the next page and send the request, store it, and keep repeating until the end
     const complete_gameplay: CompleteGameplay[] = [];
@@ -101,9 +100,8 @@ export async function readGameplay(session_id: string, chunks: number) {
 
         const gameplay_sections: GameplaySections[] = [];
         for (let i = 0; i < text.length; i++) gameplay_sections.push({ profile_pic_url: pfp[i] ?? ["Unkown"], message: text[i] ?? "Unknown" });
-        const gameplay_sections_chunks = _.chunk(gameplay_sections, chunks);
 
-        complete_gameplay.push({ title, sections: gameplay_sections_chunks });
+        complete_gameplay.push({ title, sections: gameplay_sections });
         res = await fetch(`${config.BASE_URL}/hungergames/${proceed}`, { headers: { Cookie: `PHPSESSID=${session_id}` } });
         console.log(`Working on ${title}`);
     } while (!proceed.includes("placements"));

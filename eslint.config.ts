@@ -6,11 +6,6 @@ import unusedImports from "eslint-plugin-unused-imports";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-tseslint.configs.recommended[2].rules = {
-    ...tseslint.configs.recommended[2]?.rules,
-    "@typescript-eslint/no-unused-vars": "off"
-};
-
 export default defineConfig([
     {
         files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
@@ -50,7 +45,8 @@ export default defineConfig([
             "simple-import-sort/exports": "error",
             "no-duplicate-imports": "error",
             "unused-imports/no-unused-imports": "error",
-            "no-unused-vars": "off"
+            "no-unused-vars": "off",
+            "@typescript-eslint/no-unused-vars": "off",
         },
     },
 ]);

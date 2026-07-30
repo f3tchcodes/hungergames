@@ -9,7 +9,8 @@ export const games = sqliteTable("games", {
     tribute_size: integer().notNull(),
     district_size: integer().notNull(),
     registered_players: integer().notNull().default(0),
-    step: integer().notNull().default(0),
+    game_page: integer().notNull().default(0),
+    section_page: integer().notNull().default(0),
     game_data: text({ mode: "json" }).$type<CompleteGameplay[]>()
 });
 

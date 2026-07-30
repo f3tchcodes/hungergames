@@ -1,8 +1,9 @@
-import { Canvas, loadImage } from "canvas-constructor/napi-rs";
+import { Canvas, loadImage, textWrap } from "canvas-constructor/napi-rs";
 import _ from "lodash";
 
 import config from "#utils/config";
 import type {
+    CompleteGameplay,
     TributeList
 } from "#utils/interfaces";
 
@@ -73,5 +74,80 @@ export async function buildTributeList(canvas: Canvas, tribute_list: TributeList
                 canvas.setColor(text_color).setTextFont("13px").printText(text, text_width, text_height);
             }
         }
+    }
+}
+
+export async function showGamplay(complete_gameplay: CompleteGameplay[], game_page: number, section_page: number, chunk: number) {
+    const background = await loadImage("./assets/list_bg.png");
+    const canvas = new Canvas(500, 1000).printImage(background, 0, 0, 500, 1000);
+
+    await buildGameplay(canvas, complete_gameplay, game_page, section_page, chunk);
+
+    return canvas.png();
+}
+
+export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteGameplay[], game_page: number, section_page: number, chunk: number) {
+    canvas.setTextFont("20px").setColor(config.CANVAS_TEXT_COLOR);
+
+    const current_page = complete_gameplay[game_page];
+    if (!current_page) return console.error(`${game_page} current page does not exist`);
+
+    const sections = current_page.sections;
+    const sections_chunks = _.chunk(sections, chunk);
+    const current_section_chunks = sections_chunks[section_page];
+    if (!current_section_chunks) return console.error(`current_section_chunks not found: section_page ${section_page} on ${game_page} not found`);
+    const chunk_length = current_section_chunks.length;
+
+    for (let i = 0; i < chunk_length; i++) {
+        const row = i; // effects the height
+        const current_section = current_section_chunks[i];
+        if (!current_section) return console.error(`absolute current section ${i} does not exist`);
+
+        const pfp_size_width = 80;
+        const pfp_size_height = 80;
+        const pfp_arr = current_section.profile_pic_url;
+        const base_height = (row * 950 / chunk_length) + (200 / chunk_length);
+
+        const pfp_length = pfp_arr.length;
+        for (let j = 0; j < pfp_length; j++) {
+            const pfp_width = (j * 1000 / pfp_length) + ((250 - (pfp_size_width / 2)) / pfp_length);
+
+            const current_pfp = pfp_arr[j];
+            if (!current_pfp) return console.error(`pfp ${j} current_section_chunks not found: section_page ${section_page} on ${game_page} not found`);
+
+            const pfp = await loadImage(current_pfp);
+            canvas.printImage(pfp, pfp_width, base_height, pfp_size_width, pfp_size_height);
+        }
+
+        const text = current_section.message;
+        const text_height = base_height + pfp_size_height + 30;
+        textWrap(canvas, text, canvas.width - 50)
+            .split(/(?=\n)/g)
+            .forEach((line: string) => {
+                const names = line.match(/(\*\*)(.*)(\*\*)/g)?.map(name => name.replaceAll("**", "\\*\\*")) ?? ["(?=\n)"];
+
+                const names_regex = new RegExp(names.join("|"), "g");
+                let clean_line = line;
+                names.forEach(name => clean_line = line.replaceAll(name.replaceAll("\\", ""), name.replaceAll("\\*", "")));
+                const clean_line_width = canvas.measureText(clean_line).width;
+
+                const line_split = line.split(names_regex);
+
+                let name_index = 0;
+                let line_width = (canvas.width - clean_line_width) / 2;
+                line_split.forEach(line_chunk => {
+                    if (line_chunk.length > 0) {
+                        canvas.setColor(config.CANVAS_TEXT_COLOR).printMultilineText(line_chunk, line_width, text_height);
+                        line_width += canvas.measureText(line_chunk).width;
+                    }
+                    if (line_chunk.length === 0) {
+                        const name = names[name_index];
+                        if (!name) return console.log(`Damn bro name doesn't exist ${name_index}`);
+                        canvas.setColor(config.CANVAS_NAME_COLOR).printMultilineText(name.replaceAll("\\*", ""), line_width, text_height);
+                        line_width += canvas.measureText(name.replaceAll("\\*", "")).width;
+                        name_index++;
+                    }
+                });
+            });
     }
 }

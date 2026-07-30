@@ -110,7 +110,7 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
 
         const pfp_length = pfp_arr.length;
         for (let j = 0; j < pfp_length; j++) {
-            const pfp_width = (j * 1000 / pfp_length) + ((250 - (pfp_size_width / 2)) / pfp_length);
+            const pfp_width = (j * 500 / pfp_length) + ((250 - (pfp_size_width / 2)) / pfp_length);
 
             const current_pfp = pfp_arr[j];
             if (!current_pfp) return console.error(`pfp ${j} current_section_chunks not found: section_page ${section_page} on ${game_page} not found`);
@@ -137,13 +137,13 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
                 let line_width = (canvas.width - clean_line_width) / 2;
                 line_split.forEach(line_chunk => {
                     if (line_chunk.length > 0) {
-                        canvas.setColor(config.CANVAS_TEXT_COLOR).printMultilineText(line_chunk, line_width, text_height);
+                        canvas.printMultilineText(line_chunk, line_width, text_height);
                         line_width += canvas.measureText(line_chunk).width;
                     }
                     if (line_chunk.length === 0) {
                         const name = names[name_index];
                         if (!name) return console.log(`Damn bro name doesn't exist ${name_index}`);
-                        canvas.setColor(config.CANVAS_NAME_COLOR).printMultilineText(name.replaceAll("\\*", ""), line_width, text_height);
+                        canvas.setColor(config.CANVAS_NAME_COLOR).printMultilineText(name.replaceAll("\\*", ""), line_width, text_height).setColor(config.CANVAS_TEXT_COLOR);
                         line_width += canvas.measureText(name.replaceAll("\\*", "")).width;
                         name_index++;
                     }

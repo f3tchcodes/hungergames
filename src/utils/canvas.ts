@@ -110,7 +110,7 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
 
         const pfp_length = pfp_arr.length;
         for (let j = 0; j < pfp_length; j++) {
-            const pfp_width = (j * 380 / pfp_length) + ((250 - (pfp_size_width / 2)) / pfp_length);
+            const pfp_width = (j * 430 / pfp_length) + ((250 - (pfp_size_width / 2)) / pfp_length);
 
             const current_pfp = pfp_arr[j];
             if (!current_pfp) return console.error(`pfp ${j} current_section_chunks not found: section_page ${section_page} on ${game_page} not found`);

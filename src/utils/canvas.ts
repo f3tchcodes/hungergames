@@ -124,9 +124,9 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
         textWrap(canvas, text, canvas.width - 50)
             .split(/(?=\n)/g)
             .forEach((line: string) => {
-                const names = line.match(/(\*\*)(.+?)(\*\*)/g)?.map(name => name.replaceAll("**", "\\*\\*")) ?? ["(?=\n)"];
+                const names_regex = new RegExp(/(\*\*[^\*\* ].+?\*\*)/g);
+                const names = line.match(names_regex)?.map(name => name.replaceAll("**", "\\*\\*")) ?? ["(?=\n)"];
 
-                const names_regex = new RegExp(names.join("|"), "gu");
                 let clean_line = line;
                 names.forEach(name => clean_line = line.replaceAll(name.replaceAll("\\", ""), name.replaceAll("\\*", "")));
                 const clean_line_width = canvas.measureText(clean_line).width;
@@ -136,16 +136,15 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
                 let name_index = 0;
                 let line_width = (canvas.width - clean_line_width) / 2;
                 line_split.forEach(line_chunk => {
-                    if (line_chunk.length > 0) {
-                        canvas.printMultilineText(line_chunk, line_width, text_height);
-                        line_width += canvas.measureText(line_chunk).width;
-                    }
-                    if (line_chunk.length === 0) {
+                    if (line_chunk.match(names_regex)) {
                         const name = names[name_index];
                         if (!name) return console.log(`Damn bro name doesn't exist ${name_index}`);
                         canvas.setColor(config.CANVAS_NAME_COLOR).printMultilineText(name.replaceAll("\\*", ""), line_width, text_height).setColor(config.CANVAS_TEXT_COLOR);
                         line_width += canvas.measureText(name.replaceAll("\\*", "")).width;
                         name_index++;
+                    } else {
+                        canvas.printMultilineText(line_chunk, line_width, text_height);
+                        line_width += canvas.measureText(line_chunk).width;
                     }
                 });
             });

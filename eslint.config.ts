@@ -47,6 +47,7 @@ export default defineConfig([
             "unused-imports/no-unused-imports": "error",
             "no-unused-vars": "off",
             "@typescript-eslint/no-unused-vars": "off",
+            "no-useless-escape": "off"
         },
     },
 ]);

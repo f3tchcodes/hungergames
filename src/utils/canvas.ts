@@ -110,7 +110,7 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
 
         const pfp_length = pfp_arr.length;
         for (let j = 0; j < pfp_length; j++) {
-            const pfp_width = (j * 500 / pfp_length) + ((250 - (pfp_size_width / 2)) / pfp_length);
+            const pfp_width = (j * 380 / pfp_length) + ((250 - (pfp_size_width / 2)) / pfp_length);
 
             const current_pfp = pfp_arr[j];
             if (!current_pfp) return console.error(`pfp ${j} current_section_chunks not found: section_page ${section_page} on ${game_page} not found`);
@@ -125,16 +125,26 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
             .split(/(?=\n)/g)
             .forEach((line: string) => {
                 const names_regex = new RegExp(/(\*\*[^\*\* ].+?\*\*)/g);
-                const names = line.match(names_regex)?.map(name => name.replaceAll("**", "\\*\\*")) ?? ["(?=\n)"];
+                let names = line.match(names_regex)?.map(name => name.replaceAll("**", "\\*\\*")) ?? ["(?=\n)"];
 
                 let clean_line = line;
                 names.forEach(name => clean_line = line.replaceAll(name.replaceAll("\\", ""), name.replaceAll("\\*", "")));
                 const clean_line_width = canvas.measureText(clean_line).width;
 
-                const line_split = line.split(names_regex);
+                let line_split = line.split(names_regex);
 
                 let name_index = 0;
                 let line_width = (canvas.width - clean_line_width) / 2;
+                const new_line_first_index = line.match("\n");
+                if (new_line_first_index) new_line_first_index.forEach(nl_char => {
+                    const line_split_first_index = line_split[0] ?? "";
+                    line_split = line_split.slice(1).map(line_chunk => nl_char + line_chunk);
+                    line_split.unshift(line_split_first_index);
+
+                    names = names.map(name => nl_char + name);
+                });
+
+                console.log(line_split);
                 line_split.forEach(line_chunk => {
                     if (line_chunk.match(names_regex)) {
                         const name = names[name_index];

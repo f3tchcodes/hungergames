@@ -124,9 +124,9 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
         textWrap(canvas, text, canvas.width - 50)
             .split(/(?=\n)/g)
             .forEach((line: string) => {
-                const names = line.match(/(\*\*)(.*)(\*\*)/g)?.map(name => name.replaceAll("**", "\\*\\*")) ?? ["(?=\n)"];
+                const names = line.match(/(\*\*)(.+?)(\*\*)/g)?.map(name => name.replaceAll("**", "\\*\\*")) ?? ["(?=\n)"];
 
-                const names_regex = new RegExp(names.join("|"), "g");
+                const names_regex = new RegExp(names.join("|"), "gu");
                 let clean_line = line;
                 names.forEach(name => clean_line = line.replaceAll(name.replaceAll("\\", ""), name.replaceAll("\\*", "")));
                 const clean_line_width = canvas.measureText(clean_line).width;

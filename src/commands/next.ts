@@ -54,7 +54,7 @@ export default {
             console.log(`game_page set to ${game_page}`);
         }
 
-        // section_page++;
+        section_page++;
         console.log(`section_page set to ${section_page}`);
         await client.db.update(games).set({ game_page, section_page }).where(eq(games.guild_id, guild_id));
     }

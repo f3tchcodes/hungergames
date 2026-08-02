@@ -98,6 +98,7 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
     if (!current_section_chunks) return console.error(`current_section_chunks not found: section_page ${section_page} on ${game_page} not found`);
     const chunk_length = current_section_chunks.length;
 
+    // generate profile pictures
     for (let i = 0; i < chunk_length; i++) {
         const row = i; // effects the height
         const current_section = current_section_chunks[i];
@@ -119,21 +120,33 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
             canvas.printImage(pfp, pfp_width, base_height, pfp_size_width, pfp_size_height);
         }
 
+        // generate text
+        // the plan is to break text with new line characters on canvas overflow
+        // get all the names separately that are wrapped with ** so we can control their colors
+        // create a clean line without ** and get its measurements, this will be used for pasting in all the chunks of texts
+        // create chunks of text separated by names regex and add new line character(s) at the start of every chunked text
+        // print in text starting from a starting value width, increment that width with the measurement of the text we put
         const text = current_section.message;
         const text_height = base_height + pfp_size_height + 30;
         let nl_char_count = 0;
+
+        // text breaks on canvas overflow
         textWrap(canvas, text, canvas.width - 50)
             .split(/(?=\n)/g)
             .forEach((line: string) => {
+                // get names wrapped in ** separately
                 const names_regex = new RegExp(/(\*\*[^\*\* ].+?\*\*)/g);
                 let names = line.match(names_regex)?.map(name => name.replaceAll("**", "\\*\\*")) ?? ["(?=\n)"];
 
+                // clean line for measurements
                 let clean_line = line;
                 names.forEach(name => clean_line = line.replaceAll(name.replaceAll("\\", ""), name.replaceAll("\\*", "")));
                 const clean_line_width = canvas.measureText(clean_line).width;
 
+                // split line by name to manage names color separately
                 let line_split = line.split(names_regex);
 
+                // add new line character to every chunk every time a line breaks, increment number of line break characters if line breaks more than once
                 const new_line_first_index = line.match("\n");
                 if (new_line_first_index) {
                     const first_index = line_split[0];
@@ -145,6 +158,7 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
                     names = names.map(name => nl_char + name);
                 }
 
+                // print text, increment line width with the text's width, use that width to print the next text
                 let name_index = 0;
                 let line_width = (canvas.width - clean_line_width) / 2;
                 line_split.forEach(line_chunk => {

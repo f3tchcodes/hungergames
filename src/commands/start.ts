@@ -16,7 +16,6 @@ export default {
     data: start,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
-        await interaction.reply("Initializing Hunger Games!");
 
         // f3tch the guild id
         const guild_id = interaction.guildId;
@@ -30,6 +29,7 @@ export default {
 
         // f3tch the districts table
         const qDistricts = await interaction.client.db.select().from(districts).where(eq(districts.guild_id, guild_id));
+        await interaction.reply("Initializing Hunger Games!");
 
         // start the game
         await sendChannelMessage(interaction, game_channel_id, "Creating game session...");

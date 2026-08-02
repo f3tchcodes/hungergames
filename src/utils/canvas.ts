@@ -133,8 +133,6 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
 
                 let line_split = line.split(names_regex);
 
-                let name_index = 0;
-                let line_width = (canvas.width - clean_line_width) / 2;
                 const new_line_first_index = line.match("\n");
                 if (new_line_first_index) new_line_first_index.forEach(nl_char => {
                     const line_split_first_index = line_split[0] ?? "";
@@ -144,6 +142,8 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
                     names = names.map(name => nl_char + name);
                 });
 
+                let name_index = 0;
+                let line_width = (canvas.width - clean_line_width) / 2;
                 console.log(line_split);
                 line_split.forEach(line_chunk => {
                     if (line_chunk.match(names_regex)) {

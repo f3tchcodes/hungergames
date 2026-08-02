@@ -34,7 +34,7 @@ export default {
 
         // check if a game is already hosted
         const qGames = await getGamesTable(interaction, guild_id);
-        if (!qGames || !qGames[0]) return await _EphToast(interaction, `Game already hosted in the channel <#${qGames[0]?.channel_id}> !\nUse \`/stop\` to stop the current game and host a new one.`);
+        if (qGames && qGames[0]) return await _EphToast(interaction, `Game already hosted in the channel <#${qGames[0]?.channel_id}> !\nUse \`/stop\` to stop the current game and host a new one.`);
 
         // setting options for tribute size menu
         const tributes_options: StringSelectMenuOptionBuilder[] = [];

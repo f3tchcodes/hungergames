@@ -8,21 +8,14 @@ export async function registerPlayer(RegisterPlayer: RegisterPlayer) {
     const { interaction, guild_id, user_id, username, profile_pic_url, district_id, district_position } = RegisterPlayer;
 
     if (!interaction.isRepliable()) return console.error("Incorrect interaction: Not repliable");
-
-    // check whether they exist
     if (!guild_id || !user_id || !username || !profile_pic_url) return await _EphToast(interaction, "Failed to f3tch user information. Try again later or contact dev to fix.\nUsername: f3tch");
 
     // send query to games table and get values
     const qGames = await getGamesTable(interaction, guild_id);
     if (!qGames || !qGames[0]) return _EphToast(interaction, "Failed to send select query. Try again.");
 
-    // get tribute size
     const tribute_size = qGames[0].tribute_size;
-
-    // get registered players
     const registered_players = qGames[0].registered_players + 1;
-
-    // get districts data
     const district_data = await interaction.client.db.select().from(districts).where(eq(districts.guild_id, guild_id));
 
     // check whether the registeration is a duplicate or not
@@ -35,9 +28,6 @@ export async function registerPlayer(RegisterPlayer: RegisterPlayer) {
         if (interaction.isButton()) interaction.update({ components: [] });
         return await _EphToast(interaction, "All spots have been filled, you can no longer register!");
     }
-
-    console.log(district_id);
-    console.log(district_position);
 
     if (district_id && district_position) {
         // check wether district id and position are occupied or not

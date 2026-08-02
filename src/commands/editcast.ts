@@ -68,9 +68,7 @@ export default {
             const district_id = interaction.options.getInteger("district-id");
             const district_position = interaction.options.getInteger("district-position");
 
-            if (district_id || district_position) {
-                if (!district_id || !district_position) return await _EphToast(interaction, "You must provide both district ID and district position to register a user into a specific position!");
-            }
+            if (district_id || district_position) if (!district_id || !district_position) return await _EphToast(interaction, "You must provide both district ID and district position to register a user into a specific position!");
 
             const registerPlayerObject: RegisterPlayer = {
                 interaction: interaction,

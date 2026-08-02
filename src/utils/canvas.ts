@@ -121,6 +121,7 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
 
         const text = current_section.message;
         const text_height = base_height + pfp_size_height + 30;
+        let nl_char_count = 0;
         textWrap(canvas, text, canvas.width - 50)
             .split(/(?=\n)/g)
             .forEach((line: string) => {
@@ -134,17 +135,18 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
                 let line_split = line.split(names_regex);
 
                 const new_line_first_index = line.match("\n");
-                if (new_line_first_index) new_line_first_index.forEach(nl_char => {
-                    const line_split_first_index = line_split[0] ?? "";
-                    line_split = line_split.slice(1).map(line_chunk => nl_char + line_chunk);
-                    line_split.unshift(line_split_first_index);
-
+                if (new_line_first_index) {
+                    const first_index = line_split[0];
+                    if (!first_index) return console.error(`first index of line split ${line_split} does not exist`);
+                    nl_char_count += 1;
+                    let nl_char = "";
+                    for (let j = 0; j < nl_char_count; j++) nl_char += "\n";
+                    line_split = line_split.map(line_chunk => nl_char + line_chunk.replaceAll("\n", ""));
                     names = names.map(name => nl_char + name);
-                });
+                }
 
                 let name_index = 0;
                 let line_width = (canvas.width - clean_line_width) / 2;
-                console.log(line_split);
                 line_split.forEach(line_chunk => {
                     if (line_chunk.match(names_regex)) {
                         const name = names[name_index];

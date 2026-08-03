@@ -152,6 +152,7 @@ export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySe
                 }
 
                 // print text, increment line width with the text's width, use that width to print the next text
+                // if the text matches names_regex, it means it's a name and should be printed in a different color
                 let name_index = 0;
                 let line_width = (canvas.width - clean_line_width) / 2;
                 line_split.forEach(line_chunk => {

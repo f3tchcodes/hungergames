@@ -116,9 +116,11 @@ export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySe
         // generate text
         // the plan is to break text with new line characters on canvas overflow
         // get all the names separately that are wrapped with ** so we can control their colors
-        // create a clean line without ** and get its measurements, this will be used for pasting in all the chunks of texts
+        // create a clean line without ** and get its measurements, this will be used for pasting in all the chunks of texts with correct size
         // create chunks of text separated by names regex and add new line character(s) at the start of every chunked text
-        // print in text starting from a starting value width, increment that width with the measurement of the text we put
+        // for consistent line breaks in each part of the text
+        // start printing string from the chunked array starting from a starting value width,
+        // increment that width with the measurement of the string we put for continuing with the next string at the correct width
         const text = current_section.message;
         const text_height = base_height + pfp_size_height + 30;
         let nl_char_count = 0;

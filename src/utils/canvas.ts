@@ -3,7 +3,7 @@ import _ from "lodash";
 
 import config from "#utils/config";
 import type {
-    CompleteGameplay,
+    GameplaySections,
     TributeList
 } from "#utils/interfaces";
 
@@ -77,31 +77,24 @@ export async function buildTributeList(canvas: Canvas, tribute_list: TributeList
     }
 }
 
-export async function showGamplay(complete_gameplay: CompleteGameplay[], game_page: number, section_page: number, chunk: number) {
+export async function showGamplay(gameplay_section: GameplaySections[]) {
     const background = await loadImage("./assets/list_bg.png");
     const canvas = new Canvas(500, 1000).printImage(background, 0, 0, 500, 1000);
 
-    await buildGameplay(canvas, complete_gameplay, game_page, section_page, chunk);
+    await buildGameplay(canvas, gameplay_section);
 
     return canvas.png();
 }
 
-export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteGameplay[], game_page: number, section_page: number, chunk: number) {
+export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySections[]) {
     canvas.setTextFont("20px").setColor(config.CANVAS_TEXT_COLOR);
 
-    const current_page = complete_gameplay[game_page];
-    if (!current_page) return console.error(`${game_page} current page does not exist`);
-
-    const sections = current_page.sections;
-    const sections_chunks = _.chunk(sections, chunk);
-    const current_section_chunks = sections_chunks[section_page];
-    if (!current_section_chunks) return console.error(`current_section_chunks not found: section_page ${section_page} on ${game_page} not found`);
-    const chunk_length = current_section_chunks.length;
+    const chunk_length = gameplay_section.length;
 
     // generate profile pictures
     for (let i = 0; i < chunk_length; i++) {
         const row = i; // effects the height
-        const current_section = current_section_chunks[i];
+        const current_section = gameplay_section[i];
         if (!current_section) return console.error(`absolute current section ${i} does not exist`);
 
         const pfp_size_width = 80;
@@ -114,7 +107,7 @@ export async function buildGameplay(canvas: Canvas, complete_gameplay: CompleteG
             const pfp_width = (j * 430 / pfp_length) + ((250 - (pfp_size_width / 2)) / pfp_length);
 
             const current_pfp = pfp_arr[j];
-            if (!current_pfp) return console.error(`pfp ${j} current_section_chunks not found: section_page ${section_page} on ${game_page} not found`);
+            if (!current_pfp) return console.error(`pfp ${j}  on gameplay_section ${gameplay_section} not found`);
 
             const pfp = await loadImage(current_pfp);
             canvas.printImage(pfp, pfp_width, base_height, pfp_size_width, pfp_size_height);

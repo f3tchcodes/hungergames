@@ -22,11 +22,11 @@
     "baseUrl": ".",
     "ignoreDeprecations": "6.0",
     "paths": {
-        "#handlers/*": ["src/handlers/*.js"],
-        "#commands/*": ["src/commands/*.js"],
-        "#events/*": ["src/events/*.js"],
-        "#utils/*": ["src/utils/*.js"],
-        "#assets/*": ["src/assets/*"]
+        "#handlers/*": ["./src/handlers/*.js"],
+        "#commands/*": ["./src/commands/*.js"],
+        "#events/*": ["./src/events/*.js"],
+        "#utils/*": ["./src/utils/*.js"],
+        "#assets/*": ["./src/assets/*"]
     },
 
     // Stricter Typechecking Options

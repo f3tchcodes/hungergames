@@ -80,7 +80,6 @@ export async function buildTributeList(canvas: Canvas, tribute_list: TributeList
 export async function showGamplay(gameplay_section: GameplaySections[]) {
     const background = await loadImage("./assets/list_bg.png");
     const canvas = new Canvas(500, 1000).printImage(background, 0, 0, 500, 1000);
-    console.log(gameplay_section);
     await buildGameplay(canvas, gameplay_section);
 
     return canvas.png();
@@ -158,6 +157,7 @@ export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySe
                 let name_index = 0;
                 let line_width = (canvas.width - clean_line_width) / 2;
                 line_split.forEach(line_chunk => {
+                    console.log(line_chunk);
                     if (line_chunk.match(names_regex)) {
                         const name = names[name_index];
                         if (!name) return console.log(`Damn bro name doesn't exist ${name_index}`);

@@ -29,8 +29,7 @@ If a pull request is submitted with very clear use of AI and vibecoding (AI writ
 2. Fallen tributes profile pictures are not grayed out.
 3. District number on /viewcast without including default players is incorrect.
 4. Gender is always male by default.
-5. Interaction failed after running /next once the game ends.
-6. New game can be started in the middle of a started game.
+5. New game can be started in the middle of a started game.
 
 ## LICENSE
 

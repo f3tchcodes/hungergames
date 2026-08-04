@@ -2,6 +2,8 @@ import type { Interaction, PermissionResolvable } from "discord.js";
 
 import { _EphToast } from "./common.js";
 
+// check whether user has permissions or not, push all the permissions user does not have in an array
+// print only the permissions the user does not have with ephemeral
 export async function userPermissions(interaction: Interaction, permissions: PermissionResolvable[], permission_names: string[]) {
     if (!interaction.isRepliable()) return;
     const member = await interaction.guild?.members.fetch(interaction.user.id);

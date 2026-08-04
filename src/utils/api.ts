@@ -81,7 +81,6 @@ export async function readGameplay(session_id: string) {
             if (blacklist.includes(reliable_content)) return;
             if (reliable_content.includes("District") && fallen) { reliable_content = replaceLastOccurrence(content, "District", "\nDistrict"); }
             text.push(reliable_content);
-            console.log(reliable_content);
         });
         const pfp: string[][] = [];
         const tables = div?.getElementsByTagName("table");
@@ -104,7 +103,6 @@ export async function readGameplay(session_id: string) {
 
         complete_gameplay.push({ title, sections: gameplay_sections });
         res = await fetch(`${config.BASE_URL}/hungergames/${proceed}`, { headers: { Cookie: `PHPSESSID=${session_id}` } });
-        console.log(`Working on ${title}`);
     } while (!proceed.includes("placements"));
 
     return complete_gameplay;

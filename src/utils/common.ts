@@ -1,7 +1,14 @@
-import { type Interaction, type MessageCreateOptions, MessageFlags, MessagePayload, type RepliableInteraction } from "discord.js";
+import {
+    type Client,
+    type Interaction,
+    type MessageCreateOptions,
+    MessageFlags,
+    MessagePayload,
+    type RepliableInteraction
+} from "discord.js";
 import { eq } from "drizzle-orm";
 
-import { games } from "./db/schema.js";
+import { districts, games } from "./db/schema.js";
 
 export async function _EphToast(interaction: RepliableInteraction, content: string): Promise<undefined> {
     await interaction.reply({ content, flags: MessageFlags.Ephemeral });
@@ -26,4 +33,10 @@ export function replaceLastOccurrence(str: string, search: string, replacement: 
     const lastIndex = str.lastIndexOf(search);
     if (lastIndex === -1) return str;
     return str.substring(0, lastIndex) + replacement + str.substring(lastIndex + search.length);
+}
+
+export async function stopGame(client: Client, guild_id: string) {
+    // delete game data to stop the game
+    await client.db.delete(games).where(eq(games.guild_id, guild_id));
+    await client.db.delete(districts).where(eq(districts.guild_id, guild_id));
 }

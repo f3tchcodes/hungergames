@@ -1,8 +1,6 @@
 import { InteractionContextType, PermissionsBitField, SlashCommandBuilder } from "discord.js";
-import { eq } from "drizzle-orm";
 
-import { _EphToast, getGamesTable } from "#utils/common";
-import { districts, games } from "#utils/db/schema";
+import { _EphToast, getGamesTable, stopGame } from "#utils/common";
 import type { MyInteractions } from "#utils/interfaces";
 import { userPermissions } from "#utils/permissions";
 
@@ -36,8 +34,7 @@ export default {
         if (!qGames) return await _EphToast(interaction, "No available game to stop.\nYou may host a new game with `/host` anytime.");
 
         // delete game data to stop the game
-        await client.db.delete(games).where(eq(games.guild_id, guild_id));
-        await client.db.delete(districts).where(eq(districts.guild_id, guild_id));
+        await stopGame(client, guild_id);
 
         return await interaction.reply({
             content: "The game has been successfully stopped.\nYou may host a new game with `/host` anytime."

@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import _ from "lodash";
 
 import { showGamplay } from "#utils/canvas";
-import { _EphToastDefer, getGamesTable, sendChannelMessage } from "#utils/common";
+import { _EphToastDefer, getGamesTable, sendChannelMessage, stopGame } from "#utils/common";
 import { games } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
 import { userPermissions } from "#utils/permissions";
@@ -71,7 +71,7 @@ export default {
         // check whether the sections of current page or game pages have been completed or not
         section_page++;
         if (section_page === max_section_pages) { section_page = 0; game_page++; console.log(`game_page set to ${game_page}`); }
-        if (game_page === max_game_pages) await sendChannelMessage(interaction, game_channel_id, "**THE HUNGERGAMES HAS BEEN FINISHED!**");
+        if (game_page === max_game_pages) { await stopGame(client, guild_id); await sendChannelMessage(interaction, game_channel_id, "**THE HUNGERGAMES HAS BEEN FINISHED!**"); }
 
         console.log(`section_page set to ${section_page}`);
         await client.db.update(games).set({ game_page, section_page }).where(eq(games.guild_id, guild_id));

@@ -7,7 +7,7 @@ import config from "#utils/config";
 import { districts } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
 
-const host = new SlashCommandBuilder()
+const usersettings = new SlashCommandBuilder()
     .setName("usersettings")
     .setDescription("Edit your settings.")
     .addSubcommand(subcommand =>
@@ -44,7 +44,7 @@ const host = new SlashCommandBuilder()
     );
 
 export default {
-    data: host,
+    data: usersettings,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
 

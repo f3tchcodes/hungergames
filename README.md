@@ -11,7 +11,7 @@ Run with: `/help`
 
 This bot is written with no help from AI. Not a single part of this code, or even the ideas, were taken from AI. Every line was manually typed except a few that I took from **StackOverflow**. I would advise the future contributors to follow the same principle. 
 
-If a pull request is submitted with very clear use of AI (AI written PR, code that resembles AI, or comments that are written by AI) **it will be closed without a second thought** regardless of the contribution!
+If a pull request is submitted with very clear use of AI and vibecoding (AI written PR, code that resembles AI, or comments that are written by AI) **it will be closed without a second thought** regardless of the contribution!
 
 ## Self hosting
 

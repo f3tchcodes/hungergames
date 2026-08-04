@@ -81,6 +81,7 @@ export async function readGameplay(session_id: string) {
             if (blacklist.includes(reliable_content)) return;
             if (reliable_content.includes("District") && fallen) { reliable_content = replaceLastOccurrence(content, "District", "\nDistrict"); }
             text.push(reliable_content);
+            console.log(reliable_content);
         });
         const pfp: string[][] = [];
         const tables = div?.getElementsByTagName("table");

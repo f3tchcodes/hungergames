@@ -1,9 +1,10 @@
-import { InteractionContextType, SlashCommandBuilder } from "discord.js";
+import { InteractionContextType, PermissionsBitField, SlashCommandBuilder } from "discord.js";
 import { eq } from "drizzle-orm";
 
 import { _EphToast, getGamesTable } from "#utils/common";
 import { districts, games } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
+import { userPermissions } from "#utils/permissions";
 
 // building the command
 const stop = new SlashCommandBuilder()
@@ -17,6 +18,14 @@ export default {
     data: stop,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
+
+        // check required permissions
+        const check_permissions = await userPermissions(interaction, [
+            PermissionsBitField.Flags.ManageGuild
+        ], [
+            "ManageGuild"
+        ]);
+        if (!check_permissions) return;
 
         // get guild and id and check whether it's available
         const guild_id = interaction.guildId;

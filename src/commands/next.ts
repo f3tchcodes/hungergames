@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
 import { eq } from "drizzle-orm";
 import _ from "lodash";
 
@@ -6,6 +6,7 @@ import { showGamplay } from "#utils/canvas";
 import { _EphToastDefer, getGamesTable, sendChannelMessage } from "#utils/common";
 import { games } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
+import { userPermissions } from "#utils/permissions";
 
 const next = new SlashCommandBuilder()
     .setName("next")
@@ -15,6 +16,15 @@ export default {
     data: next,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
+
+        // check required permissions
+        const check_permissions = await userPermissions(interaction, [
+            PermissionsBitField.Flags.ManageGuild
+        ], [
+            "ManageGuild"
+        ]);
+        if (!check_permissions) return;
+
         await interaction.deferReply();
 
         // f3tch the guild id

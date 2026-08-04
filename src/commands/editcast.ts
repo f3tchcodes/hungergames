@@ -1,7 +1,8 @@
-import { SlashCommandBuilder } from "discord.js";
+import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
 
 import { _EphToast, _EphToastDefer, getGamesTable } from "#utils/common";
 import type { MyInteractions, RegisterPlayer } from "#utils/interfaces";
+import { userPermissions } from "#utils/permissions";
 import { registerPlayer } from "#utils/register";
 
 const players = new SlashCommandBuilder()
@@ -50,6 +51,15 @@ export default {
     data: players,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
+
+        // check required permissions
+        const check_permissions = await userPermissions(interaction, [
+            PermissionsBitField.Flags.ManageGuild
+        ], [
+            "ManageGuild"
+        ]);
+        if (!check_permissions) return;
+
         const response = await interaction.deferReply({ withResponse: true });
 
         // get guild and id and check whether it's available

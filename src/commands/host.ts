@@ -6,6 +6,7 @@ import {
     ChannelSelectMenuBuilder,
     ChannelType,
     EmbedBuilder,
+    PermissionsBitField,
     SlashCommandBuilder,
     StringSelectMenuBuilder,
     StringSelectMenuOptionBuilder
@@ -14,6 +15,7 @@ import {
 import { _EphToast, getGamesTable } from "#utils/common";
 import config from "#utils/config";
 import type { MyInteractions } from "#utils/interfaces";
+import { userPermissions } from "#utils/permissions";
 
 // building the command
 const host = new SlashCommandBuilder()
@@ -27,6 +29,14 @@ export default {
         if (!interaction.inCachedGuild()) return;
         if (!interaction.isChatInputCommand()) return;
         if (!config.TRIBUTE_SIZE[0]) return console.error("Tribute size configuration not configured.");
+
+        // check required permissions
+        const check_permissions = await userPermissions(interaction, [
+            PermissionsBitField.Flags.ManageGuild
+        ], [
+            "ManageGuild"
+        ]);
+        if (!check_permissions) return;
 
         // get guild and id and check whether it's available
         const guild_id = interaction.guildId;

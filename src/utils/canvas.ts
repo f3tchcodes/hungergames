@@ -80,7 +80,7 @@ export async function buildTributeList(canvas: Canvas, tribute_list: TributeList
 export async function showGamplay(gameplay_section: GameplaySections[]) {
     const background = await loadImage("./assets/list_bg.png");
     const canvas = new Canvas(500, 1000).printImage(background, 0, 0, 500, 1000);
-
+    console.log(gameplay_section);
     await buildGameplay(canvas, gameplay_section);
 
     return canvas.png();

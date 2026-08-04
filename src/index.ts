@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-import { Client, GatewayIntentBits } from "discord.js";
+import { ActivityType, Client, GatewayIntentBits } from "discord.js";
 import type { EmptyRelations } from "drizzle-orm";
 import type { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 
@@ -28,7 +28,14 @@ const client = new Client({
         GatewayIntentBits.DirectMessages,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.MessageContent
-    ]
+    ],
+    presence: {
+        status: "online",
+        activities: [{
+            type: ActivityType.Playing,
+            name: "Hunger Games"
+        }]
+    }
 });
 
 client.db = db;

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "rmdir /S /Q dist && tsc && node dist/index.js"
+    "run": "rmdir /S /Q dist && npx tsc && node dist/index.js"
   },
   "repository": {
     "type": "git",

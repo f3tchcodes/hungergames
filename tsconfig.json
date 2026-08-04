@@ -19,8 +19,6 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "ignoreDeprecations": "6.0",
-    "baseUrl": ".",
     "paths": {
         "#handlers/*": ["./src/handlers/*.js"],
         "#commands/*": ["./src/commands/*.js"],

@@ -93,7 +93,7 @@ export default {
             const register = await registerPlayer(registerPlayerObject);
             if (!register) return;
 
-            return await _EphToast(interaction, `Successfully registered **${register.username}** to The Hunger Games.\nUse \`/mysettings gender\` to set your gender.`);
+            return await _EphToast(interaction, `Successfully registered **${register.username}** to The Hunger Games.\nUse \`/usersettings gender\` to set your gender.`);
         } else {
             return await _EphToast(interaction, "Unknown subcommand.");
         }

@@ -38,8 +38,7 @@
     "eslint-plugin-simple-import-sort": "^13.0.0",
     "lodash": "^4.18.1",
     "node": "^26.4.0",
-    "node-html-parser": "^9.0.1",
-    "typescript": "^6.0.3"
+    "node-html-parser": "^9.0.1"
   },
   "imports": {
     "#handlers/*": "./dist/handlers/*.js",
@@ -49,6 +48,7 @@
     "#assets/*": "./dist/assets/*"
   },
   "devDependencies": {
+    "typescript": "^6.0.3",
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.1.0",
     "discord.js": "^14.26.4",

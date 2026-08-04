@@ -1,9 +1,9 @@
 # hungergames
-Discord bot for playing BrantSteele's The Hunger Games original version.
+Discord bot for playing [BrantSteele](https://brantsteele.net/)'s **The Hunger Games** original version simulator.
 
 ## Run and invite
 
-Run with: `.help`
+Run with: `/help`
 
 [Invite me](https://discord.com/oauth2/authorize?client_id=1521885382558351401&permissions=4503599627471872&integration_type=0&scope=bot) • [Support server](https://discord.gg/eKHNhtvVtU)
 

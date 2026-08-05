@@ -1,4 +1,4 @@
-import { Canvas, loadImage, textWrap } from "canvas-constructor/skia";
+import { Canvas, loadImage, textWrap } from "canvas-constructor/cairo";
 import _ from "lodash";
 
 import config from "#utils/config";

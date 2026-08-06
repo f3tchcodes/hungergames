@@ -11,7 +11,8 @@ export const games = sqliteTable("games", {
     registered_players: integer().notNull().default(0),
     game_page: integer().notNull().default(0),
     section_page: integer().notNull().default(0),
-    game_data: text({ mode: "json" }).$type<CompleteGameplay[]>()
+    game_data: text({ mode: "json" }).$type<CompleteGameplay[]>(),
+    game_started: integer().notNull().default(0)
 });
 
 // by default we enter fake characters

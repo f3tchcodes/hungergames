@@ -27,7 +27,7 @@ If a pull request is submitted with very clear use of AI and vibecoding (AI writ
 ### Bugs/Issues
 You can either directly open an issue from GitHub, join the Discord server and report in `#bug-reports`, or contact me on Discord to report a bug.
 
- **Known-bugs:- **
+**Known-bugs:-**
 1. District number on /viewcast without including default players is incorrect.
 
 ### LICENSE

@@ -27,6 +27,9 @@ Host a new game.
 \`/start\`
 Start a hosted game.
 
+\`/start\`
+Restart a game after starting once.
+
 \`/next\`
 Play the next page.
 

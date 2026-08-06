@@ -125,12 +125,13 @@ export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySe
         let nl_char_count = 0;
 
         // text breaks on canvas overflow
-        textWrap(canvas, text, canvas.width - 50)
+        const names_regex = new RegExp(/(\*\*[^\*\* ].+?\*\*)/g);
+        const text_whole_name = text.split(names_regex).map(text => { if (text.match(names_regex)) { return text.replaceAll(" ", "ㅤ"); } else return text; }).join("");
+        textWrap(canvas, text_whole_name, canvas.width - 50)
             .split(/(?=\n)/g)
             .forEach((line: string) => {
                 // get names wrapped in ** separately
-                const names_regex = new RegExp(/(\*\*[^\*\* ].+?\*\*)/g);
-                let names = line.match(names_regex)?.map(name => name.replaceAll("**", "\\*\\*")) ?? ["(?=\n)"];
+                let names = line.match(names_regex)?.map(name => name.replaceAll("**", "\\*\\*").replaceAll("ㅤ", " ")) ?? ["(?=\n)"];
 
                 // clean line for measurements
                 let clean_line = line;
@@ -159,7 +160,7 @@ export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySe
                 line_split.forEach(line_chunk => {
                     if (line_chunk.match(names_regex)) {
                         const name = names[name_index];
-                        if (!name) return console.log(`Damn bro name doesn't exist ${name_index}`);
+                        if (!name) return console.error(`Damn bro name doesn't exist ${name_index}`);
                         canvas.setColor(config.CANVAS_NAME_COLOR).printMultilineText(name.replaceAll("\\*", ""), line_width, text_height).setColor(config.CANVAS_TEXT_COLOR);
                         line_width += canvas.measureText(name.replaceAll("\\*", "")).width;
                         name_index++;

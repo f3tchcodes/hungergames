@@ -61,8 +61,9 @@ export default {
         const max_section_pages = sections_chunks.length;
 
         // show game and increment after each section passes by
-        const image = await showGamplay(current_section_chunks);
         const page_title = game_data[game_page]?.title;
+        const grayscale_toggle = page_title?.startsWith("Fallen Tributes") ?? false;
+        const image = await showGamplay(current_section_chunks, grayscale_toggle);
         if (!page_title) return _EphToastDefer(interaction, "Page title not found. Run the command again!");
 
         // SEND GAMEPLAY

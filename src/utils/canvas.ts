@@ -1,4 +1,4 @@
-import { Canvas, loadImage, textWrap } from "canvas-constructor/cairo";
+import { Canvas, grayscale, loadImage, textWrap } from "canvas-constructor/cairo";
 import _ from "lodash";
 
 import config from "#utils/config";
@@ -77,15 +77,15 @@ export async function buildTributeList(canvas: Canvas, tribute_list: TributeList
     }
 }
 
-export async function showGamplay(gameplay_section: GameplaySections[]) {
+export async function showGamplay(gameplay_section: GameplaySections[], grayscale_toggle: boolean) {
     const background = await loadImage("./assets/list_bg.png");
     const canvas = new Canvas(500, 1000).printImage(background, 0, 0, 500, 1000);
-    await buildGameplay(canvas, gameplay_section);
+    await buildGameplay(canvas, gameplay_section, grayscale_toggle);
 
     return canvas.png();
 }
 
-export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySections[]) {
+export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySections[], grayscale_toggle: boolean) {
     canvas.setTextFont("20px").setColor(config.CANVAS_TEXT_COLOR);
 
     const chunk_length = gameplay_section.length;
@@ -109,7 +109,7 @@ export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySe
             if (!current_pfp) return console.error(`pfp ${j}  on gameplay_section ${gameplay_section} not found`);
 
             const pfp = await loadImage(current_pfp);
-            canvas.printImage(pfp, pfp_width, base_height, pfp_size_width, pfp_size_height);
+            const run_grayscale = grayscale_toggle ? grayscale(canvas.printImage(pfp, pfp_width, base_height, pfp_size_width, pfp_size_height)) : canvas.printImage(pfp, pfp_width, base_height, pfp_size_width, pfp_size_height);
         }
 
         // generate text

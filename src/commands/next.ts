@@ -33,7 +33,7 @@ export default {
 
         // f3tch the games table
         const qGames = await getGamesTable(interaction, guild_id);
-        if (!qGames[0]) return await _EphToastDefer(interaction, "No available game to start.\nYou may host a new game with `/host` anytime.");
+        if (!qGames[0]) return await _EphToastDefer(interaction, "No available game to continue.\nYou may host a new game with `/host` anytime.");
         if (interaction.channelId !== qGames[0].channel_id) return await _EphToastDefer(interaction, `Wrong channel! Start the game in the correct channel: <#${qGames[0].channel_id}>`);
         const game_channel_id = qGames[0].channel_id;
 

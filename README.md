@@ -24,12 +24,11 @@ This bot is written with no help from AI. Not a single part of this code, or eve
 
 If a pull request is submitted with very clear use of AI and vibecoding (AI written PR, code that resembles AI, or comments that are written by AI) **it will be closed without a second thought** regardless of the contribution!
 
-## Known-bugs
-1. Names with spaces are colored white if line breaks in the middle of an event.
-2. Fallen tributes profile pictures are not grayed out.
-3. District number on /viewcast without including default players is incorrect.
-4. Gender is always male by default.
-5. New game can be started in the middle of a started game.
+## Bugs/Issues
+You can either directly open an issue from GitHub, join the Discord server and report in `#bug-reports`, or contact me on Discord to report a bug.
+
+### Known-bugs
+1. District number on /viewcast without including default players is incorrect.
 
 ## LICENSE
 

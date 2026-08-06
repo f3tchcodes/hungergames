@@ -15,6 +15,7 @@ $ cd hungergames
 $ cp .env.example .env
 $ nano .env # Fill this
 $ npm install
+$ npx drizzle-kit push
 $ npm run run
 ```
 

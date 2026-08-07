@@ -11,7 +11,7 @@ export async function registerPlayerBtn(interaction: ButtonInteraction) {
         guild_id: interaction.guildId,
         user_id: interaction.user.id,
         username: interaction.user.displayName,
-        profile_pic_url: interaction.user.displayAvatarURL()
+        profile_pic_url: interaction.user.displayAvatarURL({ extension: "png" })
     };
 
     const register = await registerPlayer(registerPlayerObject);

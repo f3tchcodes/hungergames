@@ -14,18 +14,10 @@ import { games } from "#utils/db/schema";
 import type { PlayersDistricts, TributesReg } from "#utils/interfaces";
 import { getPlayerslist } from "#utils/playerslist";
 
-export async function _EphToast(interaction: RepliableInteraction, content: string): Promise<undefined> {
-    await interaction.reply({ content, flags: MessageFlags.Ephemeral });
-}
-
-export async function _EphToastDefer(interaction: RepliableInteraction, content: string): Promise<undefined> {
-    await interaction.followUp({ content, flags: MessageFlags.Ephemeral });
-}
-
-export async function getGamesTable(interaction: Interaction, guild_id: string) {
-    const qGames = await interaction.client.db.select().from(games).where(eq(games.guild_id, guild_id));
-    return qGames;
-}
+export const _EphToast = async (interaction: RepliableInteraction, content: string): Promise<undefined> => { await interaction.reply({ content, flags: MessageFlags.Ephemeral }); };
+export const _EphToastDefer = async (interaction: RepliableInteraction, content: string): Promise<undefined> => { await interaction.followUp({ content, flags: MessageFlags.Ephemeral }); };
+export const getGamesTable = async (interaction: Interaction, guild_id: string) => await interaction.client.db.select().from(games).where(eq(games.guild_id, guild_id));
+export const stopGame = async (client: Client, guild_id: string) => await client.db.delete(games).where(eq(games.guild_id, guild_id));
 
 export async function sendChannelMessage(interaction: Interaction, channel_id: string, message: string | MessagePayload | MessageCreateOptions) {
     const channel = await interaction.client.channels.fetch(channel_id);
@@ -94,11 +86,6 @@ export async function startGame(interaction: Interaction, guild_id: string, qGam
     const tribute_status_canvas = await showTributeList(tribute_status, 6, true);
 
     await sendChannelMessage(interaction, game_channel_id, { content: "The Reaping.", files: [tribute_status_canvas] });
-}
-
-export async function stopGame(client: Client, guild_id: string) {
-    // delete game data to stop the game
-    await client.db.delete(games).where(eq(games.guild_id, guild_id));
 }
 
 export async function readPlayer(interaction: Interaction, guild_id: string, user_id: string) {

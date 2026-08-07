@@ -1,9 +1,8 @@
 import { type Interaction } from "discord.js";
-import { eq } from "drizzle-orm";
 
-import { getGamesTable } from "./common.js";
-import { districts } from "./db/schema.js";
-import type { TributeList } from "./interfaces.js";
+import { _EphToast, getGamesTable } from "#utils/common";
+import type { TributeList } from "#utils/interfaces";
+
 
 export async function getPlayerslist(interaction: Interaction, includedefaultplayers: boolean | undefined): Promise<TributeList[] | undefined> {
     if (!interaction.isChatInputCommand() && !interaction.isButton()) return;
@@ -17,7 +16,8 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
     if (!qGames || !qGames[0]) return;
 
     // get players list
-    const qResSelDistricts = await interaction.client.db.select().from(districts).where(eq(districts.guild_id, guild_id));
+    const qResSelDistricts = qGames[0].districts_data;
+    if (!qResSelDistricts) return await _EphToast(interaction, "Players data does not exist!");
 
     // push players list to an array of embed fields
     const playerslist: TributeList[] = [];
@@ -27,8 +27,8 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
     qResSelDistricts.forEach(player => {
         const common_data = {
             player_id: player.player_id,
-            district_id: player.district_id,
-            district_position: player.district_position,
+            district_id: player.district_id ?? 0,
+            district_position: player.district_position ?? 0,
             real: Boolean(player.real),
             alive: Boolean(player.alive)
         };

@@ -1,8 +1,8 @@
-import { and, eq, not } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
-import { _EphToast, getGamesTable } from "./common.js";
-import { districts, games } from "./db/schema.js";
-import { type RegisterPlayer } from "./interfaces.js";
+import { _EphToast, getGamesTable, readPlayer } from "./common.js";
+import { games } from "./db/schema.js";
+import { type PlayersDistricts, type RegisterPlayer } from "./interfaces.js";
 
 export async function registerPlayer(RegisterPlayer: RegisterPlayer) {
     const { interaction, guild_id, user_id, username, profile_pic_url, district_id, district_position } = RegisterPlayer;
@@ -16,11 +16,12 @@ export async function registerPlayer(RegisterPlayer: RegisterPlayer) {
 
     const tribute_size = qGames[0].tribute_size;
     const registered_players = qGames[0].registered_players + 1;
-    const district_data = await interaction.client.db.select().from(districts).where(eq(districts.guild_id, guild_id));
+    const users = qGames[0].districts_data;
+    if (!users) return await _EphToast(interaction, "Players data does not exist!");
 
     // check whether the registeration is a duplicate or not
     let dup = false;
-    district_data.forEach(player => { if (player.user_id === user_id) dup = true; });
+    users.forEach(player => { if (player.user_id === user_id) dup = true; });
     if (dup) return await _EphToast(interaction, `**${username}** has already been registered lad.`);
 
     // if all spots have been filled
@@ -32,64 +33,63 @@ export async function registerPlayer(RegisterPlayer: RegisterPlayer) {
     if (district_id && district_position) {
         // check wether district id and position are occupied or not
         let occupied = false;
-        district_data.forEach(player => {
-            if (district_id === player.district_id && district_position === player.district_position && player.real) occupied = true;
-        });
+        users.forEach(player => { if (district_id === player.district_id && district_position === player.district_position && player.real) occupied = true; });
         if (occupied) return await _EphToast(interaction, "Selected position is already occupied!\nYou may remove that player from their position and register a new one.");
 
         // if both district id and position are available
         // then use those coordinates to place the player
-        await interaction.client.db
-            .update(districts)
-            .set({
-                user_id,
-                username,
-                profile_pic_url,
-                real: not(districts.real),
-                gender: "?"
-            })
-            .where(and(
-                eq(districts.guild_id, guild_id),
-                eq(districts.district_id, district_id),
-                eq(districts.district_position, district_position))
-            );
+
+        const old_user = await readPlayer(interaction, guild_id, user_id);
+        if (!old_user) return await _EphToast(interaction, "Could not find player.");
+        const oldUserIndex = users.indexOf(old_user);
+        if (oldUserIndex !== -1) users.splice(oldUserIndex, 1);
+
+        const user: PlayersDistricts = {
+            ...old_user,
+            user_id,
+            username,
+            profile_pic_url,
+            district_id,
+            district_position,
+            gender: "?",
+            alive: true
+        };
+
+        users.push(user);
+        await interaction.client.db.update(games).set({ districts_data: users }).where(eq(games.guild_id, guild_id));
     } else {
         // check whether position is available (with real) or not
         // if not available move onto the next player id
         // if available then register the player to the current id
         for (let i = 0; i < tribute_size; i++) {
-            const real = district_data[i]?.real;
-            const player_id = district_data[i]?.player_id;
-            const current_user_id = district_data[i]?.user_id;
-            if ((!real && real !== 0) || !player_id || !current_user_id) return console.error(`district_data does not exist: ${i}`);
+            // get old user
+            const old_user = users[i];
+            if (!old_user) return console.error(`old_user does not exist: ${i}`);
 
             // if user exists in that position, continue
+            const real = old_user?.real;
             if (real) continue;
 
-            // send query to register players automatically
-            await interaction.client.db
-                .update(districts)
-                .set({
-                    user_id,
-                    username,
-                    profile_pic_url,
-                    real: not(districts.real),
-                    gender: "?"
-                })
-                .where(and(eq(districts.guild_id, guild_id), eq(districts.player_id, player_id)));
+            const oldUserIndex = users.indexOf(old_user);
+            if (oldUserIndex !== -1) users.splice(oldUserIndex, 1);
 
+            const user: PlayersDistricts = {
+                ...old_user,
+                user_id,
+                username,
+                profile_pic_url,
+                gender: "?",
+                real: true
+            };
+
+            users.push(user);
+            await interaction.client.db.update(games).set({ districts_data: users }).where(eq(games.guild_id, guild_id));
             break;
         }
     }
 
     // increment registered_players by 1
-    await interaction.client.db
-        .update(games)
-        .set({
-            registered_players
-        })
-        .where(eq(games.guild_id, guild_id));
-
+    await interaction.client.db.update(games).set({ registered_players }).where(eq(games.guild_id, guild_id));
     return {
         guild_id,
         user_id,

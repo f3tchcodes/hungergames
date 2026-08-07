@@ -1,10 +1,8 @@
 
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
-import { and, eq } from "drizzle-orm";
 
-import { _EphToast } from "#utils/common";
+import { _EphToast, readPlayer, updatePlayer } from "#utils/common";
 import config from "#utils/config";
-import { districts } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
 
 const usersettings = new SlashCommandBuilder()
@@ -50,24 +48,20 @@ export default {
 
         const guild_id = interaction.guildId ?? "unknown";
         const user_id = interaction.user.id;
-        const user_exists = await client.db.select().from(districts).where(and(eq(districts.guild_id, guild_id), eq(districts.user_id, user_id)));
-        if (!user_exists || !user_exists[0]) return await _EphToast(interaction, "Please register in a game before changing your settings!");
+        const user = await readPlayer(interaction, guild_id, user_id);
+        if (!user) return await _EphToast(interaction, "Please register in a game before changing your settings!");
 
         const displayname = interaction.user.displayName;
         const current_pfp = interaction.user.displayAvatarURL();
         const subcommand = interaction.options.getSubcommand();
 
         if (subcommand === "gender") {
-            const gender = interaction.options.getString("gender") ?? "?";
-            await client.db.update(districts).set({ gender }).where(and(eq(districts.guild_id, guild_id), eq(districts.user_id, user_id)));
-            await _EphToast(interaction, `Successfully set your game gender to \`${gender}\`.\n-# Note: Changes will take effect from the next game if the current game hasn't been started.`);
+            user.gender = interaction.options.getString("gender") ?? "?";
+            await _EphToast(interaction, `Successfully set your game gender to \`${user.gender}\`.\n-# Note: Changes will take effect from the next game if the current game hasn't been started.`);
         } else if (subcommand === "name") {
-            const username = interaction.options.getString("name") ?? displayname;
-            await client.db.update(districts).set({ username }).where(and(eq(districts.guild_id, guild_id), eq(districts.user_id, user_id)));
-            await _EphToast(interaction, `Successfully set your game name to \`${username}\`.\n-# Note: Changes will take effect from the next game if the current game hasn't been started.`);
+            user.username = interaction.options.getString("name") ?? displayname;
+            await _EphToast(interaction, `Successfully set your game name to \`${user.username}\`.\n-# Note: Changes will take effect from the next game if the current game hasn't been started.`);
         } else if (subcommand === "list") {
-            const user = user_exists[0];
-
             const name = user.username;
             const gender = user.gender;
             const profile_pic_url = user.profile_pic_url;
@@ -82,8 +76,8 @@ export default {
                     { name: "Gamename: ", value: name },
                     { name: "Gender: ", value: gender },
                     { name: "Profile picture: ", value: profile_pic_url },
-                    { name: "District ID: ", value: district_id.toString() },
-                    { name: "District position: ", value: district_position.toString() }
+                    { name: "District ID: ", value: (district_id ?? "Unknown").toString() },
+                    { name: "District position: ", value: (district_position ?? "Unknown").toString() }
                 ])
                 .setThumbnail(profile_pic_url)
                 .setFooter({ text: `Requested by ${displayname}` })
@@ -91,5 +85,7 @@ export default {
 
             await interaction.reply({ embeds: [embed] });
         }
+
+        await updatePlayer(interaction, guild_id, user);
     }
 } satisfies MyInteractions;

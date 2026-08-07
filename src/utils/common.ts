@@ -10,8 +10,8 @@ import { eq } from "drizzle-orm";
 
 import { agreeToDisclaimer, createSessionId, readGameplay, setTributes, setTributeSize } from "#utils/api";
 import { showTributeList } from "#utils/canvas";
-import { districts, games } from "#utils/db/schema";
-import type { TributesReg } from "#utils/interfaces";
+import { games } from "#utils/db/schema";
+import type { PlayersDistricts, TributesReg } from "#utils/interfaces";
 import { getPlayerslist } from "#utils/playerslist";
 
 export async function _EphToast(interaction: RepliableInteraction, content: string): Promise<undefined> {
@@ -70,8 +70,13 @@ export async function startGame(interaction: Interaction, guild_id: string, qGam
     // register players
     await sendChannelMessage(interaction, game_channel_id, "Registering players...");
     const tributes_reg: TributesReg[] = [];
-    const qDistricts = await interaction.client.db.select().from(districts).where(eq(districts.guild_id, guild_id));
-    qDistricts.forEach(player => tributes_reg.push({ player_id: player.player_id, username: player.username, profile_pic_url: player.profile_pic_url, gender: player.gender }));
+    const qDistricts = await interaction.client.db.select().from(games).where(eq(games.guild_id, guild_id));
+    qDistricts.forEach(async game => {
+        const districts_data = game.districts_data;
+        if (!districts_data) return await _EphToast(interaction, "Players data does not exist!");
+
+        districts_data.forEach(player => tributes_reg.push({ player_id: player.player_id, username: player.username, profile_pic_url: player.profile_pic_url, gender: player.gender }));
+    });
     const tribute_reg_res = await setTributes(session_id, qGames[0].tribute_size, tributes_reg);
     if (!tribute_reg_res) return await _EphToast(interaction, "Failed to set tribute members. Try again or contact dev to fix.");
 
@@ -94,5 +99,38 @@ export async function startGame(interaction: Interaction, guild_id: string, qGam
 export async function stopGame(client: Client, guild_id: string) {
     // delete game data to stop the game
     await client.db.delete(games).where(eq(games.guild_id, guild_id));
-    await client.db.delete(districts).where(eq(districts.guild_id, guild_id));
+}
+
+export async function readPlayer(interaction: Interaction, guild_id: string, user_id: string) {
+    if (!interaction.isRepliable()) return;
+
+    let user: PlayersDistricts | undefined;
+
+    const qGames = await getGamesTable(interaction, guild_id);
+    if (!qGames || !qGames[0]) return await _EphToast(interaction, "Database error!");
+    const users = qGames[0].districts_data;
+    if (!users) return await _EphToast(interaction, "Players data does not exist!");
+
+    users.forEach(player => player.user_id === user_id ? user = player : null);
+    console.log(user);
+    return user;
+}
+
+export async function updatePlayer(interaction: Interaction, guild_id: string, user: PlayersDistricts) {
+    if (!interaction.isRepliable()) return;
+
+    const user_id = user.user_id;
+
+    const old_user = await readPlayer(interaction, guild_id, user_id);
+    if (!old_user) return await _EphToast(interaction, "Could not find player.");
+    const qGames = await getGamesTable(interaction, guild_id);
+    if (!qGames || !qGames[0]) return await _EphToast(interaction, "Database error!");
+    const users = qGames[0].districts_data;
+    if (!users) return await _EphToast(interaction, "Players data does not exist!");
+
+    const oldUserIndex = users.indexOf(old_user);
+    if (oldUserIndex !== -1) users.splice(oldUserIndex, 1);
+
+    users.push(user);
+    await interaction.client.db.update(games).set({ districts_data: users }).where(eq(games.guild_id, guild_id));
 }

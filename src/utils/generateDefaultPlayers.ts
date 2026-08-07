@@ -1,10 +1,9 @@
 import type { Interaction } from "discord.js";
-import type { InferInsertModel } from "drizzle-orm";
 
+import { _EphToast } from "#utils/common";
 import config from "#utils/config";
-
-import { _EphToast } from "./common.js";
-import { districts } from "./db/schema.js";
+import { games } from "#utils/db/schema";
+import type { PlayersDistricts } from "#utils/interfaces";
 
 export async function generateDefaultPlayers(interaction: Interaction, district_size: number, tribute_size: number) {
     if (!interaction.isRepliable()) return;
@@ -19,7 +18,7 @@ export async function generateDefaultPlayers(interaction: Interaction, district_
     // then we loop over default players and add them one by one and stop according to tribute size
     // then we push each object of values into sqlInsertData array
     // finally we send query to the database and insert all those values
-    const sqlInsertData: InferInsertModel<typeof districts>[] = [];
+    const sqlInsertData: PlayersDistricts[] = [];
 
     let district_position = 0;
     let player_id = 0;
@@ -36,13 +35,14 @@ export async function generateDefaultPlayers(interaction: Interaction, district_
         if (!DEFAULT_PLAYER) return _EphToast(interaction, "Not enough default players for your tribute size. Please configure default players list, ask dev to fix this issue.\nUsername: f3tch");
 
         sqlInsertData.push({
-            guild_id,
             player_id,
             district_id,
             district_position,
+            real: Boolean(0),
+            alive: Boolean(1),
             ...DEFAULT_PLAYER
         });
     }
 
-    await interaction.client.db.insert(districts).values(sqlInsertData);
+    await interaction.client.db.update(games).set({ districts_data: sqlInsertData });
 }

@@ -30,6 +30,20 @@ export interface RegisterPlayer {
     district_position?: number | undefined | null;
 }
 
+// for player districts and list in db
+export interface PlayersDistricts {
+    player_id: number;
+    district_id?: number;
+    district_position?: number;
+    user_id: string;
+    username: string;
+    profile_pic_url: string;
+    gender: string;
+    real: boolean;
+    alive: boolean;
+}
+
+
 // for building canvas list
 export interface TributesReg {
     player_id: number;
@@ -47,6 +61,7 @@ export interface TributeList {
     real: boolean;
 }
 
+// for building canvas gameplay
 export interface GameplaySections {
     profile_pic_url: string[];
     message: string;

@@ -1,6 +1,6 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-import type { CompleteGameplay } from "#utils/interfaces";
+import type { CompleteGameplay, PlayersDistricts } from "#utils/interfaces";
 
 export const games = sqliteTable("games", {
     guild_id: text().primaryKey(),
@@ -8,24 +8,10 @@ export const games = sqliteTable("games", {
     session_id: text(),
     tribute_size: integer().notNull(),
     district_size: integer().notNull(),
+    districts_data: text({ mode: "json" }).$type<PlayersDistricts[]>(),
     registered_players: integer().notNull().default(0),
     game_page: integer().notNull().default(0),
     section_page: integer().notNull().default(0),
     game_data: text({ mode: "json" }).$type<CompleteGameplay[]>(),
     game_started: integer().notNull().default(0)
-});
-
-// by default we enter fake characters
-export const districts = sqliteTable("districts", {
-    id: integer().primaryKey({ autoIncrement: true }),
-    guild_id: text(),
-    player_id: integer().notNull(),
-    district_id: integer().notNull(),
-    district_position: integer().notNull(),
-    user_id: text().notNull(),
-    username: text().notNull(),
-    profile_pic_url: text().notNull(),
-    gender: text().notNull().default("?"),
-    alive: integer().notNull().default(1),
-    real: integer().notNull().default(0) // there is no boolean in sqlite, so we're using integer 0 for false and 1 for true
 });

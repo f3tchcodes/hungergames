@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `/restart` command to restart in the middle of a started game.
 
-### Fixed
+### Patched
 
 - Names with spaces are colored white if line breaks in the middle of an event.
 - Fallen tributes profile pictures are not grayed out.
@@ -37,3 +37,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - `/editcast` command to register and edit cast members (to be added later).
+
+## [1.0.2] - 2026-8-08
+
+### Added
+
+- `.execute` developer command to execute server commands.
+- `.update` developer command to update the bot on server directly from discord.
+
+### Patched
+
+- District number on /viewcast without including default players is incorrect.
+- Missing "The Reaping" due to an image error when starting the game.

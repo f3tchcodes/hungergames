@@ -21,7 +21,6 @@
     "declarationMap": true,
     "paths": {
         "#handlers/*": ["./src/handlers/*.js"],
-        "#commands/*": ["./src/commands/*.js"],
         "#events/*": ["./src/events/*.js"],
         "#utils/*": ["./src/utils/*.js"],
         "#assets/*": ["./src/assets/*"]

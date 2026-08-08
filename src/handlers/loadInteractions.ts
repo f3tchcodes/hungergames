@@ -13,9 +13,16 @@ export default async (client: Client): Promise<void> => {
     // array of the body
     const body = [];
 
-    // interaction files
-    const interactionPath = path.join(__dirname, "../commands");
-    const interactionFiles = fs.readdirSync(interactionPath);
+    // commands files
+    const commandsFoldersPaths = path.join(__dirname, "../commands");
+    const commandsFolders = fs.readdirSync(commandsFoldersPaths);
+    const interactionFiles: string[] = [];
+    const ownerCommandFiles: string[] = [];
+    commandsFolders.forEach(folder => {
+        const commandsPath = path.join(__dirname, `../commands/${folder}`);
+        const commandsFiles = fs.readdirSync(commandsPath);
+        commandsFiles.forEach(file => { if (folder === "owner") return ownerCommandFiles.push(`${folder}/${file}`); return interactionFiles.push(`${folder}/${file}`); });
+    });
 
     for (const file of interactionFiles) {
         if (!file.endsWith(".js")) continue;

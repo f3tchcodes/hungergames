@@ -42,7 +42,6 @@
   },
   "imports": {
     "#handlers/*": "./dist/handlers/*.js",
-    "#commands/*": "./dist/commands/*.js",
     "#events/*": "./dist/events/*.js",
     "#utils/*": "./dist/utils/*.js",
     "#assets/*": "./dist/assets/*"

@@ -43,7 +43,6 @@ export interface PlayersDistricts {
     alive: boolean;
 }
 
-
 // for building canvas list
 export interface TributesReg {
     player_id: number;
@@ -53,6 +52,7 @@ export interface TributesReg {
 }
 
 export interface TributeList {
+    player_id: number;
     username: string;
     profile_pic_url: string;
     district_id: number;

@@ -49,3 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - District number on /viewcast without including default players is incorrect.
 - Missing "The Reaping" due to an image error when starting the game.
+
+### Changed
+
+- `/viewcast` UI

@@ -307,7 +307,8 @@ const config = {
             profile_pic_url: "https://cdn.brantsteele.com/images/gameofthrones/05/karsi.png",
             gender: "F"
         }
-    ]
+    ],
+    BOT_OWNER_USERID: "1016388460929626174"
 };
 
 export default {
@@ -322,5 +323,6 @@ export default {
     CANVAS_NAME_COLOR: config.CANVAS_NAME_COLOR,
     TRIBUTE_SIZE: config.TRIBUTE_SIZE,
     DISTRICT_SIZE: config.DISTRICT_SIZE,
-    DEFAULT_PLAYERS: config.DEFAULT_PLAYERS
+    DEFAULT_PLAYERS: config.DEFAULT_PLAYERS,
+    BOT_OWNER_USERID: config.BOT_OWNER_USERID
 };

@@ -7,15 +7,15 @@ import type { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 import loadEvents from "#handlers/loadEvents";
 import loadInteractions from "#handlers/loadInteractions";
 import { db } from "#utils/db/db";
-import type { HostValues, MyInteractions } from "#utils/interfaces";
+import type { HostValues, MyInteractions, MyPrefixCommands } from "#utils/interfaces";
 
 // augmenting @discord.js
 declare module "discord.js" {
     interface Client {
         db: BetterSQLite3Database<EmptyRelations>;
         interactions: Map<string, MyInteractions>;
+        commands: Map<string, MyPrefixCommands>;
         hostValues: Map<string, HostValues>;
-        current_page: Map<string, number>;
         includedefaultplayers: Map<string, boolean | undefined>;
     }
 }
@@ -41,7 +41,7 @@ const client = new Client({
 client.db = db;
 client.interactions = new Map();
 client.hostValues = new Map();
-client.current_page = new Map();
+client.commands = new Map();
 client.includedefaultplayers = new Map();
 
 // updating and loading interaction commands, and loading events

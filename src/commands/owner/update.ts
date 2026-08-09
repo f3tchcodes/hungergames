@@ -9,9 +9,8 @@ const execAsync = promisify(exec);
 export default {
     name: "update",
     async execute(client, message, args) {
-        const user_id = message.author.id;
-        if (user_id !== config.BOT_OWNER_USERID) return;
         if (!message.channel.isSendable()) return;
+        if (message.author.id !== config.BOT_OWNER_USERID) return;
 
         await message.channel.send("```PULLING LATEST CHANGES...```");
         const command = "git pull && npm install";

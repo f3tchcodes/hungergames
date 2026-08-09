@@ -9,9 +9,8 @@ const execAsync = promisify(exec);
 export default {
     name: "execute",
     async execute(client, message, args) {
-        const user_id = message.author.id;
-        if (user_id !== config.BOT_OWNER_USERID) return;
         if (!message.channel.isSendable()) return;
+        if (message.author.id !== config.BOT_OWNER_USERID) return;
 
         const command = args.slice(0).join(" ");
         const result = await execAsync(command, { timeout: 60000 }).catch(error => ({ stdout: null, stderr: error }));

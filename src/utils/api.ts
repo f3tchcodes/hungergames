@@ -1,10 +1,9 @@
 
 import { parse } from "node-html-parser";
 
+import { replaceLastOccurrence } from "#utils/common";
 import config from "#utils/config";
-
-import { replaceLastOccurrence } from "./common.js";
-import type { CompleteGameplay, GameplaySections, TributesReg } from "./interfaces.js";
+import type { CompleteGameplay, GameplaySections, PlayersDistricts } from "#utils/interfaces";
 
 export async function createSessionId() {
     let session_id: string | undefined;
@@ -33,23 +32,30 @@ export async function agreeToDisclaimer(session_id: string) {
 }
 
 export async function setTributeSize(session_id: string, tribute_size: number) {
-    const res = await fetch(`${config.BASE_URL}/hungergames/ChangeTributes-${tribute_size}.php`, { headers: { Cookie: `PHPSESSID=${session_id}` } });
+    const body = `FormCode=6&DistrictNumber=12&NumberPerDistrict=${tribute_size}&District1=${tribute_size}&District2=${tribute_size}&District3=${tribute_size}&District4=${tribute_size}&District5=${tribute_size}&District6=${tribute_size}&District7=${tribute_size}&District8=${tribute_size}&District9=${tribute_size}&District10=${tribute_size}&District11=${tribute_size}&District12=${tribute_size}`;
+    const res = await fetch(`${config.BASE_URL}/hungergames/classic/AdjustSize-Submit.php`, { method: "POST", headers: { Cookie: `PHPSESSID=${session_id}`, "Content-Type": "application/x-www-form-urlencoded" }, body });
     if (!res.ok) return console.error("Failed to set tribute size!");
     return true;
 }
 
-export async function setTributes(session_id: string, tribute_size: number, tributes_reg: TributesReg[]) {
-    const registeration_list: string[] = [];
-
-    tributes_reg.forEach(player => {
-        const pad = "00";
-        const id = pad.substring(0, pad.length - (player.player_id).toString().length) + (player.player_id).toString();
-        const body_data = `cusTribute${id}=${player.username}&cusTribute${id}img=${player.profile_pic_url}&cusTribute${id}gender=${player.gender === "M" ? 1 : 0}&cusTribute${id}custom=000&cusTribute${id}nickname=${player.username}&cusTribute${id}imgBW=BW&`;
-        registeration_list.push(body_data);
+export async function setTributes(session_id: string, districts: PlayersDistricts[][]) {
+    let district_id = 0;
+    let body_data = "";
+    districts.forEach(district => {
+        district_id++;
+        body_data += `\nDistrict ${district_id}\n#FFFFFF 0 0`;
+        district.forEach(player => {
+            body_data += `${player.username}\n${player.username}\n${player.gender}\n${player.profile_pic_url}\nBW\n\n`;
+        });
     });
 
-    const body = `seasonname=Hunger+Games&logourl=https://brantsteele.com/extras/hungergames/01/logo.png&existinglogo=00&${registeration_list.join("")}ChangeAll=028`;
-    const res = await fetch(`${config.BASE_URL}/hungergames/personalize-${tribute_size}.php`, { method: "POST", headers: { Cookie: `PHPSESSID=${session_id}`, "Content-Type": "application/x-www-form-urlencoded" }, body });
+    const body = `The Hunger Games\nhttps://cdn.brantsteele.com/extras/hungergames/01/logo.png\n${body_data}`;
+
+    const blob = new Blob([body], { type: "text/plain" });
+    const formData = new FormData();
+    formData.append("fileToUpload", blob, "cast.txt");
+    formData.append("submit", "Import Cast from a Text File");
+    const res = await fetch(`${config.BASE_URL}/hungergames/classic/ImportCast.php`, { method: "POST", headers: { Cookie: `PHPSESSID=${session_id}` }, body: formData });
     if (!res.ok) return console.error("Failed to set tribute members!");
     return true;
 }

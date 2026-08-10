@@ -1,5 +1,5 @@
 const config = {
-    BASE_URL: "https://brantsteele.net/",
+    BASE_URL: "https://brantsteele.com/",
     DISCLAIMER: "https://brantsteele.com/disclaimer.php",
     PRIVACY_POLICY: "https://brantsteele.com/privacypolicy.php",
     ICON_URL: "https://brantsteele.com/extras/hungergames/01/logo.png",

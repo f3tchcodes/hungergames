@@ -65,31 +65,32 @@ export async function readGameplay(session_id: string) {
     // unlock the next page and send the request, store it, and keep repeating until the end
     const complete_gameplay: CompleteGameplay[] = [];
     let proceed: string = "winner.php";
-    const unlock_bloodbath = await fetch(`${config.BASE_URL}/hungergames/ProceedStart.php?r=0`, { headers: { Cookie: `PHPSESSID=${session_id}` } });
+    const unlock_bloodbath = await fetch(`${config.BASE_URL}/hungergames/classic/ProceedStart.php`, { headers: { Cookie: `PHPSESSID=${session_id}` } });
     if (!unlock_bloodbath.ok) return console.error("Bloodbath not unlocked");
-    let res = await fetch(`${config.BASE_URL}/hungergames/bloodbath.php`, { headers: { Cookie: `PHPSESSID=${session_id}` } });
+    let res = await fetch(`${config.BASE_URL}/hungergames/classic/bloodbath.php`, { headers: { Cookie: `PHPSESSID=${session_id}` } });
     if (!res.ok) return console.error("Response not ok bloodbath");
 
     do {
         const html = await res.text();
         if (html.includes("I am 13 years or older. I have read and understand these terms.")) return console.error("session has expired.");
         const root = parse(html);
-        const title = root.getElementById("titleHolder")?.textContent ?? "Unkown";
-        const div = root.getElementById("content");
+        const title = (root.querySelector(".PageName")?.textContent ?? "Unkown").replaceAll("\r\n", "").trim();
+        const div = root.querySelector(".MiddleBarContent");
         div?.getElementsByTagName("strong").forEach(player => player.insertAdjacentHTML("afterbegin", "**").insertAdjacentHTML("beforeend", "**"));
         div?.getElementsByTagName("a").forEach(a => { if (a.textContent.includes("Proceed")) proceed = a?.attributes.href ?? "winner.php"; });
         const text: string[] = [];
         const blacklist: string[] = ["", "See everyone's status.", "Proceed."];
         const fallen = title.includes("Fallen");
-        const split = fallen ? "\n" : "\n\n\n";
+        const split = fallen ? "\n\n" : "\n\n\n";
         div?.textContent.split(split).forEach(content => {
-            let reliable_content = content.replaceAll("\n", "").replaceAll("Proceed.\r", "");
+            let reliable_content = content.replaceAll("\n", "").replaceAll("Proceed.", "").replaceAll("\r", "").trim();
             if (blacklist.includes(reliable_content)) return;
-            if (reliable_content.includes("District") && fallen) { reliable_content = replaceLastOccurrence(content, "District", "\nDistrict"); }
+            if (reliable_content.includes("District") && fallen) { reliable_content = replaceLastOccurrence(content, "District", "District"); }
+            if (reliable_content === "") return;
             text.push(reliable_content);
         });
         const pfp: string[][] = [];
-        const tables = div?.getElementsByTagName("table");
+        const tables = div?.querySelectorAll(".DivTable");
 
         tables?.forEach(table => {
             const current_pfp: string[] = [];
@@ -101,6 +102,9 @@ export async function readGameplay(session_id: string) {
             pfp.push(current_pfp);
         });
 
+        if (fallen) console.log(text);
+        if (fallen) console.log(pfp);
+
         const diff = text.length - pfp.length;
         if (diff !== 0) { for (let i = 0; i < Math.abs(diff); i++) { const larger = text.length > pfp.length ? pfp.unshift([]) : text.unshift(""); } }
 
@@ -108,7 +112,8 @@ export async function readGameplay(session_id: string) {
         for (let i = 0; i < text.length; i++) gameplay_sections.push({ profile_pic_url: pfp[i] ?? ["Unkown"], message: text[i] ?? "Unknown" });
 
         complete_gameplay.push({ title, sections: gameplay_sections });
-        res = await fetch(`${config.BASE_URL}/hungergames/${proceed}`, { headers: { Cookie: `PHPSESSID=${session_id}` } });
+        res = await fetch(`${config.BASE_URL}/hungergames/classic/${proceed}`, { headers: { Cookie: `PHPSESSID=${session_id}` } });
+        console.log(`working on ${proceed}`);
     } while (!proceed.includes("placements"));
 
     return complete_gameplay;

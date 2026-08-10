@@ -1,7 +1,7 @@
 
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 
-import { _EphToast, readPlayer, updatePlayer } from "#utils/common";
+import { _EphToast, getGamesTable, readPlayer, updatePlayer } from "#utils/common";
 import config from "#utils/config";
 import type { MyInteractions } from "#utils/interfaces";
 
@@ -47,6 +47,9 @@ export default {
         if (!interaction.isChatInputCommand()) return;
 
         const guild_id = interaction.guildId ?? "unknown";
+        const qGames = await getGamesTable(interaction, guild_id);
+        if (!qGames[0]) return await _EphToast(interaction, "No available game.\nYou may change user settings after registering in a game!");
+
         const user_id = interaction.user.id;
         const user = await readPlayer(interaction, guild_id, user_id);
         if (!user) return await _EphToast(interaction, "Please register in a game before changing your settings!");
@@ -56,15 +59,15 @@ export default {
         const subcommand = interaction.options.getSubcommand();
 
         if (subcommand === "gender") {
-            user.gender = interaction.options.getString("gender") ?? "?";
-            await _EphToast(interaction, `Successfully set your game gender to \`${user.gender}\`.\n-# Note: Changes will take effect from the next game if the current game hasn't been started.`);
+            user.user.gender = interaction.options.getString("gender") ?? "?";
+            await _EphToast(interaction, `Successfully set your game gender to \`${user.user.gender}\`.\n-# Note: Changes will take effect from the next game if the current game hasn't been started.`);
         } else if (subcommand === "name") {
-            user.username = interaction.options.getString("name") ?? displayname;
-            await _EphToast(interaction, `Successfully set your game name to \`${user.username}\`.\n-# Note: Changes will take effect from the next game if the current game hasn't been started.`);
+            user.user.username = interaction.options.getString("name") ?? displayname;
+            await _EphToast(interaction, `Successfully set your game name to \`${user.user.username}\`.\n-# Note: Changes will take effect from the next game if the current game hasn't been started.`);
         } else if (subcommand === "list") {
-            const name = user.username;
-            const gender = user.gender;
-            const profile_pic_url = user.profile_pic_url;
+            const name = user.user.username;
+            const gender = user.user.gender;
+            const profile_pic_url = user.user.profile_pic_url;
             const district_id = user.district_id;
             const district_position = user.district_position;
 
@@ -86,6 +89,6 @@ export default {
             await interaction.reply({ embeds: [embed] });
         }
 
-        await updatePlayer(interaction, guild_id, user);
+        await updatePlayer(interaction, guild_id, qGames[0].district_size, user.user);
     }
 } satisfies MyInteractions;

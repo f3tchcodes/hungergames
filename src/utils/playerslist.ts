@@ -1,10 +1,10 @@
 import { type Interaction } from "discord.js";
 
 import { _EphToast, getGamesTable } from "#utils/common";
-import type { TributeList } from "#utils/interfaces";
+import type { PlayersDistricts } from "#utils/interfaces";
 
 
-export async function getPlayerslist(interaction: Interaction, includedefaultplayers: boolean | undefined): Promise<TributeList[] | undefined> {
+export async function getPlayerslist(interaction: Interaction, includedefaultplayers: boolean | undefined) {
     if (!interaction.isChatInputCommand() && !interaction.isButton()) return;
 
     // get guild and id and check whether it's available
@@ -19,41 +19,44 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
     const qResSelDistricts = qGames[0].districts_data;
     if (!qResSelDistricts) return await _EphToast(interaction, "Players data does not exist!");
 
-    // push players list to an array of embed fields
-    const playerslist: TributeList[] = [];
+    const playerslistComplete: PlayersDistricts[][] = [];
 
-    // create playerListTimeout to add an empty field every 2 fields
-    // this will help us create 2 columns for the embed
-    qResSelDistricts.forEach(player => {
-        const common_data = {
-            player_id: player.player_id,
-            district_id: player.district_id ?? 0,
-            district_position: player.district_position ?? 0,
-            real: Boolean(player.real),
-            alive: Boolean(player.alive)
-        };
+    qResSelDistricts.forEach(district => {
+        const size = district.length;
+        const playerslist: PlayersDistricts[] = [];
 
-        const data: TributeList = {
-            username: player.username,
-            profile_pic_url: player.profile_pic_url,
-            ...common_data
-        };
+        district.forEach(player => {
+            const common_data = {
+                player_id: player.player_id,
+                user_id: player.user_id,
+                gender: player.gender,
+                real: Boolean(player.real),
+                alive: Boolean(player.alive)
+            };
 
-        const unknown_data: TributeList = {
-            username: "",
-            profile_pic_url: "./assets/unknown_player.png",
-            ...common_data
-        };
+            const data: PlayersDistricts = {
+                username: player.username,
+                profile_pic_url: player.profile_pic_url,
+                ...common_data
+            };
 
-        if (includedefaultplayers) {
-            playerslist.push(data);
-            return;
-        }
+            const unknown_data: PlayersDistricts = {
+                username: "",
+                profile_pic_url: "./assets/unknown_player.png",
+                ...common_data
+            };
 
-        if (player.real) playerslist.push(data);
-        playerslist.push(unknown_data);
-        return;
+            if (includedefaultplayers) {
+                playerslist.push(data);
+                return;
+            }
+
+            if (player.real) playerslist.push(data);
+            playerslist.push(unknown_data);
+        });
+
+        playerslistComplete.push(playerslist);
     });
 
-    return playerslist;
+    return playerslistComplete;
 }

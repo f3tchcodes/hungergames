@@ -26,7 +26,11 @@ This bot is written with no help from AI. Not a single part of this code, or eve
 If a pull request is submitted with very clear use of AI and vibecoding (AI written PR, code that resembles AI, or comments that are written by AI) **it will be closed without a second thought** regardless of the contribution!
 
 ## Bugs/Issues
+
 You can either directly open an issue from GitHub, join the Discord server and report in `#bug-reports`, or contact me on Discord to report a bug.
+
+### Known-bugs:
+- Game page does not reset after running `/restart`.
 
 ## LICENSE
 

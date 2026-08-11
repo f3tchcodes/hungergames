@@ -1,8 +1,8 @@
 
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 
-import { _EphToast, getGamesTable, readPlayer, updatePlayer } from "#utils/common";
 import config from "#config/config";
+import { _EphToast, getGamesTable, readPlayer, updatePlayer } from "#utils/common";
 import type { MyInteractions } from "#utils/interfaces";
 
 const usersettings = new SlashCommandBuilder()

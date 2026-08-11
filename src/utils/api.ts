@@ -71,12 +71,13 @@ export async function setEvents(session_id: string, eventsCategorized: GameEvent
             const killers = event.killers;
             const killed = event.killed;
             body_data += `\n${eventTxt}\n${tributesInvoloved}\n`;
-            if (killers) body_data += killers.join(", ") + "\n";
-            if (killed) body_data += killed.join(", ") + "\n";
+            body_data += killers ? killers.join(", ") + "\n" : "None\n";
+            body_data += killed ? killed.join(", ") + "\n" : "None\n";
         });
     });
 
     const body = body_data.trim() + DEFAULT_CONSTANT_EVENTS;
+    console.log(body);
     const blob = new Blob([body], { type: "text/plain" });
     const formData = new FormData();
     formData.append("fileToUpload", blob, "events.txt");

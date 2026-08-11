@@ -33,10 +33,12 @@ export default {
         const qServerData = await getServerDataTable(interaction, guild_id);
         if (!qServerData[0]) return await _EphToast(interaction, "Server data not found. Try to kick and add the bot to fix. If it does not work contact support server to fix.");
 
-        // set settings back to 0
-        await interaction.client.db.update(games).set({ game_page: 0, section_page: 0 }).where(eq(games.guild_id, guild_id));
+        if (qGames[0]?.restarting === 1) return await interaction.reply("I'm already restarting!! Can't you wait?! :angry:");
 
+        // set settings back to 0, set restarting to true, start game, set restarting to 0
+        await interaction.client.db.update(games).set({ game_page: 0, section_page: 0, restarting: 1 }).where(eq(games.guild_id, guild_id));
         await startGame(interaction, guild_id, qGames, qServerData);
+        await interaction.client.db.update(games).set({ game_page: 0, section_page: 0, restarting: 0 }).where(eq(games.guild_id, guild_id));
         // the rest of the game would be played by /next command or auto mode
     }
 } satisfies MyInteractions;

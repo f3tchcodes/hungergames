@@ -14,7 +14,8 @@ export const games = sqliteTable("games", {
     game_page: integer().notNull().default(0),
     section_page: integer().notNull().default(0),
     game_data: text({ mode: "json" }).$type<CompleteGameplay[]>(),
-    game_started: integer().notNull().default(0)
+    game_started: integer().notNull().default(0),
+    restarting: integer().notNull().default(0)
 });
 
 export const server_data = sqliteTable("server_data", {

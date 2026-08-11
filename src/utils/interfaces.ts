@@ -66,3 +66,16 @@ export interface CompleteGameplay {
     title: string;
     sections: GameplaySections[];
 }
+
+// for events
+export interface GameEvents {
+    id: number;
+    event: string;
+    tributes_involved: number;
+    killer?: string[];
+    killed?: string[];
+}
+export interface GameEventsCategorized {
+    type: "bloodbath" | "day" | "night" | "feast" | "fatalBloodbath" | "fatalDay" | "fatalNight" | "fatalFeast";
+    events: GameEvents[];
+}

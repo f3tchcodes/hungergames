@@ -1,6 +1,7 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-import type { CompleteGameplay, PlayersDistricts } from "#utils/interfaces";
+import { DEFAULT_EVENTS } from "#config/events";
+import type { CompleteGameplay, GameEventsCategorized, PlayersDistricts } from "#utils/interfaces";
 
 export const games = sqliteTable("games", {
     guild_id: text().primaryKey(),
@@ -14,4 +15,9 @@ export const games = sqliteTable("games", {
     section_page: integer().notNull().default(0),
     game_data: text({ mode: "json" }).$type<CompleteGameplay[]>(),
     game_started: integer().notNull().default(0)
+});
+
+export const server_data = sqliteTable("server_data", {
+    guild_id: text().primaryKey(),
+    events: text({ mode: "json" }).$type<GameEventsCategorized[]>().default(DEFAULT_EVENTS).notNull()
 });

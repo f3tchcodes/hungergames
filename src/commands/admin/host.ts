@@ -12,8 +12,8 @@ import {
     StringSelectMenuOptionBuilder
 } from "discord.js";
 
-import { _EphToast, getGamesTable } from "#utils/common";
 import config from "#config/config";
+import { _EphToast, getGamesTable } from "#utils/common";
 import type { MyInteractions } from "#utils/interfaces";
 import { userPermissions } from "#utils/permissions";
 

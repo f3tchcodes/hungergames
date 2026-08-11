@@ -22,7 +22,6 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
     const playerslistComplete: PlayersDistricts[][] = [];
 
     qResSelDistricts.forEach(district => {
-        const size = district.length;
         const playerslist: PlayersDistricts[] = [];
 
         district.forEach(player => {

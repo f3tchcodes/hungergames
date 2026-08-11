@@ -72,9 +72,10 @@ export interface GameEvents {
     id: number;
     event: string;
     tributes_involved: number;
-    killer?: string[];
+    killers?: string[];
     killed?: string[];
 }
+
 export interface GameEventsCategorized {
     type: "bloodbath" | "day" | "night" | "feast" | "fatalBloodbath" | "fatalDay" | "fatalNight" | "fatalFeast";
     events: GameEvents[];

@@ -4,12 +4,12 @@ import { _EphToast, getGamesTable } from "#utils/common";
 import type { MyInteractions } from "#utils/interfaces";
 import { userPermissions } from "#utils/permissions";
 
-const start = new SlashCommandBuilder()
+const gamesession = new SlashCommandBuilder()
     .setName("gamesession")
     .setDescription("Get current game's session ID!");
 
 export default {
-    data: start,
+    data: gamesession,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
 

@@ -31,7 +31,6 @@ export default {
         const qServerData = await getServerDataTable(interaction, guild_id);
         if (!qServerData[0]) return await _EphToast(interaction, "Server data not found. Try to kick and add the bot to fix. If it does not work contact support server to fix.");
 
-
         await startGame(interaction, guild_id, qGames, qServerData);
         // the rest of the game would be played by /next command or auto mode
     }

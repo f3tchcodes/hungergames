@@ -44,9 +44,7 @@ export async function setTributes(session_id: string, districts: PlayersDistrict
     districts.forEach(district => {
         district_id++;
         body_data += `\nDistrict ${district_id}\n#FFFFFF 0 0\n\n`;
-        district.forEach(player => {
-            body_data += `${player.username}\n${player.username}\n${player.gender === "M" ? 0 : 1}\n${player.profile_pic_url}\nBW\n\n`;
-        });
+        district.forEach(player => body_data += `${player.username}\n${player.username}\n${player.gender === "M" ? 0 : 1}\n${player.profile_pic_url}\nBW\n\n`);
     });
 
     const body = `The Hunger Games\nhttps://cdn.brantsteele.com/extras/hungergames/01/logo.png\n\n${body_data}`.trim();

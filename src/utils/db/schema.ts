@@ -19,5 +19,7 @@ export const games = sqliteTable("games", {
 
 export const server_data = sqliteTable("server_data", {
     guild_id: text().primaryKey(),
+    guild_name: text().default("Unkown").notNull(),
+    guild_owner: text().default("Unkown").notNull(),
     events: text({ mode: "json" }).$type<GameEventsCategorized[]>().default(DEFAULT_EVENTS).notNull()
 });

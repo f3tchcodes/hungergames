@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 
-import config from "#utils/config";
+import config from "#config/config";
 import type { MyInteractions } from "#utils/interfaces";
 
 const help = new SlashCommandBuilder()

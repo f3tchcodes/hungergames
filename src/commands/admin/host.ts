@@ -13,7 +13,7 @@ import {
 } from "discord.js";
 
 import { _EphToast, getGamesTable } from "#utils/common";
-import config from "#utils/config";
+import config from "#config/config";
 import type { MyInteractions } from "#utils/interfaces";
 import { userPermissions } from "#utils/permissions";
 

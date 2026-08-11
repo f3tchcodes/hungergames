@@ -44,6 +44,7 @@
     "#handlers/*": "./dist/handlers/*.js",
     "#events/*": "./dist/events/*.js",
     "#utils/*": "./dist/utils/*.js",
+    "#config/*": "./dist/config/*.js",
     "#assets/*": "./dist/assets/*"
   },
   "devDependencies": {

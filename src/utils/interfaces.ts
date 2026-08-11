@@ -34,13 +34,17 @@ export interface RegisterPlayer {
     profile_pic_url: string | undefined | null;
 }
 
-// for player districts and list in db
-export interface PlayersDistricts {
-    player_id: number;
+// default players
+export interface DefaultPlayers {
     user_id: string;
     username: string;
     profile_pic_url: string;
     gender: string;
+}
+
+// for player districts and list in db
+export interface PlayersDistricts extends DefaultPlayers {
+    player_id: number;
     real: boolean;
     alive: boolean;
 }

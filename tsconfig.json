@@ -23,6 +23,7 @@
         "#handlers/*": ["./src/handlers/*.js"],
         "#events/*": ["./src/events/*.js"],
         "#utils/*": ["./src/utils/*.js"],
+        "#config/*": ["./src/config/*.js"],
         "#assets/*": ["./src/assets/*"]
     },
 

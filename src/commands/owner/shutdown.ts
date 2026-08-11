@@ -1,7 +1,7 @@
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 
-import config from "#utils/config";
+import config from "#config/config";
 import type { MyPrefixCommands } from "#utils/interfaces";
 import { shutdown } from "#utils/shutdown";
 

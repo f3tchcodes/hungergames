@@ -1,8 +1,8 @@
 
 import { parse } from "node-html-parser";
 
+import config from "#config/config";
 import { replaceLastOccurrence } from "#utils/common";
-import config from "#utils/config";
 import type { CompleteGameplay, GameplaySections, PlayersDistricts } from "#utils/interfaces";
 
 export async function createSessionId() {

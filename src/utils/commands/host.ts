@@ -1,7 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelSelectMenuInteraction, EmbedBuilder, StringSelectMenuInteraction } from "discord.js";
 
+import config from "#config/config";
 import { _EphToast } from "#utils/common";
-import config from "#utils/config";
 import { games } from "#utils/db/schema";
 import { generateDefaultPlayers } from "#utils/generateDefaultPlayers";
 

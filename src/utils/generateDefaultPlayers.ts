@@ -1,7 +1,7 @@
 import type { Interaction } from "discord.js";
 
+import { DEFAULT_PLAYERS } from "#config/players";
 import { _EphToast } from "#utils/common";
-import config from "#utils/config";
 import { games } from "#utils/db/schema";
 import type { PlayersDistricts } from "#utils/interfaces";
 
@@ -18,7 +18,7 @@ export async function generateDefaultPlayers(interaction: Interaction, district_
     district_size.forEach(size => {
         const data: PlayersDistricts[] = [];
         for (let i = 0; i < Number(size); i++) {
-            const DEFAULT_PLAYER = config.DEFAULT_PLAYERS[player_id];
+            const DEFAULT_PLAYER = DEFAULT_PLAYERS[player_id];
             if (!DEFAULT_PLAYER) return console.error(`default player doesn't exist ${i}`);
             player_id++;
 

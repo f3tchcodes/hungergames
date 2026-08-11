@@ -1,6 +1,6 @@
 import { ButtonInteraction, EmbedBuilder } from "discord.js";
 
-import config from "#utils/config";
+import config from "#config/config";
 
 export async function cancelCommand(interaction: ButtonInteraction) {
     const cancelEmbed = new EmbedBuilder()

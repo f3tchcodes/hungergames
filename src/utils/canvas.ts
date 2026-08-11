@@ -1,6 +1,6 @@
 import { Canvas, grayscale, loadImage, textWrap } from "canvas-constructor/cairo";
 
-import config from "#utils/config";
+import config from "#config/config";
 import type {
     GameplaySections,
     PlayersDistricts

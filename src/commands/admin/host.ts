@@ -12,6 +12,7 @@ import {
     StringSelectMenuOptionBuilder
 } from "discord.js";
 
+import { choices } from "#config/choices";
 import config from "#config/config";
 import { _EphToast, getGamesTable } from "#utils/common";
 import type { MyInteractions } from "#utils/interfaces";
@@ -28,7 +29,7 @@ export default {
     async execute(client, interaction) {
         if (!interaction.inCachedGuild()) return;
         if (!interaction.isChatInputCommand()) return;
-        if (!config.TRIBUTE_SIZE[0]) return console.error("Tribute size configuration not configured.");
+        if (!choices.TRIBUTE_SIZE[0]) return console.error("Tribute size configuration not configured.");
 
         // check required permissions
         const check_permissions = await userPermissions(interaction, [
@@ -48,7 +49,7 @@ export default {
 
         // setting options for tribute size menu
         const tributes_options: StringSelectMenuOptionBuilder[] = [];
-        config.TRIBUTE_SIZE.forEach(v => {
+        choices.TRIBUTE_SIZE.forEach(v => {
             tributes_options.push(
                 new StringSelectMenuOptionBuilder()
                     .setLabel(v.name)

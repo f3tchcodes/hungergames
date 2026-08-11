@@ -8,11 +8,6 @@ const config = {
     CANVAS_ALIVE_COLOR: "#98fb98",
     CANVAS_DEAD_COLOR: "#000000",
     CANVAS_NAME_COLOR: "#F68200",
-    TRIBUTE_SIZE: [
-        { name: "Default (24)", value: 24 },
-        { name: "Medium (36)", value: 36 },
-        { name: "Large (48)", value: 48 }
-    ],
     DISTRICT_SIZE: {
         default: ["2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"],
         medium: ["3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3"],
@@ -31,7 +26,6 @@ export default {
     CANVAS_ALIVE_COLOR: config.CANVAS_ALIVE_COLOR,
     CANVAS_DEAD_COLOR: config.CANVAS_DEAD_COLOR,
     CANVAS_NAME_COLOR: config.CANVAS_NAME_COLOR,
-    TRIBUTE_SIZE: config.TRIBUTE_SIZE,
     DISTRICT_SIZE: config.DISTRICT_SIZE,
     BOT_OWNER_USERID: config.BOT_OWNER_USERID
 };

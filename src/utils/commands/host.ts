@@ -1,5 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelSelectMenuInteraction, EmbedBuilder, StringSelectMenuInteraction } from "discord.js";
 
+import { choices } from "#config/choices";
 import config from "#config/config";
 import { _EphToast } from "#utils/common";
 import { games } from "#utils/db/schema";
@@ -113,10 +114,10 @@ Click the button below to register for The Hunger Games.
 
     // setting district size
     switch (tribute_size) {
-        case config.TRIBUTE_SIZE[1]?.value:
+        case choices.TRIBUTE_SIZE[1]?.value:
             district_size = config.DISTRICT_SIZE.medium;
             break;
-        case config.TRIBUTE_SIZE[2]?.value:
+        case choices.TRIBUTE_SIZE[2]?.value:
             district_size = config.DISTRICT_SIZE.large;
             break;
         default:

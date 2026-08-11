@@ -8,15 +8,16 @@ import {
 } from "discord.js";
 import { eq } from "drizzle-orm";
 
-import { agreeToDisclaimer, createSessionId, readGameplay, setTributes, setTributeSize } from "#utils/api";
+import { agreeToDisclaimer, createSessionId, readGameplay, setEvents, setTributes, setTributeSize } from "#utils/api";
 import { showTributeList } from "#utils/canvas";
-import { games } from "#utils/db/schema";
+import { games, server_data } from "#utils/db/schema";
 import type { PlayersDistricts, ReadPlayerResponse } from "#utils/interfaces";
 import { getPlayerslist } from "#utils/playerslist";
 
 export const _EphToast = async (interaction: RepliableInteraction, content: string): Promise<undefined> => { await interaction.reply({ content, flags: MessageFlags.Ephemeral }); };
 export const _EphToastDefer = async (interaction: RepliableInteraction, content: string): Promise<undefined> => { await interaction.followUp({ content, flags: MessageFlags.Ephemeral }); };
 export const getGamesTable = async (interaction: Interaction, guild_id: string) => await interaction.client.db.select().from(games).where(eq(games.guild_id, guild_id));
+export const getServerDataTable = async (interaction: Interaction, guild_id: string) => await interaction.client.db.select().from(server_data).where(eq(server_data.guild_id, guild_id));
 export const stopGame = async (client: Client, guild_id: string) => await client.db.delete(games).where(eq(games.guild_id, guild_id));
 
 export async function sendChannelMessage(interaction: Interaction, channel_id: string, message: string | MessagePayload | MessageCreateOptions) {
@@ -31,13 +32,15 @@ export function replaceLastOccurrence(str: string, search: string, replacement: 
     return str.substring(0, lastIndex) + replacement + str.substring(lastIndex + search.length);
 }
 
-export async function startGame(interaction: Interaction, guild_id: string, qGames: typeof games.$inferSelect[]) {
+export async function startGame(interaction: Interaction, guild_id: string, qGames: typeof games.$inferSelect[], qServerData: typeof server_data.$inferSelect[]) {
     if (!interaction.isRepliable()) return;
 
     // f3tch the games table
     if (!qGames[0]) return await _EphToast(interaction, "No available game to start.\nYou may host a new game with `/host` anytime.");
     if (interaction.channelId !== qGames[0].channel_id) return await _EphToast(interaction, `Wrong channel! Start the game in the correct channel: <#${qGames[0].channel_id}>`);
     const game_channel_id = qGames[0].channel_id;
+
+    if (!qServerData[0]?.events) return await _EphToast(interaction, "Default events not found. Try to kick and add the bot to fix. If it does not work contact support server to fix.");
 
     // initiailize hunger games
     await interaction.reply("Initializing Hunger Games!");
@@ -58,6 +61,11 @@ export async function startGame(interaction: Interaction, guild_id: string, qGam
     await sendChannelMessage(interaction, game_channel_id, "Writing game settings...");
     const tribute_size_res = await setTributeSize(session_id, qGames[0].tribute_size);
     if (!tribute_size_res) return await _EphToast(interaction, "Failed to set tribute size. Try again or contact dev to fix.");
+
+    // writing events
+    await sendChannelMessage(interaction, game_channel_id, "Writing events...");
+    const events_res = await setEvents(session_id, qServerData[0]?.events);
+    if (!events_res) return await _EphToast(interaction, "Failed to set events. Try again or contact dev to fix.");
 
     // register players
     await sendChannelMessage(interaction, game_channel_id, "Registering players...");

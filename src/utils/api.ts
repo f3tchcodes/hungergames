@@ -2,8 +2,9 @@
 import { parse } from "node-html-parser";
 
 import config from "#config/config";
+import { DEFAULT_CONSTANT_EVENTS } from "#config/events";
 import { replaceLastOccurrence } from "#utils/common";
-import type { CompleteGameplay, GameplaySections, PlayersDistricts } from "#utils/interfaces";
+import type { CompleteGameplay, GameEventsCategorized, GameplaySections, PlayersDistricts } from "#utils/interfaces";
 
 export async function createSessionId() {
     let session_id: string | undefined;
@@ -54,6 +55,35 @@ export async function setTributes(session_id: string, districts: PlayersDistrict
     formData.append("submit", "Import Cast from a Text File");
     const res = await fetch(`${config.BASE_URL}/hungergames/classic/ImportCast.php`, { method: "POST", headers: { Cookie: `PHPSESSID=${session_id}` }, body: formData });
     if (!res.ok) return console.error("Failed to set tribute members!");
+    return true;
+}
+
+export async function setEvents(session_id: string, eventsCategorized: GameEventsCategorized[]) {
+    let body_data = "";
+    eventsCategorized.forEach(category => {
+        const type = category.type;
+        const events = category.events;
+
+        body_data += `\n\n\n${type}`;
+        events.forEach(event => {
+            const eventTxt = event.event;
+            const tributesInvoloved = event.tributes_involved;
+            const killers = event.killers;
+            const killed = event.killed;
+            body_data += `\n${eventTxt}\n${tributesInvoloved}\n`;
+            if (killers) body_data += killers.join(", ") + "\n";
+            if (killed) body_data += killed.join(", ") + "\n";
+        });
+    });
+
+    const body = body_data.trim() + DEFAULT_CONSTANT_EVENTS;
+    const blob = new Blob([body], { type: "text/plain" });
+    const formData = new FormData();
+    formData.append("fileToUpload", blob, "events.txt");
+    formData.append("submit", "Import Events from a Text File");
+    formData.append("ImportType", "Replace");
+    const res = await fetch(`${config.BASE_URL}/hungergames/classic/ImportEvents.php`, { method: "POST", headers: { Cookie: `PHPSESSID=${session_id}` }, body: formData });
+    if (!res.ok) return console.error("Failed to set events!");
     return true;
 }
 

@@ -1,7 +1,7 @@
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
 import { eq } from "drizzle-orm";
 
-import { _EphToast, getGamesTable, startGame } from "#utils/common";
+import { _EphToast, getGamesTable, getServerDataTable, startGame } from "#utils/common";
 import { games } from "#utils/db/schema";
 import type { MyInteractions } from "#utils/interfaces";
 import { userPermissions } from "#utils/permissions";
@@ -30,10 +30,13 @@ export default {
         const qGames = await getGamesTable(interaction, guild_id);
         if (qGames[0] && !qGames[0].game_started) return await _EphToast(interaction, "Start a game before restarting!");
 
+        const qServerData = await getServerDataTable(interaction, guild_id);
+        if (!qServerData[0]) return await _EphToast(interaction, "Server data not found. Try to kick and add the bot to fix. If it does not work contact support server to fix.");
+
         // set settings back to 0
         await interaction.client.db.update(games).set({ game_page: 0, section_page: 0 }).where(eq(games.guild_id, guild_id));
 
-        await startGame(interaction, guild_id, qGames);
+        await startGame(interaction, guild_id, qGames, qServerData);
         // the rest of the game would be played by /next command or auto mode
     }
 } satisfies MyInteractions;

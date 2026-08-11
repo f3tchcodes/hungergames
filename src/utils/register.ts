@@ -52,7 +52,7 @@ export async function registerPlayer(RegisterPlayer: RegisterPlayer) {
             user_id,
             username,
             profile_pic_url,
-            gender: "?",
+            gender: 2,
             alive: true,
             real: true
         };
@@ -100,7 +100,7 @@ export async function registerPlayer(RegisterPlayer: RegisterPlayer) {
                 user_id,
                 username,
                 profile_pic_url,
-                gender: "?",
+                gender: 2,
                 real: true
             };
 

@@ -12,13 +12,13 @@ const usersettings = new SlashCommandBuilder()
         subcommand
             .setName("gender")
             .setDescription("Set your gender.")
-            .addStringOption(op =>
+            .addIntegerOption(op =>
                 op
                     .setName("gender")
                     .addChoices(
-                        { name: "Male", value: "M" },
-                        { name: "Female", value: "F" },
-                        { name: "Other", value: "?" }
+                        { name: "Male", value: 0 },
+                        { name: "Female", value: 0 },
+                        { name: "Other", value: 0 }
                     )
                     .setDescription("The gender that will be used in the gameplay.")
                     .setRequired(true)
@@ -59,7 +59,7 @@ export default {
         const subcommand = interaction.options.getSubcommand();
 
         if (subcommand === "gender") {
-            user.user.gender = interaction.options.getString("gender") ?? "?";
+            user.user.gender = interaction.options.getInteger("gender") ?? 0;
             await _EphToast(interaction, `Successfully set your game gender to \`${user.user.gender}\`.\n-# Note: Changes will take effect from the next game if the current game hasn't been started.`);
         } else if (subcommand === "name") {
             user.user.username = interaction.options.getString("name") ?? displayname;
@@ -70,6 +70,12 @@ export default {
             const profile_pic_url = user.user.profile_pic_url;
             const district_id = user.district_id;
             const district_position = user.district_position;
+            let genderString: string;
+            switch (gender) {
+                case 0: genderString = "He/Him"; break;
+                case 1: genderString = "She/Her"; break;
+                default: genderString = "They/Them"; break;
+            }
 
             const embed = new EmbedBuilder()
                 .setAuthor({ name: displayname, iconURL: current_pfp })
@@ -77,7 +83,7 @@ export default {
                 .setTitle("Settings")
                 .setFields([
                     { name: "Gamename: ", value: name },
-                    { name: "Gender: ", value: gender },
+                    { name: "Gender: ", value: genderString },
                     { name: "Profile picture: ", value: profile_pic_url },
                     { name: "District ID: ", value: (district_id ?? "Unknown").toString() },
                     { name: "District position: ", value: (district_position ?? "Unknown").toString() }

@@ -39,7 +39,7 @@ export interface DefaultPlayers {
     user_id: string;
     username: string;
     profile_pic_url: string;
-    gender: string;
+    gender: number;
 }
 
 // for player districts and list in db

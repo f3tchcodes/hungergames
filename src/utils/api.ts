@@ -77,7 +77,6 @@ export async function setEvents(session_id: string, eventsCategorized: GameEvent
     });
 
     const body = body_data.trim() + DEFAULT_CONSTANT_EVENTS;
-    console.log(body);
     const blob = new Blob([body], { type: "text/plain" });
     const formData = new FormData();
     formData.append("fileToUpload", blob, "events.txt");

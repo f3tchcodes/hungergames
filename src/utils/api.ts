@@ -64,19 +64,20 @@ export async function setEvents(session_id: string, eventsCategorized: GameEvent
         const type = category.type;
         const events = category.events;
 
-        body_data += `\n\n\n${type}`;
+        body_data += `\n\n${type}`;
         events.forEach(event => {
             const eventTxt = event.event;
             const tributesInvoloved = event.tributes_involved;
             const killers = event.killers;
             const killed = event.killed;
             body_data += `\n${eventTxt}\n${tributesInvoloved}\n`;
-            body_data += killers ? killers.join(", ") + "\n" : "None\n";
-            body_data += killed ? killed.join(", ") + "\n" : "None\n";
+            body_data += killers ? killers.join(", ") + "\n" : (type.includes("Fatal") ? "None\n" : "");
+            body_data += killed ? killed.join(", ") + "\n" : (type.includes("Fatal") ? "None\n" : "");
         });
     });
 
     const body = body_data.trim() + DEFAULT_CONSTANT_EVENTS;
+    console.log(body);
     const blob = new Blob([body], { type: "text/plain" });
     const formData = new FormData();
     formData.append("fileToUpload", blob, "events.txt");

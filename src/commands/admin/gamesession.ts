@@ -29,6 +29,6 @@ export default {
         const session_id = qGames[0]?.session_id;
         if (!qGames[0] || !session_id) return await _EphToast(interaction, "Game session is only generated once a game has been started! Start a game to receive the game session.\n-# Note: Session ID is expired after a couple hours of starting, so you might not receive access to the game on the website; however gameplay is saved in the bot's database so you can continue playing even after days of inactivity!");
 
-        return await _EphToast(interaction, `Here is your current game session: \`PHPSESSID=${session_id}\`\n-# Note: Enter this cookie on https://brantsteele.com to access the game!`);
+        return await _EphToast(interaction, `Here is your current game session: \`PHPSESSID=${session_id}\`\n-# Note: Enter this cookie on https://brantsteele.com to access the game! If it does not work, it is possible the session has been expired!`);
     }
 } satisfies MyInteractions;

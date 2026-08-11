@@ -2,7 +2,7 @@ import type { GameEventsCategorized } from "#utils/interfaces";
 
 export const DEFAULT_EVENTS: GameEventsCategorized[] = [
     {
-        type: "bloodbath",
+        type: "Bloodbath Events",
         events: [
             {
                 id: 1,
@@ -147,7 +147,7 @@ export const DEFAULT_EVENTS: GameEventsCategorized[] = [
         ],
     },
     {
-        type: "day",
+        type: "Day Events",
         events: [
             {
                 id: 1,
@@ -387,7 +387,7 @@ export const DEFAULT_EVENTS: GameEventsCategorized[] = [
         ],
     },
     {
-        type: "night",
+        type: "Night Events",
         events: [
             {
                 id: 1,
@@ -622,7 +622,7 @@ export const DEFAULT_EVENTS: GameEventsCategorized[] = [
         ],
     },
     {
-        type: "feast",
+        type: "Feast Events",
         events: [
             {
                 id: 1,
@@ -682,7 +682,7 @@ export const DEFAULT_EVENTS: GameEventsCategorized[] = [
         ],
     },
     {
-        type: "fatalBloodbath",
+        type: "Fatal Bloodbath Events",
         events: [
             {
                 id: 1,
@@ -1045,7 +1045,7 @@ export const DEFAULT_EVENTS: GameEventsCategorized[] = [
         ],
     },
     {
-        type: "fatalDay",
+        type: "Fatal Day Events",
         events: [
             {
                 id: 1,
@@ -1551,7 +1551,7 @@ export const DEFAULT_EVENTS: GameEventsCategorized[] = [
         ],
     },
     {
-        type: "fatalNight",
+        type: "Fatal Night Events",
         events: [
             {
                 id: 1,
@@ -2057,7 +2057,7 @@ export const DEFAULT_EVENTS: GameEventsCategorized[] = [
         ],
     },
     {
-        type: "fatalFeast",
+        type: "Fatal Feast Events",
         events: [
             {
                 id: 1,

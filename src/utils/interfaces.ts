@@ -77,6 +77,13 @@ export interface GameEvents {
 }
 
 export interface GameEventsCategorized {
-    type: "bloodbath" | "day" | "night" | "feast" | "fatalBloodbath" | "fatalDay" | "fatalNight" | "fatalFeast";
+    type: "Bloodbath Events" |
+    "Day Events" |
+    "Night Events" |
+    "Feast Events" |
+    "Fatal Bloodbath Events" |
+    "Fatal Day Events" |
+    "Fatal Night Events" |
+    "Fatal Feast Events";
     events: GameEvents[];
 }

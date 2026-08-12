@@ -69,14 +69,6 @@ export interface CompleteGameplay {
 
 // for events
 export interface GameEvents {
-    id: number;
-    event: string;
-    tributes_involved: number;
-    killers?: string[];
-    killed?: string[];
-}
-
-export interface GameEventsCategorized {
     categoryName: "Bloodbath Events" |
     "Day Events" |
     "Night Events" |
@@ -85,5 +77,11 @@ export interface GameEventsCategorized {
     "Fatal Day Events" |
     "Fatal Night Events" |
     "Fatal Feast Events";
-    events: GameEvents[];
+    id: number;
+    event: string;
+    tributes_involved: number;
+    suggestion: boolean;
+    killers?: string[];
+    killed?: string[];
+    votes?: number;
 }

@@ -4,7 +4,7 @@ import { parse } from "node-html-parser";
 import config from "#config/config";
 import { DEFAULT_CONSTANT_EVENTS } from "#config/events";
 import { replaceLastOccurrence } from "#utils/common";
-import type { CompleteGameplay, GameEventsCategorized, GameplaySections, PlayersDistricts } from "#utils/interfaces";
+import type { CompleteGameplay, GameEvents, GameplaySections, PlayersDistricts } from "#utils/interfaces";
 
 export async function createSessionId() {
     let session_id: string | undefined;
@@ -58,22 +58,18 @@ export async function setTributes(session_id: string, districts: PlayersDistrict
     return true;
 }
 
-export async function setEvents(session_id: string, eventsCategorized: GameEventsCategorized[]) {
+export async function setEvents(session_id: string, eventsCategorized: GameEvents[]) {
     let body_data = "";
-    eventsCategorized.forEach(category => {
-        const categoryName = category.categoryName;
-        const events = category.events;
-
+    eventsCategorized.forEach(event => {
+        const categoryName = event.categoryName;
+        const eventTxt = event.event;
+        const tributesInvoloved = event.tributes_involved;
+        const killers = event.killers;
+        const killed = event.killed;
         body_data += `\n\n${categoryName}`;
-        events.forEach(event => {
-            const eventTxt = event.event;
-            const tributesInvoloved = event.tributes_involved;
-            const killers = event.killers;
-            const killed = event.killed;
-            body_data += `\n${eventTxt}\n${tributesInvoloved}\n`;
-            body_data += killers ? killers.join(", ") + "\n" : (categoryName.includes("Fatal") ? "None\n" : "");
-            body_data += killed ? killed.join(", ") + "\n" : (categoryName.includes("Fatal") ? "None\n" : "");
-        });
+        body_data += `\n${eventTxt}\n${tributesInvoloved}\n`;
+        body_data += killers ? killers.join(", ") + "\n" : (categoryName.includes("Fatal") ? "None\n" : "");
+        body_data += killed ? killed.join(", ") + "\n" : (categoryName.includes("Fatal") ? "None\n" : "");
     });
 
     const body = body_data.trim() + DEFAULT_CONSTANT_EVENTS;

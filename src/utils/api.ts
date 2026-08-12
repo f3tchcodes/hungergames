@@ -61,18 +61,18 @@ export async function setTributes(session_id: string, districts: PlayersDistrict
 export async function setEvents(session_id: string, eventsCategorized: GameEventsCategorized[]) {
     let body_data = "";
     eventsCategorized.forEach(category => {
-        const type = category.type;
+        const categoryName = category.categoryName;
         const events = category.events;
 
-        body_data += `\n\n${type}`;
+        body_data += `\n\n${categoryName}`;
         events.forEach(event => {
             const eventTxt = event.event;
             const tributesInvoloved = event.tributes_involved;
             const killers = event.killers;
             const killed = event.killed;
             body_data += `\n${eventTxt}\n${tributesInvoloved}\n`;
-            body_data += killers ? killers.join(", ") + "\n" : (type.includes("Fatal") ? "None\n" : "");
-            body_data += killed ? killed.join(", ") + "\n" : (type.includes("Fatal") ? "None\n" : "");
+            body_data += killers ? killers.join(", ") + "\n" : (categoryName.includes("Fatal") ? "None\n" : "");
+            body_data += killed ? killed.join(", ") + "\n" : (categoryName.includes("Fatal") ? "None\n" : "");
         });
     });
 

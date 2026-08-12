@@ -77,7 +77,7 @@ export interface GameEvents {
 }
 
 export interface GameEventsCategorized {
-    type: "Bloodbath Events" |
+    categoryName: "Bloodbath Events" |
     "Day Events" |
     "Night Events" |
     "Feast Events" |

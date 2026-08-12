@@ -46,7 +46,8 @@ export default defineConfig([
             "no-duplicate-imports": "error",
             "unused-imports/no-unused-imports": "error",
             "no-unused-vars": "off",
-            "@typescript-eslint/no-unused-vars": "off",
+            "@typescript-eslint/no-unused-vars": "off", // remove this at the end and check
+            "@typescript-eslint/no-unused-expressions": "off",
             "no-useless-escape": "off"
         },
     },

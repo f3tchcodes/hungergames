@@ -68,8 +68,7 @@ export interface CompleteGameplay {
 }
 
 // for events
-export interface GameEvents {
-    categoryName: "Bloodbath Events" |
+export type CategoryNames = "Bloodbath Events" |
     "Day Events" |
     "Night Events" |
     "Feast Events" |
@@ -77,6 +76,9 @@ export interface GameEvents {
     "Fatal Day Events" |
     "Fatal Night Events" |
     "Fatal Feast Events";
+
+export interface GameEvents {
+    categoryName: CategoryNames;
     id: number;
     event: string;
     tributes_involved: number;

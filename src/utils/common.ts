@@ -1,5 +1,6 @@
 import {
     type Client,
+    EmbedBuilder,
     type Interaction,
     type MessageCreateOptions,
     MessageFlags,
@@ -8,10 +9,11 @@ import {
 } from "discord.js";
 import { eq } from "drizzle-orm";
 
+import config from "#config/config";
 import { agreeToDisclaimer, createSessionId, readGameplay, setEvents, setTributes, setTributeSize } from "#utils/api";
 import { showTributeList } from "#utils/canvas";
 import { games, server_data } from "#utils/db/schema";
-import type { PlayersDistricts, ReadPlayerResponse } from "#utils/interfaces";
+import type { GameEvents, PlayersDistricts, ReadPlayerResponse } from "#utils/interfaces";
 import { getPlayerslist } from "#utils/playerslist";
 
 export const _EphToast = async (interaction: RepliableInteraction, content: string): Promise<undefined> => { await interaction.reply({ content, flags: MessageFlags.Ephemeral }); };
@@ -160,3 +162,18 @@ export async function updatePlayer(interaction: Interaction, guild_id: string, d
 
     await interaction.client.db.update(games).set({ districts_data: newDistricts }).where(eq(games.guild_id, guild_id));
 }
+
+export const eventsActionEmbed = (interaction: Interaction, action: "adding" | "editing", gameEvents: GameEvents) => new EmbedBuilder()
+    .setAuthor({ name: "The Hunger Games", iconURL: config.ICON_URL })
+    .setColor(config.THEME_COLOR)
+    .setTitle(`${(action[0] ?? "a").toUpperCase() + action.slice(1)} a${action === "adding" ? " new" : "n"} event!`)
+    .setDescription(`We've noticed the event you're ${action} is fatal! Please enter the killers and killed players.
+
+**ID:** ${gameEvents.id}
+**Category:** ${gameEvents.categoryName}
+**Event:** ${gameEvents.event}
+**Killed:** ${(gameEvents.killed ?? []).join(", ")}
+**Killers:** ${(gameEvents.killers ?? []).join(", ")}`)
+    .setThumbnail(config.ICON_URL)
+    .setFooter({ text: `Requested by ${interaction.user.displayName}` })
+    .setTimestamp();

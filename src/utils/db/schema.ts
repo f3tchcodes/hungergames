@@ -22,5 +22,6 @@ export const server_data = sqliteTable("server_data", {
     guild_id: text().primaryKey(),
     guild_name: text().default("Unkown").notNull(),
     guild_owner: text().default("Unkown").notNull(),
-    events: text({ mode: "json" }).$type<GameEvents[]>().default(DEFAULT_EVENTS).notNull()
+    events: text({ mode: "json" }).$type<GameEvents[]>().default(DEFAULT_EVENTS).notNull(),
+    events_id: integer().default(DEFAULT_EVENTS.length + 1).notNull()
 });

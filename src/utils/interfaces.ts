@@ -87,3 +87,5 @@ export interface GameEvents {
     killed?: string[];
     votes?: number;
 }
+
+export type ChangedCategory = "all" | CategoryNames;

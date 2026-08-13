@@ -1,7 +1,9 @@
 import { Canvas, grayscale, loadImage, textWrap } from "canvas-constructor/cairo";
+import type { Client } from "discord.js";
 
 import config from "#config/config";
 import type {
+    GameEvents,
     GameplaySections,
     PlayersDistricts
 } from "#utils/interfaces";
@@ -174,4 +176,65 @@ export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySe
                 });
             });
     }
+}
+
+export async function showEventsList(client: Client, events: GameEvents[], page: number, messageId: string, suggestions: boolean) {
+    const background = await loadImage("./assets/status_bg.png");
+    const canvas = new Canvas(1000, 1000).printImage(background, 0, 0, 1000, 1000);
+
+    await buildEventList(client, canvas, events, page, suggestions, messageId);
+
+    return canvas.png();
+}
+
+export async function buildEventList(client: Client, canvas: Canvas, events: GameEvents[], page: number, suggestions: boolean, messageId: string) {
+    canvas.setTextFont("25px");
+    canvas.setColor(config.CANVAS_NAME_COLOR);
+
+    // build first row
+    let columnHeight = 50;
+    const eventIdWidth = 100;
+    const eventTxtWidth = 200;
+    const eventCategoryWidth = suggestions ? 700 : 800;
+    const eventVotesWidth = 900;
+
+    canvas.printText("ID", eventIdWidth, columnHeight);
+    canvas.printText("EVENT", eventTxtWidth, columnHeight);
+    canvas.printText("CATEGORY", eventCategoryWidth, columnHeight);
+    if (suggestions) canvas.printText("Votes", eventVotesWidth, columnHeight);
+
+    canvas.setTextFont("20px");
+    canvas.setColor(config.CANVAS_TEXT_COLOR);
+    const pagesLength: number[] = [];
+
+    // calculating how many events for each page
+    columnHeight += 60;
+    let eventLengthPerPage = 0;
+    events.forEach(event => {
+        if (columnHeight > 950) { pagesLength.push(eventLengthPerPage); columnHeight = 110; }
+        const nlEventTxt = textWrap(canvas, event.event, suggestions ? 680 : 580);
+        const nlEventTxtCount = (nlEventTxt.match(/\n/g) || []).length;
+        columnHeight += (nlEventTxtCount * 20) + 40;
+        eventLengthPerPage += 1;
+    });
+    client.eventPagesLength.set(messageId, pagesLength.length);
+
+    // get current page
+    const previousPage = pagesLength[page - 2] ?? 0;
+    const currentPage = pagesLength[page - 1] ?? 0;
+    const currentPageEvents = events.filter((event, index) => index >= previousPage && index < currentPage);
+
+    // write events from current page
+    columnHeight = 110;
+    currentPageEvents.forEach(event => {
+        const nlEventTxt = textWrap(canvas, event.event, suggestions ? 680 : 580);
+        const nlEventTxtCount = (nlEventTxt.match(/\n/g) || []).length;
+
+        canvas.printMultilineText(event.id.toString(), eventIdWidth, columnHeight);
+        canvas.printMultilineText(nlEventTxt, eventTxtWidth, columnHeight);
+        canvas.printMultilineText(event.categoryName, eventCategoryWidth, columnHeight);
+        if (suggestions) canvas.printMultilineText(event.votes?.toString() ?? "Unknown", eventVotesWidth, columnHeight);
+
+        columnHeight += (nlEventTxtCount * 20) + 40;
+    });
 }

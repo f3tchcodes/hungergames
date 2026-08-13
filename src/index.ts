@@ -7,7 +7,7 @@ import type { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 import loadEvents from "#handlers/loadEvents";
 import loadInteractions from "#handlers/loadInteractions";
 import { db } from "#utils/db/db";
-import type { HostValues, MyInteractions, MyPrefixCommands } from "#utils/interfaces";
+import type { CategoryNames, GameEvents, HostValues, MyInteractions, MyPrefixCommands } from "#utils/interfaces";
 
 // augmenting @discord.js
 declare module "discord.js" {
@@ -17,6 +17,9 @@ declare module "discord.js" {
         commands: Map<string, MyPrefixCommands>;
         hostValues: Map<string, HostValues>;
         includedefaultplayers: Map<string, boolean | undefined>;
+        eventPagesLength: Map<string, number>,
+        eventPage: Map<string, { page: number; category?: CategoryNames; }>,
+        fatalValues: Map<string, { action: "adding" | "editing", gameEvents: GameEvents; }>;
     }
 }
 
@@ -43,6 +46,9 @@ client.interactions = new Map();
 client.hostValues = new Map();
 client.commands = new Map();
 client.includedefaultplayers = new Map();
+client.eventPagesLength = new Map();
+client.eventPage = new Map();
+client.fatalValues = new Map();
 
 // updating and loading interaction commands, and loading events
 await loadInteractions(client);

@@ -163,11 +163,11 @@ export async function updatePlayer(interaction: Interaction, guild_id: string, d
     await interaction.client.db.update(games).set({ districts_data: newDistricts }).where(eq(games.guild_id, guild_id));
 }
 
-export const eventsActionEmbed = (interaction: Interaction, action: "adding" | "editing", gameEvents: GameEvents) => new EmbedBuilder()
+export const eventsActionEmbed = (interaction: Interaction, action: "adding" | "editing", gameEvents: GameEvents, suggestion: boolean) => new EmbedBuilder()
     .setAuthor({ name: "The Hunger Games", iconURL: config.ICON_URL })
     .setColor(config.THEME_COLOR)
     .setTitle(`${(action[0] ?? "a").toUpperCase() + action.slice(1)} a${action === "adding" ? " new" : "n"} event!`)
-    .setDescription(`We've noticed the event you're ${action} is fatal! Please enter the killers and killed players.
+    .setDescription(`We've noticed the ${suggestion ? "suggestion" : "event"} you're ${action} is fatal! Please enter the killers and killed players.
 
 **ID:** ${gameEvents.id}
 **Category:** ${gameEvents.categoryName}

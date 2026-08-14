@@ -7,29 +7,27 @@ import { _EphToastDefer, eventsActionEmbed, getServerDataTable } from "#utils/co
 import { server_data } from "#utils/db/schema";
 import type { CategoryNames, GameEvents } from "#utils/interfaces";
 
-export async function addEvent(interaction: RepliableInteraction, guild_id: string, categoryInput: string, eventTxt: string, playerCount: number, suggestion: boolean, killed: string[] = [], killers: string[] = []) {
+export async function addEvent(interaction: RepliableInteraction, guild_id: string, gameEvents: GameEvents) {
     const qServerData = await getServerDataTable(interaction, guild_id);
-    const events = qServerData[0]?.events;
-    const eventsId = qServerData[0]?.events_id;
-    if (!qServerData[0] || !events || !eventsId) return await _EphToastDefer(interaction, "Guild information not present in server_data. Kick and rejoin the bot or ask dev to fix.");
+    const events = gameEvents.suggestion ? qServerData[0]?.suggestions : qServerData[0]?.events;
+    if (!qServerData[0] || !events) return await _EphToastDefer(interaction, "Guild information not present in server_data. Kick and rejoin the bot or ask dev to fix.");
 
     const newEvent: GameEvents = {
-        categoryName: categoryInput as CategoryNames,
-        id: eventsId,
-        event: eventTxt,
-        tributes_involved: playerCount,
-        suggestion: suggestion,
-        killed,
-        killers
+        ...gameEvents,
+        killed: gameEvents.killed ?? [],
+        killers: gameEvents.killed ?? []
     };
 
-    await interaction.client.db.update(server_data).set({ events: [...events, newEvent], events_id: eventsId + 1 }).where(eq(server_data.guild_id, guild_id));
-    await interaction.followUp("Successfully added the event!");
+    const eventOrSuggest = gameEvents.suggestion ? "suggestion" : "event";
+    gameEvents.suggestion ?
+        await interaction.client.db.update(server_data).set({ suggestions: [...events, newEvent], events_id: gameEvents.id + 1 }).where(eq(server_data.guild_id, guild_id)) :
+        await interaction.client.db.update(server_data).set({ events: [...events, newEvent], events_id: gameEvents.id + 1 }).where(eq(server_data.guild_id, guild_id));
+    await interaction.followUp(`Successfully added the ${eventOrSuggest}!`);
 }
 
-export async function editEvent(interaction: RepliableInteraction, guild_id: string, categoryInput: string | null, eventId: number, eventTxt: string | null, playerCount: number | null, killed: string[] = [], killers: string[] = []) {
+export async function editEvent(interaction: RepliableInteraction, guild_id: string, categoryInput: string | null, eventId: number, eventTxt: string | null, playerCount: number | null, suggestion: boolean, killed: string[] = [], killers: string[] = []) {
     const qServerData = await getServerDataTable(interaction, guild_id);
-    const events = qServerData[0]?.events;
+    const events = suggestion ? qServerData[0]?.suggestions : qServerData[0]?.events;
     if (!qServerData[0] || !events) return await _EphToastDefer(interaction, "Guild information not present in server_data. Kick and rejoin the bot or ask dev to fix.");
 
     let updated = false;
@@ -46,10 +44,13 @@ export async function editEvent(interaction: RepliableInteraction, guild_id: str
             };
         } else return event;
     });
-    await interaction.client.db.update(server_data).set({ events: newEvents }).where(eq(server_data.guild_id, guild_id));
+    const eventOrSuggest = suggestion ? "suggestion" : "event";
+    suggestion ?
+        await interaction.client.db.update(server_data).set({ suggestions: newEvents }).where(eq(server_data.guild_id, guild_id)) :
+        await interaction.client.db.update(server_data).set({ events: newEvents }).where(eq(server_data.guild_id, guild_id));
     updated ?
-        await interaction.followUp("Successfully edited the event!") :
-        await interaction.followUp("Event not found!");
+        await interaction.followUp(`Successfully edited the ${eventOrSuggest}!`) :
+        await interaction.followUp(`${eventOrSuggest.charAt(0).toUpperCase + eventOrSuggest.slice(1)} not found!`);
 }
 
 export async function moveListPages(interaction: ButtonInteraction, messageId: string, action: "forward" | "backward") {
@@ -108,7 +109,7 @@ export async function updateEventEmbed(interaction: StringSelectMenuInteraction,
     };
 
     interaction.client.fatalValues.set(messageId, { action, gameEvents: editedGameEvents });
-    await interaction.editReply({ embeds: [eventsActionEmbed(interaction, action, editedGameEvents)] });
+    await interaction.editReply({ embeds: [eventsActionEmbed(interaction, action, editedGameEvents, gameEvents.suggestion)] });
 }
 
 export async function submitEmbededEvent(interaction: ButtonInteraction, messageId: string) {
@@ -121,11 +122,11 @@ export async function submitEmbededEvent(interaction: ButtonInteraction, message
     const id = gameEvents.id;
     const categoryName = gameEvents.categoryName;
     const eventTxt = gameEvents.event;
-    const playerCount = gameEvents.tributes_involved;
     const suggestion = gameEvents.suggestion;
+    const playerCount = gameEvents.tributes_involved;
     const killed = gameEvents.killed ?? [];
     const killers = gameEvents.killers ?? [];
 
-    if (event.action === "adding") addEvent(interaction, guild_id, categoryName, eventTxt, playerCount, suggestion, killed, killers);
-    if (event.action === "editing") editEvent(interaction, guild_id, categoryName, id, eventTxt, playerCount, killed, killers);
+    if (event.action === "adding") addEvent(interaction, guild_id, gameEvents);
+    if (event.action === "editing") editEvent(interaction, guild_id, categoryName, id, eventTxt, playerCount, suggestion, killed, killers);
 }

@@ -3,30 +3,29 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder, Stri
 import { eq } from "drizzle-orm";
 
 import { choices } from "#config/choices";
-import { DEFAULT_EVENTS } from "#config/events";
 import { showEventsList } from "#utils/canvas";
 import { addEvent, editEvent } from "#utils/commands/events";
 import { _EphToastDefer, eventsActionEmbed, getServerDataTable } from "#utils/common";
 import { server_data } from "#utils/db/schema";
 import type { CategoryNames, ChangedCategory, GameEvents, MyInteractions } from "#utils/interfaces";
 
-const events = new SlashCommandBuilder()
-    .setName("events")
-    .setDescription("Add, edit, remove, or reset game events!")
+const suggestions = new SlashCommandBuilder()
+    .setName("suggestions")
+    .setDescription("Add, edit, remove, or reset game event suggestions!")
     .addSubcommand(subcommand =>
         subcommand
             .setName("list")
-            .setDescription("List all game events!")
+            .setDescription("List all game event suggestions!")
             .addIntegerOption(op =>
                 op
                     .setName("page")
-                    .setDescription("List game events at a specific page.")
+                    .setDescription("List game event suggestions at a specific page.")
                     .setRequired(false)
             )
             .addStringOption(op =>
                 op
                     .setName("category")
-                    .setDescription("List game events categorically.")
+                    .setDescription("List game event suggestions categorically.")
                     .addChoices(...choices.EVENTS_CATEGORIES)
                     .setRequired(false)
             )
@@ -34,11 +33,11 @@ const events = new SlashCommandBuilder()
     .addSubcommand(subcommand =>
         subcommand
             .setName("add")
-            .setDescription("Add a game event!")
+            .setDescription("Add a game event suggestion!")
             .addStringOption(op =>
                 op
                     .setName("event")
-                    .setDescription("Event text (make sure to use correct format).")
+                    .setDescription("Event suggestion text (make sure to use correct format).")
                     .setRequired(true)
             )
             .addIntegerOption(op =>
@@ -58,17 +57,17 @@ const events = new SlashCommandBuilder()
     .addSubcommand(subcommand =>
         subcommand
             .setName("edit")
-            .setDescription("Edit a game event!")
+            .setDescription("Edit a game event suggestion!")
             .addIntegerOption(op =>
                 op
-                    .setName("event-id")
-                    .setDescription("Event ID of the event you wish to edit.")
+                    .setName("suggestion-id")
+                    .setDescription("Suggestion ID of the event you wish to edit.")
                     .setRequired(true)
             )
             .addStringOption(op =>
                 op
                     .setName("event")
-                    .setDescription("Event text (make sure to use correct format).")
+                    .setDescription("Event suggestion text (make sure to use correct format).")
                     .setRequired(false)
             )
             .addIntegerOption(op =>
@@ -88,11 +87,11 @@ const events = new SlashCommandBuilder()
     .addSubcommand(subcommand =>
         subcommand
             .setName("remove")
-            .setDescription("Remove a game event!")
+            .setDescription("Remove a game event suggestion!")
             .addIntegerOption(op =>
                 op
-                    .setName("event-id")
-                    .setDescription("Event ID of the event you wish to remove.")
+                    .setName("suggestion-id")
+                    .setDescription("Suggestion ID of the event you wish to remove.")
                     .setRequired(true)
             )
     )
@@ -111,18 +110,18 @@ const events = new SlashCommandBuilder()
     .addSubcommand(subcommand =>
         subcommand
             .setName("clear")
-            .setDescription("Clear all game events!")
+            .setDescription("Clear all game event suggestions!")
             .addStringOption(op =>
                 op
                     .setName("category")
-                    .setDescription("Clear game events categorically.")
+                    .setDescription("Clear game event suggestions categorically.")
                     .addChoices(...choices.EVENTS_CATEGORIES)
                     .setRequired(false)
             )
     );
 
 export default {
-    data: events,
+    data: suggestions,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
         const deferResponse = await interaction.deferReply({ withResponse: true });
@@ -131,11 +130,10 @@ export default {
 
         const guild_id = interaction.guildId ?? "unknown";
         const qServerData = await getServerDataTable(interaction, guild_id);
-        const events = qServerData[0]?.events;
+        const events = qServerData[0]?.suggestions;
         const eventsId = qServerData[0]?.events_id;
         if (!qServerData[0] || !events || !eventsId) return await _EphToastDefer(interaction, "Guild information not present in server_data. Kick and rejoin the bot or ask dev to fix.");
-
-        const suggestion = false;
+        const suggestion = true;
 
         const categories = [
             "Bloodbath Events",
@@ -180,13 +178,13 @@ export default {
                 const newEvents = events.filter(event => event.categoryName === categoryInput);
                 if (!newEvents[0]) return await interaction.followUp("Category not found.");
                 const eventsImage = await showEventsList(client, newEvents, page, messageId, false);
-                const response = await interaction.followUp({ content: categoryInput, files: [eventsImage], components: [buttonBuilderRowList], withResponse: true });
+                const response = await interaction.followUp({ content: `${categoryInput} Suggestions`, files: [eventsImage], components: [buttonBuilderRowList], withResponse: true });
                 client.eventPage.set(response.id, { page: 1, category: categoryInput as CategoryNames });
                 return;
             }
 
             const eventsImage = await showEventsList(client, events, page, messageId, suggestion);
-            const response = await interaction.followUp({ content: "All Game Events", files: [eventsImage], components: [buttonBuilderRowList], withResponse: true });
+            const response = await interaction.followUp({ content: "All Game Events Suggestions", files: [eventsImage], components: [buttonBuilderRowList], withResponse: true });
             client.eventPage.set(response.id, { page: 1 });
             return;
         } else if (subcommand === "add") {
@@ -205,7 +203,6 @@ export default {
             event_killers.addOptions(playerOptions);
             const stringSelectRowKilled = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(event_killed);
             const stringSelectRowKillers = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(event_killers);
-
             const gameEvents: GameEvents = {
                 added_by: interaction.user.id,
                 id: eventsId,
@@ -214,13 +211,14 @@ export default {
                 tributes_involved: playerCount,
                 suggestion
             };
+
             if (fatalEvents.includes(categoryInput)) {
                 client.fatalValues.set(messageId, { action: "adding", gameEvents });
                 return await interaction.followUp({ embeds: [eventsActionEmbed(interaction, "adding", gameEvents, suggestion)], components: [stringSelectRowKilled, stringSelectRowKillers, buttonBuilderRowAction] });
             }
             await addEvent(interaction, guild_id, gameEvents);
         } else if (subcommand === "edit") {
-            const eventId = interaction.options.getInteger("event-id");
+            const eventId = interaction.options.getInteger("suggestion-id");
             const eventTxt = interaction.options.getString("event");
             const categoryInput = interaction.options.getString("category");
             if (!eventId || (categoryInput && !categories.includes(categoryInput as CategoryNames))) return await _EphToastDefer(interaction, "Required input not received.");
@@ -259,31 +257,17 @@ export default {
             }
             await editEvent(interaction, guild_id, categoryInput, eventId, eventTxt, playerCount, suggestion);
         } else if (subcommand === "remove") {
-            const eventId = interaction.options.getInteger("event-id");
+            const eventId = interaction.options.getInteger("suggestion-id");
             if (!eventId) return await _EphToastDefer(interaction, "Required input not received.");
 
             const newEvents = events.filter(event => {
                 if (eventId === event.id) updated = true;
                 return eventId !== event.id;
             });
-            await interaction.client.db.update(server_data).set({ events: newEvents }).where(eq(server_data.guild_id, guild_id));
+            await interaction.client.db.update(server_data).set({ suggestions: newEvents }).where(eq(server_data.guild_id, guild_id));
             updated ?
-                await interaction.followUp("Successfully removed the event!") :
+                await interaction.followUp("Successfully removed the suggestion!") :
                 await interaction.followUp("Event not found!");
-        } else if (subcommand === "reset") {
-            const categoryInput = interaction.options.getString("category");
-            if (categoryInput && !categories.includes(categoryInput as CategoryNames)) return await _EphToastDefer(interaction, "Required input not received.");
-
-            let changedCategory: ChangedCategory = "all";
-            let newEvents: GameEvents[];
-            if (categoryInput) {
-                const defaultCategory = DEFAULT_EVENTS.filter(defaultCategory => defaultCategory.categoryName === categoryInput) ?? [{ id: 999, categoryName: categoryInput, event: "Default events for this category not found. Contact dev to fix.", suggestion }];
-                changedCategory = categoryInput as ChangedCategory;
-                newEvents = defaultCategory;
-            } else newEvents = DEFAULT_EVENTS;
-
-            await interaction.client.db.update(server_data).set({ events: newEvents }).where(eq(server_data.guild_id, guild_id));
-            await interaction.followUp(`Successfully reset the events to default for ${changedCategory === "all" ? "" : "the "}${changedCategory} ${changedCategory === "all" ? "the " : ""}categor${changedCategory === "all" ? "ies" : "y"}!`);
         } else if (subcommand === "clear") {
             const categoryInput = interaction.options.getString("category");
             if (categoryInput && !categories.includes(categoryInput as CategoryNames)) return await _EphToastDefer(interaction, "Required input not received.");
@@ -295,8 +279,8 @@ export default {
                 newEvents = events.filter(event => categoryInput !== event.categoryName);
             } else newEvents = [];
 
-            await interaction.client.db.update(server_data).set({ events: newEvents }).where(eq(server_data.guild_id, guild_id));
-            await interaction.followUp(`Successfully cleared the events of ${changedCategory === "all" ? "" : "the "}${changedCategory} ${changedCategory === "all" ? "the " : ""}categor${changedCategory === "all" ? "ies" : "y"}!`);
+            await interaction.client.db.update(server_data).set({ suggestions: newEvents }).where(eq(server_data.guild_id, guild_id));
+            await interaction.followUp(`Successfully cleared the suggestions of ${changedCategory === "all" ? "" : "the "}${changedCategory} ${changedCategory === "all" ? "the " : ""}categor${changedCategory === "all" ? "ies" : "y"}!`);
         }
     }
 } satisfies MyInteractions;

@@ -209,9 +209,14 @@ export async function buildEventList(client: Client, canvas: Canvas, events: Gam
 
     // calculating how many events for each page
     columnHeight += 60;
+    let pagesLengthIndex = 0;
     let eventLengthPerPage = 0;
     events.forEach(event => {
-        if (columnHeight > 950) { pagesLength.push(eventLengthPerPage); columnHeight = 110; }
+        pagesLength[pagesLengthIndex] = eventLengthPerPage;
+        if (columnHeight > 950) {
+            pagesLengthIndex += 1;
+            columnHeight = 110;
+        }
         const nlEventTxt = textWrap(canvas, event.event, suggestions ? 680 : 580);
         const nlEventTxtCount = (nlEventTxt.match(/\n/g) || []).length;
         columnHeight += (nlEventTxtCount * 20) + 40;

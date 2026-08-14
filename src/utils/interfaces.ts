@@ -78,6 +78,7 @@ export type CategoryNames = "Bloodbath Events" |
     "Fatal Feast Events";
 
 export interface GameEvents {
+    added_by: string;
     categoryName: CategoryNames;
     id: number;
     event: string;

@@ -135,6 +135,8 @@ export default {
         const eventsId = qServerData[0]?.events_id;
         if (!qServerData[0] || !events || !eventsId) return await _EphToast(interaction, "Guild information not present in server_data. Kick and rejoin the bot or ask dev to fix.");
 
+        const suggestion = false;
+
         const categories = [
             "Bloodbath Events",
             "Day Events",
@@ -183,7 +185,7 @@ export default {
                 return;
             }
 
-            const eventsImage = await showEventsList(client, events, page, messageId, false);
+            const eventsImage = await showEventsList(client, events, page, messageId, suggestion);
             const response = await interaction.followUp({ content: "All Game Events", files: [eventsImage], components: [buttonBuilderRowList], withResponse: true });
             client.eventPage.set(response.id, { page: 1 });
             return;
@@ -204,18 +206,19 @@ export default {
             const stringSelectRowKilled = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(event_killed);
             const stringSelectRowKillers = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(event_killers);
 
+            const gameEvents: GameEvents = {
+                added_by: interaction.user.id,
+                id: eventsId,
+                categoryName: categoryInput as CategoryNames,
+                event: eventTxt,
+                tributes_involved: playerCount,
+                suggestion
+            };
             if (fatalEvents.includes(categoryInput)) {
-                const gameEvents: GameEvents = {
-                    id: eventsId,
-                    categoryName: categoryInput as CategoryNames,
-                    event: eventTxt,
-                    tributes_involved: playerCount,
-                    suggestion: false
-                };
                 client.fatalValues.set(messageId, { action: "adding", gameEvents });
-                return await interaction.followUp({ embeds: [eventsActionEmbed(interaction, "adding", gameEvents)], components: [stringSelectRowKilled, stringSelectRowKillers, buttonBuilderRowAction] });
+                return await interaction.followUp({ embeds: [eventsActionEmbed(interaction, "adding", gameEvents, suggestion)], components: [stringSelectRowKilled, stringSelectRowKillers, buttonBuilderRowAction] });
             }
-            await addEvent(interaction, guild_id, categoryInput, eventTxt, playerCount, false);
+            await addEvent(interaction, guild_id, gameEvents);
         } else if (subcommand === "edit") {
             const eventId = interaction.options.getInteger("event-id");
             const eventTxt = interaction.options.getString("event");
@@ -252,7 +255,7 @@ export default {
 
             if (fatalEvent) {
                 client.fatalValues.set(messageId, { action: "editing", gameEvents });
-                return await interaction.followUp({ embeds: [eventsActionEmbed(interaction, "editing", gameEvents)], components: [stringSelectRowKilled, stringSelectRowKillers, buttonBuilderRowAction], withResponse: true });
+                return await interaction.followUp({ embeds: [eventsActionEmbed(interaction, "editing", gameEvents, suggestion)], components: [stringSelectRowKilled, stringSelectRowKillers, buttonBuilderRowAction], withResponse: true });
             }
             await editEvent(interaction, guild_id, categoryInput, eventId, eventTxt, playerCount);
         } else if (subcommand === "remove") {
@@ -274,7 +277,7 @@ export default {
             let changedCategory: ChangedCategory = "all";
             let newEvents: GameEvents[];
             if (categoryInput) {
-                const defaultCategory = DEFAULT_EVENTS.filter(defaultCategory => defaultCategory.categoryName === categoryInput) ?? [{ id: 999, categoryName: categoryInput, event: "Default events for this category not found. Contact dev to fix.", suggestion: false }];
+                const defaultCategory = DEFAULT_EVENTS.filter(defaultCategory => defaultCategory.categoryName === categoryInput) ?? [{ id: 999, categoryName: categoryInput, event: "Default events for this category not found. Contact dev to fix.", suggestion }];
                 changedCategory = categoryInput as ChangedCategory;
                 newEvents = defaultCategory;
             } else newEvents = DEFAULT_EVENTS;

@@ -7,6 +7,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (grabs/grabs/grabs/grabs/grab1) a shovel.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -15,6 +16,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (grabs/grabs/grabs/grabs/grab1) a backpack and retreats.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -23,6 +25,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) fight for a bag. (Player1) (gives up and retreats/gives up and retreats/gives up and retreats/gives up and retreats/give up and retreat1).",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -31,6 +34,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) fight for a bag. (Player2) (gives up and retreats/gives up and retreats/gives up and retreats/gives up and retreats/give up and retreat2).",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -39,6 +43,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (finds/finds/finds/finds/find1) a bow, some arrows, and a quiver.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -47,6 +52,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (runs/runs/runs/runs/run1) into the cornucopia and hides.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -55,6 +61,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (takes/takes/takes/takes/take1) a handful of throwing knives.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -63,6 +70,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (rips/rips/rips/rips/rip1) a mace out of (Player2)'s hands.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -71,6 +79,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (finds/finds/finds/finds/find1) a canteen full of water.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -79,6 +88,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (stays/stays/stays/stays/stay1) at the cornucopia for resources.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -87,6 +97,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (gathers/gathers/gathers/gathers/gather1) as much food as [typeA1] can.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -95,6 +106,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (grabs/grabs/grabs/grabs/grab1) a sword.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -103,6 +115,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (takes/takes/takes/takes/take1) a spear from inside the cornucopia.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -111,6 +124,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (finds/finds/finds/finds/find1) a bag full of explosives.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -119,6 +133,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (clutches/clutches/clutches/clutches/clutch1) a first aid kit and (runs/runs/runs/runs/run1) away.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -127,6 +142,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (takes/takes/takes/takes/take1) a sickle from inside the cornucopia.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -135,6 +151,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), and (Player3) work together to get as many supplies as possible.",
         tributes_involved: 3,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -143,6 +160,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (runs/runs/runs/runs/run1) away with a lighter and some rope.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -151,6 +169,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (snatches/snatches/snatches/snatches/snatch1) a bottle of alcohol and a rag.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -159,6 +178,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (finds/finds/finds/finds/find1) a backpack full of camping equipment.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -167,6 +187,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (grabs/grabs/grabs/grabs/grab1) a backpack, not realizing it is empty.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -175,6 +196,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (breaks/breaks/breaks/breaks/break1) (Player2)'s (nose/nose/nose/nose/noses2) for a basket of bread.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -183,6 +205,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), (Player3), and (Player4) share everything they gathered before running.",
         tributes_involved: 4,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -191,6 +214,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (retrieves/retrieves/retrieves/retrieves/retrieve1) a trident from inside the cornucopia.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -199,6 +223,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (grabs/grabs/grabs/grabs/grab1) a jar of fishing bait while (Player2) (gets/gets/gets/gets/get1) fishing gear.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -207,6 +232,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (scares/scares/scares/scares/scare1) (Player2) away from the cornucopia.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -215,6 +241,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (grabs/grabs/grabs/grabs/grab1) a shield leaning on the cornucopia.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -223,6 +250,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (snatches/snatches/snatches/snatches/snatch1) a pair of sais.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -231,6 +259,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (goes/goes/goes/goes/go1) hunting.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -239,6 +268,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (injures/injures/injures/injures/injure1) [typeD1].",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -247,6 +277,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (explores/explores/explores/explores/explore1) the arena.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -255,6 +286,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (scares/scares/scares/scares/scare1) (Player2) off.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -263,6 +295,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (diverts/diverts/diverts/diverts/divert1) (Player2)'s attention and (runs/runs/runs/runs/run1) away.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -271,6 +304,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (stalks/stalks/stalks/stalks/stalk1) (Player2).",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -279,6 +313,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (fishes/fishes/fishes/fishes/fish1).",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -287,6 +322,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (camouflauges/camouflauges/camouflauges/camouflauges/camouflauge1) [typeD1] in the bushes.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -295,6 +331,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (steals/steals/steals/steals/steal1) from (Player2) while [typeA2] (isn't/isn't/aren't/isn't/aren't2) looking.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -303,6 +340,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (makes/makes/makes/makes/make1) a wooden spear.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -311,6 +349,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (discovers/discovers/discovers/discovers/discover1) a cave.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -319,6 +358,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (attacks/attacks/attacks/attacks/attack1) (Player2), but [typeA2] (manages/manages/manage/manages/manage2) to escape.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -327,6 +367,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (chases/chases/chases/chases/chase1) (Player2).",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -335,6 +376,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (runs/runs/runs/runs/run1) away from (Player2).",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -343,6 +385,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (collects/collects/collects/collects/collect1) fruit from a tree.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -351,6 +394,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (receives/receives/receives/receives/receive1) a hatchet from an unknown sponsor.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -359,6 +403,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (receives/receives/receives/receives/receive1) clean water from an unknown sponsor.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -367,6 +412,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (receives/receives/receives/receives/receive1) medical supplies from an unknown sponsor.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -375,6 +421,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (receives/receives/receives/receives/receive1) fresh food from an unknown sponsor.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -383,6 +430,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (searches/searches/searches/searches/search1) for a water source.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -391,6 +439,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (defeats/defeats/defeats/defeats/defeat1) (Player2) in a fight, but (spares/spares/spares/spares/spare1) [typeC2] life.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -399,6 +448,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) work together for the day.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -407,6 +457,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (begs/begs/begs/begs/beg1) for (Player2) to kill [typeB1]. [TypeA2] (refuses/refuses/refuse/refuses/refuse2), keeping (Player1) alive.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -415,6 +466,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (tries/tries/tries/tries/try1) to sleep through the entire day.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -423,6 +475,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), (Player3), and (Player4) raid (Player5)'s camp while [typeA5] (is/is/are/is/are5) hunting.",
         tributes_involved: 5,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -431,6 +484,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (constructs/constructs/constructs/constructs/construct1) a shack.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -439,6 +493,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (overhears/overhears/overhears/overhears/overhear1) (Player2) and (Player3) talking in the distance.",
         tributes_involved: 3,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -447,6 +502,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (practices/practices/practices/practices/practice1) [typeC1] archery.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -455,6 +511,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (thinks/thinks/thinks/thinks/think1) about home.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -463,6 +520,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (is/is/is/is/are1) pricked by thorns while picking berries.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -471,6 +529,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (tries/tries/tries/tries/try1) to spear fish with a trident.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -479,6 +538,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (searches/searches/searches/searches/search1) for firewood.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -487,6 +547,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) split up to search for resources.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -495,6 +556,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (picks/picks/picks/picks/pick1) flowers.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -503,6 +565,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (tends/tends/tends/tend1) to (Player2)'s wounds.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -511,6 +574,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (sees/sees/sees/sees/see1) smoke rising in the distance, but (decides/decides/decides/decides/decide1) not to investigate.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -519,6 +583,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (sprains/sprains/sprains/sprains/sprain1) [typeC1] ankle while running away from (Player2).",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -527,6 +592,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (makes/makes/makes/makes/make1) a slingshot.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -535,6 +601,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (travels/travels/travels/travels/travel1) to higher ground.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -543,6 +610,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (discovers/discovers/discovers/discovers/discover1) a river.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -551,6 +619,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (hunts/hunts/hunts/hunts/hunt1) for other tributes.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -559,6 +628,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) hunt for other tributes.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -567,6 +637,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), and (Player3) hunt for other tributes.",
         tributes_involved: 3,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -575,6 +646,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), (Player3), and (Player4) hunt for other tributes.",
         tributes_involved: 4,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -583,6 +655,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), (Player3), (Player4), and (Player5) hunt for other tributes.",
         tributes_involved: 5,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -591,6 +664,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (receives/receives/receives/receives/receive1) an explosive from an unknown sponsor.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -599,6 +673,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (questions/questions/questions/questions/question1) [typeC1] sanity.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -607,6 +682,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (receives/receives/receives/receives/receive1) a hatchet from an unknown sponsor.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -615,6 +691,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (receives/receives/receives/receives/receive1) clean water from an unknown sponsor.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -623,6 +700,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (receives/receives/receives/receives/receive1) medical supplies from an unknown sponsor.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -631,6 +709,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (receives/receives/receives/receives/receive1) fresh food from an unknown sponsor.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -639,6 +718,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (thinks/thinks/thinks/thinks/think1) about home.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -647,6 +727,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (tends/tends/tends/tend1) to (Player2)'s wounds.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -655,6 +736,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (receives/receives/receives/receives/receive1) an explosive from an unknown sponsor.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -663,6 +745,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (questions/questions/questions/questions/question1) [typeC1] sanity.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -671,6 +754,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (starts/starts/starts/starts/start1) a fire.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -679,6 +763,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (sets/sets/sets/sets/set1) up camp for the night.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -687,6 +772,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (loses/loses/loses/loses/lose1) sight of where [typeA1] (is/is/are/is/are1).",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -695,6 +781,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (climbs/climbs/climbs/climbs/climb1) a tree to rest.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -703,6 +790,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (goes/goes/goes/goes/go1) to sleep.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -711,6 +799,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) tell stories about themselves to each other.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -719,6 +808,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), (Player3), and (Player4) sleep in shifts.",
         tributes_involved: 4,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -727,6 +817,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), and (Player3) sleep in shifts.",
         tributes_involved: 3,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -735,6 +826,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) sleep in shifts.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -743,6 +835,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (tends/tends/tends/tend1) to [typeC1] wounds.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -751,6 +844,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (sees/sees/sees/sees/see1) a fire, but (stays/stays/stays/stays/stay1) hidden.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -759,6 +853,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (screams/screams/screams/screams/scream1) for help.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -767,6 +862,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (stays/stays/stays/stays/stay1) awake all night.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -775,6 +871,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (passes/passes/passes/passes/pass1) out from exhaustion.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -783,6 +880,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (cooks/cooks/cooks/cooks/cook1) [typeC1] food before putting [typeC1] fire out.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -791,6 +889,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) run into each other and decide to truce for the night.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -799,6 +898,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (fends/fends/fends/fends/fend1) (Player2), (Player3), and (Player4) away from [typeC1] fire.",
         tributes_involved: 4,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -807,6 +907,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), and (Player3) discuss the games and what might happen in the morning.",
         tributes_involved: 3,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -815,6 +916,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (cries/cries/cries/cries/cry1) [typeD1] to sleep.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -823,6 +925,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (tries/tries/tries/tries/try1) to treat [typeC1] infection.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -831,6 +934,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) talk about the tributes still alive.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -839,6 +943,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (is/is/is/is/are1) awoken by nightmares.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -847,6 +952,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) huddle for warmth.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -855,6 +961,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (thinks/thinks/thinks/thinks/think1) about winning.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -863,6 +970,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), (Player3), and (Player4) tell each other ghost stories to lighten the mood.",
         tributes_involved: 4,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -871,6 +979,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (looks/looks/looks/looks/look1) at the night sky.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -879,6 +988,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (defeats/defeats/defeats/defeats/defeat1) (Player2) in a fight, but spares [typeC2] life.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -887,6 +997,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (begs/begs/begs/begs/beg1) for (Player2) to kill [typeB1]. [TypeA2] (refuses/refuses/refuses/refuses/refuse2), keeping (Player1) alive.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -895,6 +1006,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (destroys/destroys/destroys/destroys/destroy1) (Player2)'s supplies while [typeA2] (is/is/are/is/are2) asleep.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -903,6 +1015,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), (Player3), (Player4), and (Player5) sleep in shifts.",
         tributes_involved: 5,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -911,6 +1024,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (lets/lets/lets/lets/let1) (Player2) into [typeC1] shelter.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -919,6 +1033,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (tries/tries/tries/tries/try1) to sing [typeD1] to sleep.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -927,6 +1042,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (attempts/attempts/attempts/attempts/attempt1) to start a fire, but is unsuccessful.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -935,6 +1051,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) quietly (hums/hums/hums/hums/hum1).",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -943,6 +1060,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), and (Player3) cheerfully sing songs together.",
         tributes_involved: 3,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -951,6 +1069,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (is/is/is/is/are1) unable to start a fire and sleeps without warmth.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -959,6 +1078,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) hold hands.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -967,6 +1087,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (convinces/convinces/convinces/convinces/convince1) (Player2) to snuggle with [typeB1].",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -975,6 +1096,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (gathers/gathers/gathers/gathers/gather1) as much food into a bag as [typeA1] can before fleeing.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -983,6 +1105,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (sobs/sobs/sobs/sobs/sob1) while gripping a photo of [typeC1] friends and family.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -991,6 +1114,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) decide to work together to get more supplies.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -999,6 +1123,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) get into a fight over raw meat, but (Player2) (gives/gives/gives/gives/give2) up and (runs/runs/runs/runs/run2) away.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1007,6 +1132,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) and (Player2) get into a fight over raw meat, but (Player1) (gives/gives/gives/gives/give1) up and (runs/runs/runs/runs/run1) away.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1015,6 +1141,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), and (Player3) confront each other, but grab what they want slowly to avoid conflict.",
         tributes_involved: 3,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1023,6 +1150,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (destroys/destroys/destroys/destroys/destroy1) (Player2)'s memoirs out of spite.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1031,6 +1159,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1), (Player2), (Player3), and (Player4) team up to grab food, supplies, weapons, and memoirs.",
         tributes_involved: 4,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1039,6 +1168,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (steals/steals/steals/steals/steal1) (Player2)'s memoirs.",
         tributes_involved: 2,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1047,6 +1177,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (takes/takes/takes/takes/take1) a staff leaning against the cornucopia.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1055,6 +1186,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         event: "(Player1) (stuffs/stuffs/stuffs/stuffs/stuff1) a bundle of dry clothing into a backpack before sprinting away.",
         tributes_involved: 1,
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1064,6 +1196,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1074,6 +1207,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1083,6 +1217,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1093,6 +1228,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1103,6 +1239,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1113,6 +1250,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1123,6 +1261,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1132,6 +1271,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1142,6 +1282,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1152,6 +1293,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1162,6 +1304,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1172,6 +1315,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1182,6 +1326,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1191,6 +1336,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1201,6 +1347,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1211,6 +1358,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1221,6 +1369,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1231,6 +1380,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1241,6 +1391,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1251,6 +1402,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1261,6 +1413,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1271,6 +1424,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1280,6 +1434,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1290,6 +1445,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1300,6 +1456,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1310,6 +1467,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1320,6 +1478,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1330,6 +1489,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1340,6 +1500,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3", "Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1350,6 +1511,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3", "Player4", "Player5"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1360,6 +1522,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1369,6 +1532,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 4,
         killed: ["Player1", "Player2", "Player3", "Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1379,6 +1543,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1389,6 +1554,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2"],
         killed: ["Player3", "Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1399,6 +1565,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player3", "Player4"],
         killed: ["Player1", "Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1409,6 +1576,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player3"],
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1419,6 +1587,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1429,6 +1598,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1439,6 +1609,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1449,6 +1620,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1459,6 +1631,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1469,6 +1642,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1479,6 +1653,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1489,6 +1664,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1499,6 +1675,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player1", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1509,6 +1686,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player3"],
         killed: ["Player1", "Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1519,6 +1697,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1529,6 +1708,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1539,6 +1719,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1549,6 +1730,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1559,6 +1741,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1569,6 +1752,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1579,6 +1763,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1588,6 +1773,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1598,6 +1784,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1608,6 +1795,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1618,6 +1806,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1628,6 +1817,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1637,6 +1827,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1647,6 +1838,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1657,6 +1849,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1667,6 +1860,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1677,6 +1871,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1686,6 +1881,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1696,6 +1892,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1706,6 +1903,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1716,6 +1914,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1726,6 +1925,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1736,6 +1936,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1746,6 +1947,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1756,6 +1958,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1766,6 +1969,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1775,6 +1979,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1785,6 +1990,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1795,6 +2001,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1805,6 +2012,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1815,6 +2023,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1825,6 +2034,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1835,6 +2045,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3", "Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1845,6 +2056,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3", "Player4", "Player5"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1855,6 +2067,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1864,6 +2077,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 4,
         killed: ["Player1", "Player2", "Player3", "Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1874,6 +2088,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1884,6 +2099,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2"],
         killed: ["Player3", "Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1894,6 +2110,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player3", "Player4"],
         killed: ["Player1", "Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1904,6 +2121,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player3"],
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1914,6 +2132,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1924,6 +2143,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1934,6 +2154,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1944,6 +2165,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1954,6 +2176,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1964,6 +2187,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1974,6 +2198,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1984,6 +2209,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player1", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -1994,6 +2220,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player3"],
         killed: ["Player1", "Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2004,6 +2231,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2014,6 +2242,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2024,6 +2253,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2033,6 +2263,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2042,6 +2273,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2052,6 +2284,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2062,6 +2295,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2071,6 +2305,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2080,6 +2315,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2090,6 +2326,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2100,6 +2337,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2109,6 +2347,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2118,6 +2357,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2127,6 +2367,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2136,6 +2377,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2145,6 +2387,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2154,6 +2397,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2164,6 +2408,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2174,6 +2419,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2", "Player3"],
         killed: ["Player4", "Player5", "Player6"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2184,6 +2430,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player4", "Player5", "Player6"],
         killed: ["Player1", "Player2", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2194,6 +2441,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2204,6 +2452,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2214,6 +2463,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2223,6 +2473,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 2,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2233,6 +2484,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2242,6 +2494,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 2,
         killed: ["Player1", "Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2252,6 +2505,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2", "Player3", "Player4", "Player5"],
         killed: ["Player6"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2262,6 +2516,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2", "Player3", "Player4"],
         killed: ["Player5"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2272,6 +2527,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2", "Player3"],
         killed: ["Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2282,6 +2538,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2292,6 +2549,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2302,6 +2560,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2311,6 +2570,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2321,6 +2581,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2331,6 +2592,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2341,6 +2603,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2351,6 +2614,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2360,6 +2624,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2370,6 +2635,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2380,6 +2646,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2390,6 +2657,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2400,6 +2668,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2409,6 +2678,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2419,6 +2689,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2429,6 +2700,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2439,6 +2711,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2449,6 +2722,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2459,6 +2733,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2469,6 +2744,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2479,6 +2755,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2489,6 +2766,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2498,6 +2776,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2508,6 +2787,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2518,6 +2798,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2528,6 +2809,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2538,6 +2820,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2548,6 +2831,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2558,6 +2842,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3", "Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2568,6 +2853,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3", "Player4", "Player5"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2578,6 +2864,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2587,6 +2874,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 4,
         killed: ["Player1", "Player2", "Player3", "Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2597,6 +2885,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2607,6 +2896,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2"],
         killed: ["Player3", "Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2617,6 +2907,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player3", "Player4"],
         killed: ["Player1", "Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2627,6 +2918,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player3"],
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2637,6 +2929,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2647,6 +2940,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2657,6 +2951,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2667,6 +2962,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2677,6 +2973,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2687,6 +2984,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2697,6 +2995,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2707,6 +3006,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player1", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2717,6 +3017,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player3"],
         killed: ["Player1", "Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2727,6 +3028,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2737,6 +3039,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2747,6 +3050,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2756,6 +3060,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2765,6 +3070,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2775,6 +3081,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2785,6 +3092,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2794,6 +3102,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2803,6 +3112,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2813,6 +3123,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2822,6 +3133,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2831,6 +3143,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2840,6 +3153,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2849,6 +3163,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2858,6 +3173,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2867,6 +3183,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2877,6 +3194,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2887,6 +3205,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2", "Player3"],
         killed: ["Player4", "Player5", "Player6"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2897,6 +3216,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player4", "Player5", "Player6"],
         killed: ["Player1", "Player2", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2907,6 +3227,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2917,6 +3238,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2927,6 +3249,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2936,6 +3259,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 2,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2946,6 +3270,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2955,6 +3280,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 2,
         killed: ["Player1", "Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2965,6 +3291,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2", "Player3", "Player4", "Player5"],
         killed: ["Player6"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2975,6 +3302,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2", "Player3", "Player4"],
         killed: ["Player5"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2985,6 +3313,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2", "Player3"],
         killed: ["Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -2995,6 +3324,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3005,6 +3335,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3015,6 +3346,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3025,6 +3357,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3034,6 +3367,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3044,6 +3378,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3054,6 +3389,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3064,6 +3400,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3073,6 +3410,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3083,6 +3421,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3093,6 +3432,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3103,6 +3443,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3113,6 +3454,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3123,6 +3465,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3132,6 +3475,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3142,6 +3486,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3152,6 +3497,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3162,6 +3508,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3172,6 +3519,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3182,6 +3530,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3192,6 +3541,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3202,6 +3552,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3212,6 +3563,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3221,6 +3573,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3231,6 +3584,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3241,6 +3595,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3251,6 +3606,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3261,6 +3617,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3271,6 +3628,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3281,6 +3639,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3", "Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3291,6 +3650,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3", "Player4", "Player5"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3301,6 +3661,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3310,6 +3671,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 4,
         killed: ["Player1", "Player2", "Player3", "Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3320,6 +3682,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3330,6 +3693,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2"],
         killed: ["Player3", "Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3340,6 +3704,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player3", "Player4"],
         killed: ["Player1", "Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3350,6 +3715,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player3"],
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3360,6 +3726,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3370,6 +3737,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3380,6 +3748,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3390,6 +3759,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3400,6 +3770,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3410,6 +3781,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3420,6 +3792,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3430,6 +3803,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3440,6 +3814,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player2"],
         killed: ["Player1", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3450,6 +3825,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player3"],
         killed: ["Player1", "Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3460,6 +3836,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3470,6 +3847,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3479,6 +3857,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3488,6 +3867,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         tributes_involved: 1,
         killed: ["Player1"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3498,6 +3878,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3508,6 +3889,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3518,6 +3900,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2", "Player3"],
         killed: ["Player4", "Player5", "Player6"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3528,6 +3911,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player4", "Player5", "Player6"],
         killed: ["Player1", "Player2", "Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3538,6 +3922,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2", "Player3", "Player4", "Player5"],
         killed: ["Player6"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3548,6 +3933,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2", "Player3", "Player4"],
         killed: ["Player5"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3558,6 +3944,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2", "Player3"],
         killed: ["Player4"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3568,6 +3955,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1", "Player2"],
         killed: ["Player3"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     },
     {
@@ -3578,6 +3966,7 @@ export const DEFAULT_EVENTS: GameEvents[] = [
         killers: ["Player1"],
         killed: ["Player2"],
         suggestion: false,
+        added_by: "default",
         votes: 0
     }
 ];

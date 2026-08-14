@@ -6,7 +6,7 @@ import { choices } from "#config/choices";
 import { DEFAULT_EVENTS } from "#config/events";
 import { showEventsList } from "#utils/canvas";
 import { addEvent, editEvent } from "#utils/commands/events";
-import { _EphToast, _EphToastDefer, eventsActionEmbed, getServerDataTable } from "#utils/common";
+import { _EphToastDefer, eventsActionEmbed, getServerDataTable } from "#utils/common";
 import { server_data } from "#utils/db/schema";
 import type { CategoryNames, ChangedCategory, GameEvents, MyInteractions } from "#utils/interfaces";
 
@@ -133,7 +133,7 @@ export default {
         const qServerData = await getServerDataTable(interaction, guild_id);
         const events = qServerData[0]?.events;
         const eventsId = qServerData[0]?.events_id;
-        if (!qServerData[0] || !events || !eventsId) return await _EphToast(interaction, "Guild information not present in server_data. Kick and rejoin the bot or ask dev to fix.");
+        if (!qServerData[0] || !events || !eventsId) return await _EphToastDefer(interaction, "Guild information not present in server_data. Kick and rejoin the bot or ask dev to fix.");
 
         const suggestion = false;
 
@@ -192,7 +192,7 @@ export default {
         } else if (subcommand === "add") {
             const eventTxt = interaction.options.getString("event");
             const categoryInput = interaction.options.getString("category");
-            if (!eventTxt || !playerCount || !categoryInput) return await _EphToast(interaction, "Required input not received.");
+            if (!eventTxt || !playerCount || !categoryInput) return await _EphToastDefer(interaction, "Required input not received.");
 
             const playerOptions: StringSelectMenuOptionBuilder[] = [];
             for (let i = 1; i < playerCount + 1; i++) playerOptions.push(
@@ -223,7 +223,7 @@ export default {
             const eventId = interaction.options.getInteger("event-id");
             const eventTxt = interaction.options.getString("event");
             const categoryInput = interaction.options.getString("category");
-            if (!eventId || (categoryInput && !categories.includes(categoryInput as CategoryNames))) return await _EphToast(interaction, "Required input not received.");
+            if (!eventId || (categoryInput && !categories.includes(categoryInput as CategoryNames))) return await _EphToastDefer(interaction, "Required input not received.");
             let fatalEvent = false;
             const gameEvents = events.find(event => {
                 if (event.id === eventId) {
@@ -260,7 +260,7 @@ export default {
             await editEvent(interaction, guild_id, categoryInput, eventId, eventTxt, playerCount);
         } else if (subcommand === "remove") {
             const eventId = interaction.options.getInteger("event-id");
-            if (!eventId) return await _EphToast(interaction, "Required input not received.");
+            if (!eventId) return await _EphToastDefer(interaction, "Required input not received.");
 
             const newEvents = events.filter(event => {
                 if (eventId === event.id) updated = true;
@@ -272,7 +272,7 @@ export default {
                 await interaction.followUp("Event not found!");
         } else if (subcommand === "reset") {
             const categoryInput = interaction.options.getString("category");
-            if (categoryInput && !categories.includes(categoryInput as CategoryNames)) return await _EphToast(interaction, "Required input not received.");
+            if (categoryInput && !categories.includes(categoryInput as CategoryNames)) return await _EphToastDefer(interaction, "Required input not received.");
 
             let changedCategory: ChangedCategory = "all";
             let newEvents: GameEvents[];
@@ -286,7 +286,7 @@ export default {
             await interaction.followUp(`Successfully reset the events to default for ${changedCategory === "all" ? "" : "the "}${changedCategory} ${changedCategory === "all" ? "the " : ""}categor${changedCategory === "all" ? "ies" : "y"}!`);
         } else if (subcommand === "clear") {
             const categoryInput = interaction.options.getString("category");
-            if (categoryInput && !categories.includes(categoryInput as CategoryNames)) return await _EphToast(interaction, "Required input not received.");
+            if (categoryInput && !categories.includes(categoryInput as CategoryNames)) return await _EphToastDefer(interaction, "Required input not received.");
 
             let changedCategory: ChangedCategory = "all";
             let newEvents: GameEvents[];

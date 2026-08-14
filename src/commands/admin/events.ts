@@ -266,7 +266,7 @@ export default {
                 if (eventId === event.id) updated = true;
                 return eventId !== event.id;
             });
-            await interaction.client.db.update(server_data).set({ events: newEvents });
+            await interaction.client.db.update(server_data).set({ events: newEvents }).where(eq(server_data.guild_id, guild_id));
             updated ?
                 await interaction.followUp("Successfully removed the event!") :
                 await interaction.followUp("Event not found!");

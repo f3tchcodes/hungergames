@@ -212,6 +212,7 @@ export async function buildEventList(client: Client, canvas: Canvas, events: Gam
     let pagesLengthIndex = 0;
     let eventLengthPerPage = 0;
     events.forEach(event => {
+        eventLengthPerPage += 1;
         pagesLength[pagesLengthIndex] = eventLengthPerPage;
         if (columnHeight > 950) {
             pagesLengthIndex += 1;
@@ -220,7 +221,6 @@ export async function buildEventList(client: Client, canvas: Canvas, events: Gam
         const nlEventTxt = textWrap(canvas, event.event, suggestions ? 680 : 580);
         const nlEventTxtCount = (nlEventTxt.match(/\n/g) || []).length;
         columnHeight += (nlEventTxtCount * 20) + 40;
-        eventLengthPerPage += 1;
     });
     client.eventPagesLength.set(messageId, pagesLength.length);
 

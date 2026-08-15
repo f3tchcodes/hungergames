@@ -2,7 +2,7 @@ import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 import { DEFAULT_EVENTS } from "#config/events";
 import { DEFAULT_SUGGESTIONS } from "#config/suggestions";
-import type { CompleteGameplay, GameEvents, PlayersDistricts } from "#utils/interfaces";
+import { type CompleteGameplay, type GameEvents, type PlayersDistricts, type SuggestionVotes } from "#utils/interfaces";
 
 export const games = sqliteTable("games", {
     guild_id: text().primaryKey(),
@@ -25,5 +25,6 @@ export const server_data = sqliteTable("server_data", {
     guild_owner: text().default("Unkown").notNull(),
     events: text({ mode: "json" }).$type<GameEvents[]>().default(DEFAULT_EVENTS).notNull(),
     events_id: integer().default(DEFAULT_EVENTS.length + 2).notNull(),
-    suggestions: text({ mode: "json" }).$type<GameEvents[]>().default(DEFAULT_SUGGESTIONS)
+    suggestions: text({ mode: "json" }).$type<GameEvents[]>().default(DEFAULT_SUGGESTIONS),
+    suggestions_votes: text({ mode: "json" }).$type<SuggestionVotes[]>().default([])
 });

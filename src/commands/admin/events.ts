@@ -225,7 +225,8 @@ export default {
                 categoryName: categoryInput as CategoryNames,
                 event: eventTxt,
                 tributes_involved: playerCount,
-                suggestion
+                suggestion,
+                votes: 0
             };
             if (fatalEvents.includes(categoryInput)) {
                 client.fatalValues.set(messageId, { action: "adding", gameEvents });

@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { choices } from "#config/choices";
 import { showEventsList } from "#utils/canvas";
 import { addEvent, editEvent } from "#utils/commands/events";
+import { voteSuggestion } from "#utils/commands/suggestions";
 import { _EphToastDefer, eventsActionEmbed, getServerDataTable } from "#utils/common";
 import { server_data } from "#utils/db/schema";
 import type { CategoryNames, ChangedCategory, GameEvents, MyInteractions } from "#utils/interfaces";
@@ -98,6 +99,50 @@ const suggestions = new SlashCommandBuilder()
     )
     .addSubcommand(subcommand =>
         subcommand
+            .setName("upvote")
+            .setDescription("Upvote a suggestion!")
+            .addIntegerOption(op =>
+                op
+                    .setName("suggestion-id")
+                    .setDescription("Suggestion ID of the event you wish to upvote.")
+                    .setRequired(true)
+            )
+    )
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName("downvote")
+            .setDescription("Downvote a suggestion!")
+            .addIntegerOption(op =>
+                op
+                    .setName("suggestion-id")
+                    .setDescription("Suggestion ID of the event you wish to downvote.")
+                    .setRequired(true)
+            )
+    )
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName("withdrawvote")
+            .setDescription("Withdraw your vote for a suggestion!")
+            .addIntegerOption(op =>
+                op
+                    .setName("suggestion-id")
+                    .setDescription("Suggestion ID of the event you wish to withdraw your vote from.")
+                    .setRequired(true)
+            )
+    )
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName("accept")
+            .setDescription("Accept a suggestion and add to event list!")
+            .addIntegerOption(op =>
+                op
+                    .setName("suggestion-id")
+                    .setDescription("Suggestion ID of the event you wish to accept.")
+                    .setRequired(true)
+            )
+    )
+    .addSubcommand(subcommand =>
+        subcommand
             .setName("clear")
             .setDescription("Clear all game event suggestions!")
             .addStringOption(op =>
@@ -177,6 +222,48 @@ export default {
             const response = await interaction.followUp({ content: "All Game Events Suggestions", files: [eventsImage], components: [buttonBuilderRowList], withResponse: true });
             client.eventPage.set(response.id, { page: 1 });
             return;
+        } else if (subcommand === "accept") {
+            // check required permissions
+            const isAdmin = await userPermissions(interaction, [
+                PermissionsBitField.Flags.ManageGuild
+            ], [
+                "ManageGuild"
+            ], "deferred");
+            if (!isAdmin) return;
+
+            const eventId = interaction.options.getInteger("suggestion-id");
+            if (!eventId) return await _EphToastDefer(interaction, "Required input not received.");
+
+            const event = events.find(event => event.id === eventId);
+            if (!event) return await interaction.followUp("Suggestion not found!");
+
+            event.suggestion = false;
+            await addEvent(interaction, guild_id, event);
+        } else if (subcommand === "upvote") {
+            const eventId = interaction.options.getInteger("suggestion-id");
+            if (!eventId) return await _EphToastDefer(interaction, "Required input not received.");
+
+            const event = events.find(event => event.id === eventId);
+            if (!event) return await interaction.followUp("Suggestion not found!");
+
+            await voteSuggestion(interaction, events, eventId, "upvote");
+        } else if (subcommand === "downvote") {
+            const eventId = interaction.options.getInteger("suggestion-id");
+            if (!eventId) return await _EphToastDefer(interaction, "Required input not received.");
+
+            const event = events.find(event => event.id === eventId);
+            if (!event) return await interaction.followUp("Suggestion not found!");
+
+            await voteSuggestion(interaction, events, eventId, "downvote");
+        }
+        else if (subcommand === "withdrawvote") {
+            const eventId = interaction.options.getInteger("suggestion-id");
+            if (!eventId) return await _EphToastDefer(interaction, "Required input not received.");
+
+            const event = events.find(event => event.id === eventId);
+            if (!event) return await interaction.followUp("Suggestion not found!");
+
+            await voteSuggestion(interaction, events, eventId, "withdrawvote");
         } else if (subcommand === "add") {
             const eventTxt = interaction.options.getString("event");
             const categoryInput = interaction.options.getString("category");

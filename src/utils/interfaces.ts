@@ -86,7 +86,13 @@ export interface GameEvents {
     suggestion: boolean;
     killers?: string[];
     killed?: string[];
-    votes?: number;
+    votes: number;
 }
 
 export type ChangedCategory = "all" | CategoryNames;
+
+export interface SuggestionVotes {
+    user_id: string;
+    suggestion_id: number;
+    vote: boolean;
+}

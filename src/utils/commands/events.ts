@@ -50,7 +50,7 @@ export async function editEvent(interaction: RepliableInteraction, guild_id: str
         await interaction.client.db.update(server_data).set({ events: newEvents }).where(eq(server_data.guild_id, guild_id));
     updated ?
         await interaction.followUp(`Successfully edited the ${eventOrSuggest}!`) :
-        await interaction.followUp(`${eventOrSuggest.charAt(0).toUpperCase + eventOrSuggest.slice(1)} not found!`);
+        await interaction.followUp(`${eventOrSuggest.charAt(0).toUpperCase() + eventOrSuggest.slice(1)} not found!`);
 }
 
 export async function moveListPages(interaction: ButtonInteraction, messageId: string, action: "forward" | "backward") {

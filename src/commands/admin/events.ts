@@ -1,5 +1,6 @@
 
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } from "discord.js";
+
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionsBitField, SlashCommandBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } from "discord.js";
 import { eq } from "drizzle-orm";
 
 import { choices } from "#config/choices";
@@ -9,6 +10,7 @@ import { addEvent, editEvent } from "#utils/commands/events";
 import { _EphToastDefer, eventsActionEmbed, getServerDataTable } from "#utils/common";
 import { server_data } from "#utils/db/schema";
 import type { CategoryNames, ChangedCategory, GameEvents, MyInteractions } from "#utils/interfaces";
+import { userPermissions } from "#utils/permissions";
 
 const events = new SlashCommandBuilder()
     .setName("events")
@@ -125,6 +127,19 @@ export default {
     data: events,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
+
+        const subcommand = interaction.options.getSubcommand();
+
+        if (subcommand !== "list") {
+            // check required permissions
+            const isAdmin = await userPermissions(interaction, [
+                PermissionsBitField.Flags.ManageGuild
+            ], [
+                "ManageGuild"
+            ]);
+            if (!isAdmin) return;
+        }
+
         const deferResponse = await interaction.deferReply({ withResponse: true });
         const messageId = deferResponse.resource?.message?.id;
         if (!messageId) return _EphToastDefer(interaction, "Message ID not found. Try again.");
@@ -164,8 +179,6 @@ export default {
         const event_submit = new ButtonBuilder().setCustomId("event_submit").setLabel("Submit").setStyle(ButtonStyle.Success);
         const event_cancel = new ButtonBuilder().setCustomId("cancel").setLabel("Cancel").setStyle(ButtonStyle.Danger);
         const buttonBuilderRowAction = new ActionRowBuilder<ButtonBuilder>().addComponents(event_submit, event_cancel);
-
-        const subcommand = interaction.options.getSubcommand();
 
         if (subcommand === "list") {
             const categoryInput = interaction.options.getString("category");

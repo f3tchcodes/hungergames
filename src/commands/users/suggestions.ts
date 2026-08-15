@@ -1,5 +1,5 @@
 
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionsBitField, SlashCommandBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } from "discord.js";
 import { eq } from "drizzle-orm";
 
 import { choices } from "#config/choices";
@@ -8,10 +8,11 @@ import { addEvent, editEvent } from "#utils/commands/events";
 import { _EphToastDefer, eventsActionEmbed, getServerDataTable } from "#utils/common";
 import { server_data } from "#utils/db/schema";
 import type { CategoryNames, ChangedCategory, GameEvents, MyInteractions } from "#utils/interfaces";
+import { userPermissions } from "#utils/permissions";
 
 const suggestions = new SlashCommandBuilder()
     .setName("suggestions")
-    .setDescription("Add, edit, remove, or reset game event suggestions!")
+    .setDescription("Add, edit, remove, or clear game event suggestions!")
     .addSubcommand(subcommand =>
         subcommand
             .setName("list")
@@ -97,18 +98,6 @@ const suggestions = new SlashCommandBuilder()
     )
     .addSubcommand(subcommand =>
         subcommand
-            .setName("reset")
-            .setDescription("Reset all game events!")
-            .addStringOption(op =>
-                op
-                    .setName("category")
-                    .setDescription("Reset game events categorically.")
-                    .addChoices(...choices.EVENTS_CATEGORIES)
-                    .setRequired(false)
-            )
-    )
-    .addSubcommand(subcommand =>
-        subcommand
             .setName("clear")
             .setDescription("Clear all game event suggestions!")
             .addStringOption(op =>
@@ -124,6 +113,7 @@ export default {
     data: suggestions,
     async execute(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
+
         const deferResponse = await interaction.deferReply({ withResponse: true });
         const messageId = deferResponse.resource?.message?.id;
         if (!messageId) return _EphToastDefer(interaction, "Message ID not found. Try again.");
@@ -209,7 +199,8 @@ export default {
                 categoryName: categoryInput as CategoryNames,
                 event: eventTxt,
                 tributes_involved: playerCount,
-                suggestion
+                suggestion,
+                votes: 0
             };
 
             if (fatalEvents.includes(categoryInput)) {
@@ -221,26 +212,37 @@ export default {
             const eventId = interaction.options.getInteger("suggestion-id");
             const eventTxt = interaction.options.getString("event");
             const categoryInput = interaction.options.getString("category");
-            if (!eventId || (categoryInput && !categories.includes(categoryInput as CategoryNames))) return await _EphToastDefer(interaction, "Required input not received.");
-            let fatalEvent = false;
-            const gameEvents = events.find(event => {
-                if (event.id === eventId) {
-                    fatalEvents.includes(event.categoryName) ? fatalEvent = true : fatalEvent = false;
 
-                    return {
-                        ...event,
-                        event: event.event ?? eventTxt ?? "Unkown",
-                        category: event.categoryName ?? "Bloodbath Events",
-                        tributes_involved: event.tributes_involved ?? playerCount,
-                        killed: event.killed ?? [],
-                        killers: event.killers ?? [],
-                    };
-                }
-            });
-            if (!gameEvents) return await _EphToastDefer(interaction, "Event not found.");
+            if (!eventId || (categoryInput && !categories.includes(categoryInput as CategoryNames))) return await _EphToastDefer(interaction, "Required input not received.");
+
+            const event = events.find(event => event.id === eventId);
+            if (!event) return await _EphToastDefer(interaction, "Suggestion not found.");
+
+            if (event.suggestion && event.added_by !== interaction.user.id) {
+                // check required permissions
+                const isAdmin = await userPermissions(interaction, [
+                    PermissionsBitField.Flags.ManageGuild
+                ], [
+                    "ManageGuild"
+                ], "deferred");
+
+                if (!isAdmin) return;
+            }
+
+            const fatalEvent = fatalEvents.includes(event.categoryName);
+
+            const gameEvents = {
+                ...event,
+                event: eventTxt ?? event.event ?? "Unkown",
+                category: categoryInput ?? event.categoryName ?? "Bloodbath Events",
+                tributes_involved: event.tributes_involved ?? playerCount,
+                killed: event.killed ?? [],
+                killers: event.killers ?? [],
+            };
 
             const playerOptions: StringSelectMenuOptionBuilder[] = [];
-            for (let i = 1; i < (gameEvents?.tributes_involved ?? playerCount) + 1; i++) playerOptions.push(
+
+            for (let i = 1; i < (gameEvents.tributes_involved ?? playerCount) + 1; i++) playerOptions.push(
                 new StringSelectMenuOptionBuilder()
                     .setLabel(`Player${i}`)
                     .setValue(`Player${i}`)
@@ -248,27 +250,51 @@ export default {
 
             event_killed.addOptions(playerOptions);
             event_killers.addOptions(playerOptions);
+
             const stringSelectRowKilled = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(event_killed);
             const stringSelectRowKillers = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(event_killers);
 
             if (fatalEvent) {
                 client.fatalValues.set(messageId, { action: "editing", gameEvents });
-                return await interaction.followUp({ embeds: [eventsActionEmbed(interaction, "editing", gameEvents, suggestion)], components: [stringSelectRowKilled, stringSelectRowKillers, buttonBuilderRowAction], withResponse: true });
+                return await interaction.followUp({
+                    embeds: [eventsActionEmbed(interaction, "editing", gameEvents, suggestion)],
+                    components: [stringSelectRowKilled, stringSelectRowKillers, buttonBuilderRowAction],
+                    withResponse: true
+                });
             }
+
             await editEvent(interaction, guild_id, categoryInput, eventId, eventTxt, playerCount, suggestion);
+
         } else if (subcommand === "remove") {
             const eventId = interaction.options.getInteger("suggestion-id");
             if (!eventId) return await _EphToastDefer(interaction, "Required input not received.");
 
-            const newEvents = events.filter(event => {
-                if (eventId === event.id) updated = true;
-                return eventId !== event.id;
-            });
+            const event = events.find(event => event.id === eventId);
+            if (!event) return await interaction.followUp("Suggestion not found!");
+
+            if (event.suggestion && event.added_by !== interaction.user.id) {
+                // check required permissions
+                const isAdmin = await userPermissions(interaction, [
+                    PermissionsBitField.Flags.ManageGuild
+                ], [
+                    "ManageGuild"
+                ], "deferred");
+
+                if (!isAdmin) return;
+            }
+
+            const newEvents = events.filter(event => event.id !== eventId);
+            updated = true;
             await interaction.client.db.update(server_data).set({ suggestions: newEvents }).where(eq(server_data.guild_id, guild_id));
-            updated ?
-                await interaction.followUp("Successfully removed the suggestion!") :
-                await interaction.followUp("Event not found!");
+            await interaction.followUp("Successfully removed the suggestion!");
         } else if (subcommand === "clear") {
+            // check required permissions
+            const isAdmin = await userPermissions(interaction, [
+                PermissionsBitField.Flags.ManageGuild
+            ], [
+                "ManageGuild"
+            ], "deferred");
+            if (!isAdmin) return;
             const categoryInput = interaction.options.getString("category");
             if (categoryInput && !categories.includes(categoryInput as CategoryNames)) return await _EphToastDefer(interaction, "Required input not received.");
 

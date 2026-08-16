@@ -6,7 +6,7 @@ import { choices } from "#config/choices";
 import { showEventsList } from "#utils/canvas";
 import { addEvent, editEvent } from "#utils/commands/events";
 import { voteSuggestion } from "#utils/commands/suggestions";
-import { _EphToastDefer, eventsActionEmbed, getServerDataTable } from "#utils/common";
+import { _EphToastDefer, eventsActionEmbed, eventsViewEmbed, getServerDataTable } from "#utils/common";
 import { server_data } from "#utils/db/schema";
 import type { CategoryNames, ChangedCategory, GameEvents, MyInteractions } from "#utils/interfaces";
 import { userPermissions } from "#utils/permissions";
@@ -30,6 +30,17 @@ const suggestions = new SlashCommandBuilder()
                     .setDescription("List game event suggestions categorically.")
                     .addChoices(...choices.EVENTS_CATEGORIES)
                     .setRequired(false)
+            )
+    )
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName("view")
+            .setDescription("View details of a specific game event suggestion!")
+            .addIntegerOption(op =>
+                op
+                    .setName("suggestion-id")
+                    .setDescription("Suggestion ID of the suggestion you wish to view.")
+                    .setRequired(true)
             )
     )
     .addSubcommand(subcommand =>
@@ -222,6 +233,14 @@ export default {
             const response = await interaction.followUp({ content: "All Game Events Suggestions", files: [eventsImage], components: [buttonBuilderRowList], withResponse: true });
             client.eventPage.set(response.id, { page: 1 });
             return;
+        } else if (subcommand === "view") {
+            const eventId = interaction.options.getInteger("suggestion-id");
+            if (!eventId) return await _EphToastDefer(interaction, "Required input not received.");
+
+            const event = events.find(event => event.id === eventId);
+            if (!event) return await _EphToastDefer(interaction, "Event not found!");
+
+            await interaction.followUp({ embeds: [await eventsViewEmbed(interaction, event)] });
         } else if (subcommand === "accept") {
             // check required permissions
             const isAdmin = await userPermissions(interaction, [

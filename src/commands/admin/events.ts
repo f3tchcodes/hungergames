@@ -7,7 +7,7 @@ import { choices } from "#config/choices";
 import { DEFAULT_EVENTS } from "#config/events";
 import { showEventsList } from "#utils/canvas";
 import { addEvent, editEvent } from "#utils/commands/events";
-import { _EphToastDefer, eventsActionEmbed, getServerDataTable } from "#utils/common";
+import { _EphToastDefer, eventsActionEmbed, eventsViewEmbed, getServerDataTable } from "#utils/common";
 import { server_data } from "#utils/db/schema";
 import type { CategoryNames, ChangedCategory, GameEvents, MyInteractions } from "#utils/interfaces";
 import { userPermissions } from "#utils/permissions";
@@ -31,6 +31,17 @@ const events = new SlashCommandBuilder()
                     .setDescription("List game events categorically.")
                     .addChoices(...choices.EVENTS_CATEGORIES)
                     .setRequired(false)
+            )
+    )
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName("view")
+            .setDescription("View details of a specific game event!")
+            .addIntegerOption(op =>
+                op
+                    .setName("event-id")
+                    .setDescription("Event ID of the event you wish to view.")
+                    .setRequired(true)
             )
     )
     .addSubcommand(subcommand =>
@@ -202,6 +213,14 @@ export default {
             const response = await interaction.followUp({ content: "All Game Events", files: [eventsImage], components: [buttonBuilderRowList], withResponse: true });
             client.eventPage.set(response.id, { page: 1 });
             return;
+        } else if (subcommand === "view") {
+            const eventId = interaction.options.getInteger("event-id");
+            if (!eventId) return await _EphToastDefer(interaction, "Required input not received.");
+
+            const event = events.find(event => event.id === eventId);
+            if (!event) return await _EphToastDefer(interaction, "Event not found!");
+
+            await interaction.followUp({ embeds: [await eventsViewEmbed(interaction, event)] });
         } else if (subcommand === "add") {
             const eventTxt = interaction.options.getString("event");
             const categoryInput = interaction.options.getString("category");

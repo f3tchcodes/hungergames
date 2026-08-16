@@ -177,3 +177,17 @@ export const eventsActionEmbed = (interaction: Interaction, action: "adding" | "
     .setThumbnail(config.ICON_URL)
     .setFooter({ text: `Requested by ${interaction.user.displayName}` })
     .setTimestamp();
+
+export const eventsViewEmbed = async (interaction: Interaction, event: GameEvents) => new EmbedBuilder()
+    .setAuthor({ name: "The Hunger Games", iconURL: config.ICON_URL })
+    .setColor(config.THEME_COLOR)
+    .setTitle(`Information for ${event.suggestion ? "suggestion" : "event"} ${event.id}`)
+    .setDescription(`**Added by:** ${event.added_by === "default" ? event.added_by : (await interaction.guild?.members.fetch(event.added_by))?.user.username}
+**Category:** ${event.categoryName}
+**Event:** ${event.event}
+**Tributes Involved:** ${event.tributes_involved}
+**Killed:** ${(event.killed ?? []).join(", ")}
+**Killers:** ${(event.killers ?? []).join(", ")}${event.suggestion ? "\n**Votes:** " + event.votes.toString() : ""}`)
+    .setThumbnail(config.ICON_URL)
+    .setFooter({ text: `Requested by ${interaction.user.displayName}` })
+    .setTimestamp();

@@ -17,8 +17,8 @@ const usersettings = new SlashCommandBuilder()
                     .setName("gender")
                     .addChoices(
                         { name: "Male", value: 0 },
-                        { name: "Female", value: 0 },
-                        { name: "Other", value: 0 }
+                        { name: "Female", value: 1 },
+                        { name: "Other", value: 2 }
                     )
                     .setDescription("The gender that will be used in the gameplay.")
                     .setRequired(true)
@@ -60,7 +60,13 @@ export default {
 
         if (subcommand === "gender") {
             user.user.gender = interaction.options.getInteger("gender") ?? 0;
-            await _EphToast(interaction, `Successfully set your game gender to \`${user.user.gender}\`.\n-# Note: Changes will take effect from the next game if the current game hasn't been started.`);
+            let genderString: string;
+            switch (user.user.gender) {
+                case 0: genderString = "male"; break;
+                case 1: genderString = "female"; break;
+                default: genderString = "they/them"; break;
+            }
+            await _EphToast(interaction, `Successfully set your game gender to \`${genderString}\`.\n-# Note: Changes will take effect from the next game if the current game hasn't been started.`);
         } else if (subcommand === "name") {
             user.user.username = interaction.options.getString("name") ?? displayname;
             await _EphToast(interaction, `Successfully set your game name to \`${user.user.username}\`.\n-# Note: Changes will take effect from the next game if the current game hasn't been started.`);

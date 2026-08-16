@@ -94,17 +94,16 @@ export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySe
     canvas.setTextFont("20px").setColor(config.CANVAS_TEXT_COLOR);
 
     const chunk_length = gameplay_section.length;
+    let base_height = 15;
 
     // generate profile pictures
     for (let i = 0; i < chunk_length; i++) {
-        const row = i; // effects the height
         const current_section = gameplay_section[i];
         if (!current_section) return console.error(`absolute current section ${i} does not exist`);
 
         const pfp_size_width = 80;
         const pfp_size_height = 80;
         const pfp_arr = current_section.profile_pic_url;
-        const base_height = (row * 950 / chunk_length) + (200 / chunk_length);
 
         const pfp_length = pfp_arr.length;
         for (let j = 0; j < pfp_length; j++) {
@@ -114,7 +113,7 @@ export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySe
             if (!current_pfp) return console.error(`pfp ${j}  on gameplay_section ${gameplay_section} not found`);
 
             const pfp = await loadImage(current_pfp);
-            const run_grayscale = grayscale_toggle ? grayscale(canvas.printImage(pfp, pfp_width, base_height, pfp_size_width, pfp_size_height)) : canvas.printImage(pfp, pfp_width, base_height, pfp_size_width, pfp_size_height);
+            grayscale_toggle ? grayscale(canvas.printImage(pfp, pfp_width, base_height, pfp_size_width, pfp_size_height)) : canvas.printImage(pfp, pfp_width, base_height, pfp_size_width, pfp_size_height);
         }
 
         // generate text
@@ -175,6 +174,7 @@ export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySe
                     }
                 });
             });
+        base_height += 200;
     }
 }
 

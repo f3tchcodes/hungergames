@@ -52,4 +52,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `/viewcast` UI
+- `/viewcast` UI.
+
+## [1.1] - 2026-8-17
+
+### Added
+
+- Add custom events with `/events add <event> <category>`.
+- Remove events with `/events remove <eventId> <category>`.
+- Reset events to default with `/events reset <category:optional>`.
+- Clear all events with `/events clear <category:optional>`.
+- List current events with `/events list <category:optional>`.
+- View a specific event with `/events view <eventId>`.
+- Add event suggestions by community with `/suggestions add <suggestion> <category>`.
+- Remove suggestion with `/suggestions remove <suggestionId>`.
+- Clear all suggestions `/suggestions clear`.
+- Upvote an event suggestion with `/suggestions upvote <suggestionId>`.
+- Downvote an event suggestion with `/suggestions downvote <suggestionId>`.
+- Withdraw vote for an event suggestion server with `/suggestions withdrawvote <suggestionId>`.
+- List suggestions with `/suggestions list <category:optional>`.
+- View specific suggestion with` /suggestions view <suggestionId>`.
+- Accept suggestions with `/suggestions accept <suggestionId>`.
+- Receive game session with `/gamesession`.
+- Added they/them pronouns.
+- Developer command to shutdown the bot with `.shutdown`.
+
+### Patched
+
+- Game page does not reset after running `/restart`.
+
+### Changed
+
+- Background image for gameplay and cast.
+- Changed API endpoints of all requests to support updated hungergames.
+- Now using incrementation for event heights in gameplay rather than calculation for better gameplay.
+- Efficient code for loading developer commands.

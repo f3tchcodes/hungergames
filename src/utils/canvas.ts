@@ -10,7 +10,7 @@ import type {
 
 
 export async function showTributeList(districts: PlayersDistricts[][], rows: number, alive_status: boolean) {
-    const background = await loadImage("./assets/status_bg.png");
+    const background = await loadImage("./assets/statusBg.png");
     const canvas = new Canvas(1000, 1000).printImage(background, 0, 0, 1000, 1000);
 
     await buildTributeList(canvas, districts, rows, alive_status);
@@ -83,7 +83,7 @@ export async function buildTributeList(canvas: Canvas, districts: PlayersDistric
 }
 
 export async function showGamplay(gameplay_section: GameplaySections[], grayscale_toggle: boolean) {
-    const background = await loadImage("./assets/list_bg.png");
+    const background = await loadImage("./assets/listBg.png");
     const canvas = new Canvas(500, 1000).printImage(background, 0, 0, 500, 1000);
     await buildGameplay(canvas, gameplay_section, grayscale_toggle);
 
@@ -179,7 +179,7 @@ export async function buildGameplay(canvas: Canvas, gameplay_section: GameplaySe
 }
 
 export async function showEventsList(client: Client, events: GameEvents[], page: number, messageId: string, suggestions: boolean) {
-    const background = await loadImage("./assets/status_bg.png");
+    const background = await loadImage("./assets/statusBg.png");
     const canvas = new Canvas(1000, 1000).printImage(background, 0, 0, 1000, 1000);
 
     await buildEventList(client, canvas, events, page, suggestions, messageId);

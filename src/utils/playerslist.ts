@@ -41,7 +41,7 @@ export async function getPlayerslist(interaction: Interaction, includedefaultpla
 
             const unknown_data: PlayersDistricts = {
                 username: "",
-                profile_pic_url: "./assets/unknown_player.png",
+                profile_pic_url: "./assets/unknownPlayer.png",
                 ...common_data
             };
 

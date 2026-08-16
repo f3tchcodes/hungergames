@@ -29,9 +29,6 @@ If a pull request is submitted with very clear use of AI and vibecoding (AI writ
 
 You can either directly open an issue from GitHub, join the Discord server and report in `#bug-reports`, or contact me on Discord to report a bug.
 
-### Known-bugs:
-- Game page does not reset after running `/restart`.
-
 ## LICENSE
 
 This project is released under the [MIT LICENSE](https://github.com/f3tchcodes/hungergames/blob/main/LICENSE)

@@ -8,7 +8,7 @@ import { shutdown } from "#utils/shutdown";
 const execAsync = promisify(exec);
 
 export default {
-    name: "execute",
+    name: "shutdown",
     async execute(client, message, args) {
         if (!message.channel.isSendable()) return;
         if (message.author.id !== config.BOT_OWNER_USERID) return;
